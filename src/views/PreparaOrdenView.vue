@@ -352,7 +352,8 @@ const resetearSeleccion = () => {
   cursor: pointer;
   transition: all 0.3s ease;
   background: #fafafa;
-  position: relative;
+  position: relative; /*Color de las letras delas opciones*/
+  color: #3b3b3b;
 }
 
 .option-card:hover:not(.disabled) {
@@ -455,7 +456,7 @@ const resetearSeleccion = () => {
 
 .compact-summary p {
   margin: 0;
-  color: #666;
+  color: #3b3b3b;
   font-size: 0.9rem;
   flex: 1;
 }
