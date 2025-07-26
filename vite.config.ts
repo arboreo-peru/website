@@ -7,7 +7,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue(), vueDevTools()],
-  base: '/page/',
+  base: 'https://arboreo-peru.github.io/website/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
