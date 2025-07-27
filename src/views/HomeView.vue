@@ -1034,25 +1034,29 @@ const navigateWithLoading = (path: string) => {
   .custom-button {
     background: linear-gradient(
       135deg,
-      rgba(156, 39, 176, 0.85),
-      rgba(142, 36, 170, 0.85),
-      rgba(123, 31, 162, 0.85)
+      rgba(255, 193, 7, 0.85),
+      rgba(255, 179, 0, 0.85),
+      rgba(255, 160, 0, 0.85)
     ) !important;
     color: white;
-    border: 2px solid rgba(156, 39, 176, 0.4);
+    border: 2px solid rgba(255, 193, 7, 0.4);
     box-shadow:
-      0 8px 32px rgba(156, 39, 176, 0.4),
+      0 8px 32px rgba(255, 193, 7, 0.4),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
   .custom-button:hover {
     background: linear-gradient(
       135deg,
-      rgba(171, 71, 188, 0.95),
-      rgba(156, 39, 176, 0.95),
-      rgba(142, 36, 170, 0.95)
+      rgba(255, 193, 7, 0.9),
+      rgba(255, 179, 0, 0.9),
+      rgba(255, 160, 0, 0.9)
     ) !important;
-    box-shadow: 0 15px 50px rgba(156, 39, 176, 0.6);
+    transform: translateY(-4px);
+    box-shadow:
+      0 12px 48px rgba(255, 193, 7, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 193, 7, 0.7);
   }
 
   /* ... resto de estilos permanecen igual hasta las media queries ... */
