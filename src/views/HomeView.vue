@@ -58,6 +58,22 @@ const navigateWithLoading = (path: string) => {
           disfrutar de una alimentación saludable y variada todos los días.
         </p>
 
+        <!-- Opciones Disponibles -->
+        <div class="plan-options">
+          <h4>Se puede elegir cualquier opción de la carta:</h4>
+          <div class="option-tags">
+            <a href="#" class="option-tag" @click.prevent="navigateWithLoading('/ensaladas')">
+              🥗 Ensaladas de la Casa
+            </a>
+            <a href="#" class="option-tag" @click.prevent="navigateWithLoading('/prepara-orden')">
+              🥬 Saladbar
+            </a>
+            <a href="#" class="option-tag" @click.prevent="navigateWithLoading('/carta')">
+              🍽️ Platos del Día
+            </a>
+          </div>
+        </div>
+
         <div class="plans-content">
           <!-- Plan 20 Comidas -->
           <div class="plan-card featured">
@@ -65,7 +81,7 @@ const navigateWithLoading = (path: string) => {
             <div class="plan-icon">🍽️</div>
             <h3>Plan 20 Comidas</h3>
             <div class="plan-price">
-              <span class="price-amount">S/ 360 - </span>
+              <span class="price-amount">S/ 360</span>
               <span class="price-per">S/ 18 por comida</span>
             </div>
             <ul class="plan-features">
@@ -87,7 +103,7 @@ const navigateWithLoading = (path: string) => {
             <div class="plan-icon">🥗</div>
             <h3>Plan 10 Comidas</h3>
             <div class="plan-price">
-              <span class="price-amount">S/ 190 - </span>
+              <span class="price-amount">S/ 190</span>
               <span class="price-per">S/ 19 por comida</span>
             </div>
             <ul class="plan-features">
@@ -102,16 +118,6 @@ const navigateWithLoading = (path: string) => {
             >
               Elegir Plan 10
             </a>
-          </div>
-        </div>
-
-        <!-- Opciones Disponibles -->
-        <div class="plan-options">
-          <h4>Se puede elegir cualquier opción de la carta:</h4>
-          <div class="option-tags">
-            <span class="option-tag">🥗 Ensaladas de la Casa</span>
-            <span class="option-tag">🥬 Saladbar</span>
-            <span class="option-tag">🍽️ Platos del Día</span>
           </div>
         </div>
       </div>
@@ -660,19 +666,65 @@ const navigateWithLoading = (path: string) => {
   border-color: rgba(76, 175, 80, 0.4);
 }
 
+.plan-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  z-index: 10;
+}
+
+.plan-icon {
+  font-size: 4.5rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
 .plan-name {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 1rem;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #2e7d32;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.plan-card h3 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #2e7d32;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .plan-price {
-  font-size: 3.5rem;
-  font-weight: 700;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.price-amount {
+  display: block;
+  font-size: 4rem;
+  font-weight: 800;
   color: #2e7d32;
-  margin-bottom: 0.5rem;
   line-height: 1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.price-per {
+  font-size: 1.4rem;
+  color: #666;
+  font-weight: 500;
+  display: block;
 }
 
 .plan-price .currency {
@@ -691,15 +743,18 @@ const navigateWithLoading = (path: string) => {
 .plan-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 2.5rem 0;
+  margin: 0 0 3rem 0;
+  text-align: left;
 }
 
 .plan-features li {
-  padding: 0.75rem 0;
+  padding: 1rem 0;
   color: #555;
-  font-size: 1rem;
+  font-size: 1.3rem;
+  font-weight: 500;
   position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  line-height: 1.4;
 }
 
 .plan-features li:last-child {
@@ -709,72 +764,86 @@ const navigateWithLoading = (path: string) => {
 .plan-features li::before {
   content: '✓';
   color: #4caf50;
-  font-weight: 700;
-  margin-right: 0.75rem;
-  font-size: 1.1rem;
+  font-weight: 800;
+  margin-right: 1rem;
+  font-size: 1.4rem;
 }
 
 .plan-button {
   background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
   color: white;
   border: none;
-  padding: 1rem 2.5rem;
+  padding: 1.5rem 3rem;
   border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  letter-spacing: 0.8px;
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.3);
   width: 100%;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
 .plan-button:hover {
   background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
 }
 
 .plan-options {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 4rem;
+  padding: 3rem 2rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 1rem;
 }
 
 .plan-options h4 {
-  font-size: 1.1rem;
+  font-size: 2rem;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 1rem;
+  color: #2e7d32;
+  margin-bottom: 2.5rem;
   text-align: center;
+  line-height: 1.4;
 }
 
 .option-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 1.5rem;
   justify-content: center;
+  align-items: center;
 }
 
 .option-tag {
   background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
   color: #2e7d32;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border: 1px solid rgba(46, 125, 50, 0.2);
+  padding: 1.2rem 2rem;
+  border-radius: 25px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border: 2px solid rgba(46, 125, 50, 0.2);
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.8rem;
   transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.1);
 }
 
 .option-tag:hover {
   background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
+  border-color: rgba(46, 125, 50, 0.4);
+  color: #1b5e20;
 }
 
 @media (max-width: 768px) {
@@ -795,8 +864,90 @@ const navigateWithLoading = (path: string) => {
     padding: 2rem 1.5rem;
   }
 
-  .plan-price {
-    font-size: 3rem;
+  .plan-card h3 {
+    font-size: 2.2rem;
+  }
+
+  .price-amount {
+    font-size: 3.2rem;
+  }
+
+  .price-per {
+    font-size: 1.2rem;
+  }
+
+  .plan-features li {
+    font-size: 1.1rem;
+    padding: 0.8rem 0;
+  }
+
+  .plan-button {
+    font-size: 1.2rem;
+    padding: 1.3rem 2.5rem;
+  }
+
+  .plan-options {
+    margin-top: 3rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .plan-options h4 {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .option-tags {
+    gap: 1rem;
+  }
+
+  .option-tag {
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .plan-badge {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+    top: -10px;
+    right: 15px;
+  }
+
+  .plan-icon {
+    font-size: 3.5rem;
+  }
+
+  .plan-card h3 {
+    font-size: 1.8rem;
+  }
+
+  .price-amount {
+    font-size: 2.8rem;
+  }
+
+  .plan-features li {
+    font-size: 1rem;
+  }
+
+  .plan-options {
+    padding: 1.5rem 1rem;
+  }
+
+  .plan-options h4 {
+    font-size: 1.4rem;
+  }
+
+  .option-tags {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .option-tag {
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+    width: 100%;
+    justify-content: center;
   }
 }
 
