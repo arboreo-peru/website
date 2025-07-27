@@ -1,5 +1,18 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { RESTAURANT_CONFIG } from '../config/restaurant'
+import { useLoading } from '../composables/useLoading'
+
+const router = useRouter()
+const { showLoading } = useLoading()
+
+// Función para navegación con loading
+const navigateWithLoading = (path: string) => {
+  if (router.currentRoute.value.path !== path) {
+    showLoading(1000)
+  }
+  router.push(path)
+}
 </script>
 
 <template>
@@ -15,10 +28,23 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
           saludables para satisfacer tu apetito.
         </p>
         <div class="cta-buttons">
-          <RouterLink to="/prepara-orden" class="cta-button primary">
-            🥗 Prepara tu Orden
-          </RouterLink>
-          <RouterLink to="/carta" class="cta-button secondary"> 📋 Ver Carta </RouterLink>
+          <a href="#" class="cta-button menu-button" @click.prevent="navigateWithLoading('/carta')">
+            🍽️ Ver Menú del Día
+          </a>
+          <a
+            href="#"
+            class="cta-button salads-button"
+            @click.prevent="navigateWithLoading('/ensaladas')"
+          >
+            🥗 Ver Carta de Ensaladas
+          </a>
+          <a
+            href="#"
+            class="cta-button custom-button"
+            @click.prevent="navigateWithLoading('/prepara-orden')"
+          >
+            🎨 Personalizar mi Ensalada
+          </a>
         </div>
       </div>
     </section>
@@ -62,69 +88,39 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
             <img src="../../public/images/delivery.png" alt="Entrega a domicilio" />
           </div>
 
-          <!-- Contenido de texto y botón -->
+          <!-- Contenido de texto y botones -->
           <div class="delivery-info">
             <h3>Entrega a domicilio</h3>
             <p>Recibe tu pedido directamente en tu casa u oficina</p>
-            <a
-              :href="`mailto:${RESTAURANT_CONFIG.email}?subject=Pedido desde sitio web&body=Hola, me gustaría hacer un pedido.`"
-              class="email-button"
-            >
-              <span class="email-icon">📧</span>
-              <div class="email-text">
-                <span class="email-label">Enviar pedido por email</span>
-                <span class="email-address">{{ RESTAURANT_CONFIG.email }}</span>
-              </div>
-            </a>
+            <div class="contact-buttons">
+              <a
+                :href="`https://wa.me/51${RESTAURANT_CONFIG.socialMedia.whatsapp}?text=Hola, me gustaría hacer un pedido desde su sitio web.`"
+                class="contact-button whatsapp-button"
+                target="_blank"
+              >
+                <span class="contact-icon">📱</span>
+                <div class="contact-text">
+                  <span class="contact-label">Pedir por WhatsApp</span>
+                  <span class="contact-address"
+                    >+51 {{ RESTAURANT_CONFIG.socialMedia.whatsapp }}</span
+                  >
+                </div>
+              </a>
+              <a
+                :href="`mailto:${RESTAURANT_CONFIG.socialMedia.email}?subject=Pedido desde sitio web&body=Hola, me gustaría hacer un pedido.`"
+                class="contact-button email-button"
+              >
+                <span class="contact-icon">📧</span>
+                <div class="contact-text">
+                  <span class="contact-label">Enviar por email</span>
+                  <span class="contact-address">{{ RESTAURANT_CONFIG.socialMedia.email }}</span>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-section">
-            <h3>{{ RESTAURANT_CONFIG.name }}</h3>
-            <p>La mejor opción para comer saludable y delicioso en la ciudad.</p>
-          </div>
-          <div class="footer-section">
-            <h4>Enlaces Rápidos</h4>
-            <ul class="footer-links">
-              <li><RouterLink to="/">Inicio</RouterLink></li>
-              <li><RouterLink to="/prepara-orden">Prepara tu Orden</RouterLink></li>
-              <li><RouterLink to="/carta">Ver Carta</RouterLink></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h4>Contacto</h4>
-            <div class="footer-contact">
-              <p>📧 {{ RESTAURANT_CONFIG.email }}</p>
-              <p>📱 {{ RESTAURANT_CONFIG.whatsapp }}</p>
-            </div>
-          </div>
-          <div class="footer-section">
-            <h4>Síguenos</h4>
-            <div class="social-links">
-              <a :href="RESTAURANT_CONFIG.socialMedia.facebook" target="_blank" class="social-link">
-                Facebook
-              </a>
-              <a
-                :href="RESTAURANT_CONFIG.socialMedia.instagram"
-                target="_blank"
-                class="social-link"
-              >
-                Instagram
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>&copy; 2025 {{ RESTAURANT_CONFIG.name }}. Todos los derechos reservados.</p>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
@@ -133,6 +129,7 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 .container {
@@ -150,7 +147,10 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #1e3a2e 0%, #2c5530 35%, #4a7c59 70%, #6b8e23 100%);
+  background-image: url('../../public/images/salad-wallpaper.png');
+  background-size: cover; /* Que cubra todo el contenedor */
+  background-position: center; /* Que siempre esté centrada */
+  background-repeat: no-repeat; /* Que no se repita */
   color: white;
   padding: 8rem 0;
   text-align: center;
@@ -320,7 +320,7 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
 
 .meals-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
   gap: 3rem;
 }
 
@@ -523,71 +523,121 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
 }
 
 .delivery-info h3 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: #1b6810;
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+  color: white;
   font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .delivery-info p {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   margin-bottom: 2.5rem;
-  opacity: 0.9;
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.email-button {
+.contact-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.contact-button {
   display: inline-flex;
   align-items: center;
   gap: 1.5rem;
-  background: linear-gradient(135deg, #7fe98a 0%, #026620 50%, #6b8e23 100%);
   color: white;
   padding: 2rem 3rem;
-  border-radius: 15px;
+  border-radius: 50px;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3); /* Sombra verde */
-  border: 2px solid transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  min-width: 300px;
+}
+
+.contact-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.contact-button:hover::before {
+  left: 100%;
+}
+
+.contact-button:hover {
+  transform: translateY(-4px);
+}
+
+.whatsapp-button {
+  background: linear-gradient(135deg, #25d366, #128c7e, #075e54);
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-button:hover {
+  background: linear-gradient(135deg, #38e577, #25d366, #128c7e);
+  box-shadow: 0 12px 48px rgba(37, 211, 102, 0.6);
+}
+
+.email-button {
+  background: linear-gradient(135deg, #ff8a56, #ff6b35, #e55a2b);
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.4);
 }
 
 .email-button:hover {
-  transform: translateY(-3px);
-  background: linear-gradient(135deg, #45aa26 0%, #07832c 50%, #6b8e23 100%);
-  box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
-  border-color: #81c784; /* Borde verde claro en hover */
+  background: linear-gradient(135deg, #ff9966, #ff8a56, #ff6b35);
+  box-shadow: 0 12px 48px rgba(255, 107, 53, 0.6);
 }
 
-.email-icon {
+.contact-icon {
   font-size: 3rem;
-  animation: pulse 2s infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  animation: gentle-pulse 3s ease-in-out infinite;
 }
 
-@keyframes pulse {
+@keyframes gentle-pulse {
   0%,
   100% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 }
 
-.email-text {
+.contact-text {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.email-label {
-  font-size: 1.3rem;
-  font-weight: 600;
+.contact-label {
+  font-size: 1.5rem;
+  font-weight: 700;
   opacity: 0.95;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.email-address {
-  font-size: 1.1rem;
-  opacity: 0.8;
+.contact-address {
+  font-size: 1.2rem;
+  opacity: 0.85;
   font-weight: 400;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Design */
@@ -620,9 +670,29 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
     max-width: 400px;
     justify-content: center;
   }
+
+  .contact-buttons {
+    align-items: center;
+    width: 100%;
+  }
+
+  .contact-button {
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+    min-width: auto;
+  }
 }
 
 @media (max-width: 480px) {
+  .home-container {
+    padding: 0;
+  }
+
+  .container {
+    padding: 0 0.5rem;
+  }
+
   .contact-section {
     padding: 4rem 0;
   }
@@ -656,132 +726,28 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
     padding: 1.5rem 2rem;
   }
 
-  .email-icon {
+  .contact-buttons {
+    gap: 1.5rem;
+  }
+
+  .contact-button {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .contact-icon {
     font-size: 2.5rem;
   }
 
-  .email-label {
+  .contact-label {
     font-size: 1.2rem;
   }
 
-  .email-address {
+  .contact-address {
     font-size: 1rem;
   }
-}
-
-/* Footer */
-.footer {
-  background: linear-gradient(135deg, #1a3520 0%, #2c5530 50%, #3e6b42 100%);
-  color: white;
-  padding: 6rem 0 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(circle at 25% 75%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 75% 25%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.footer .container {
-  position: relative;
-  z-index: 2;
-}
-
-.footer-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 4rem;
-  margin-bottom: 3rem;
-}
-
-.footer-section {
-  position: relative;
-}
-
-.footer-section h3 {
-  font-size: 2.2rem;
-  margin-bottom: 1.5rem;
-  color: #a8e6a1;
-  font-weight: 600;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.footer-section h4 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: #a8e6a1;
-  font-weight: 600;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.footer-section p {
-  line-height: 1.8;
-  opacity: 0.9;
-  font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.footer-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-links li {
-  margin-bottom: 1rem;
-  position: relative;
-}
-
-.footer-links li::before {
-  content: '→';
-  position: absolute;
-  left: -20px;
-  color: #a8e6a1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.footer-links li:hover::before {
-  opacity: 1;
-}
-
-.footer-links a {
-  color: white;
-  text-decoration: none;
-  opacity: 0.9;
-  transition: all 0.3s ease;
-  font-size: 1.4rem;
-  font-weight: 400;
-  position: relative;
-  padding-left: 0;
-  transition: padding-left 0.3s ease;
-}
-
-.footer-links a:hover {
-  opacity: 1;
-  color: #a8e6a1;
-  padding-left: 20px;
-}
-
-.footer-contact p {
-  margin-bottom: 1rem;
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.footer-contact p::before {
-  font-size: 1.2rem;
 }
 
 .social-links {
@@ -856,18 +822,283 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
   }
 
   .cta-buttons {
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
   }
 
   .cta-button {
-    width: 100%;
-    max-width: 350px;
-    text-align: center;
+    padding: 1.8rem 2.5rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 700;
     font-size: 1.3rem;
-    padding: 1.3rem 2.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    min-height: 70px;
   }
 
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+  }
+
+  .cta-button:hover::before {
+    left: 100%;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-6px) scale(1.02);
+  }
+
+  /* Botón Ver Menú del Día */
+  .menu-button {
+    background: linear-gradient(135deg, #ff8a56, #ff6b35, #e55a2b);
+    color: white;
+    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.4);
+  }
+
+  .menu-button:hover {
+    background: linear-gradient(135deg, #ff9966, #ff8a56, #ff6b35);
+    box-shadow: 0 15px 50px rgba(255, 107, 53, 0.6);
+  }
+
+  /* Botón Ver Carta de Ensaladas */
+  .salads-button {
+    background: linear-gradient(135deg, #4caf50, #45a049, #388e3c);
+    color: white;
+    box-shadow: 0 8px 32px rgba(76, 175, 80, 0.4);
+  }
+
+  .salads-button:hover {
+    background: linear-gradient(135deg, #66bb6a, #4caf50, #43a047);
+    box-shadow: 0 15px 50px rgba(76, 175, 80, 0.6);
+  }
+
+  /* Botón Personalizar mi Ensalada */
+  .custom-button {
+    background: linear-gradient(135deg, #9c27b0, #8e24aa, #7b1fa2);
+    color: white;
+    box-shadow: 0 8px 32px rgba(156, 39, 176, 0.4);
+  }
+
+  .custom-button:hover {
+    background: linear-gradient(135deg, #ab47bc, #9c27b0, #8e24aa);
+    box-shadow: 0 15px 50px rgba(156, 39, 176, 0.6);
+  }
+
+  /* ... resto de estilos permanecen igual hasta las media queries ... */
+
+  /* Responsive Design Actualizado */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 3.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.6rem;
+    }
+
+    .hero-description {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-buttons {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 400px;
+    }
+
+    .cta-button {
+      font-size: 1.2rem;
+      padding: 1.6rem 2rem;
+      min-height: 65px;
+    }
+
+    .custom-meals-section h2 {
+      font-size: 3rem;
+    }
+
+    .contact-section h2 {
+      font-size: 3rem;
+    }
+
+    .meal-item h3 {
+      font-size: 1.5rem;
+    }
+
+    .meal-item p {
+      font-size: 1.1rem;
+    }
+
+    .meals-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .delivery-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      text-align: center;
+    }
+
+    .delivery-info {
+      text-align: center;
+    }
+
+    .delivery-image img {
+      max-width: 300px;
+    }
+
+    .delivery-info h3 {
+      font-size: 2.2rem;
+    }
+
+    .delivery-info p {
+      font-size: 1.2rem;
+    }
+
+    .contact-buttons {
+      align-items: center;
+      width: 100%;
+    }
+
+    .contact-button {
+      width: 100%;
+      max-width: 400px;
+      justify-content: center;
+      min-width: auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 2.8rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.4rem;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-buttons {
+      gap: 1.2rem;
+      max-width: 320px;
+      grid-template-columns: 1fr;
+    }
+
+    .cta-button {
+      font-size: 1.1rem;
+      padding: 1.4rem 1.5rem;
+      min-height: 60px;
+      border-radius: 15px;
+    }
+
+    .custom-meals-section h2,
+    .contact-section h2 {
+      font-size: 2.5rem;
+    }
+
+    .meal-icon {
+      width: 70px;
+      height: 70px;
+      font-size: 1.4rem;
+    }
+
+    .home-container {
+      padding: 0;
+    }
+
+    .container {
+      padding: 0 0.5rem;
+    }
+
+    .contact-section {
+      padding: 4rem 0;
+    }
+
+    .contact-section h2 {
+      font-size: 2.8rem;
+      margin-bottom: 3rem;
+    }
+
+    .delivery-content {
+      gap: 2rem;
+    }
+
+    .delivery-image img {
+      max-width: 250px;
+    }
+
+    .delivery-info h3 {
+      font-size: 2rem;
+    }
+
+    .delivery-info p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-buttons {
+      gap: 1.5rem;
+    }
+
+    .contact-button {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+      padding: 1.5rem 2rem;
+    }
+
+    .contact-icon {
+      font-size: 2.5rem;
+    }
+
+    .contact-label {
+      font-size: 1.2rem;
+    }
+
+    .contact-address {
+      font-size: 1rem;
+    }
+  }
+
+  /* Breakpoint especial para pantallas muy pequeñas */
+  @media (max-width: 360px) {
+    .cta-buttons {
+      max-width: 280px;
+    }
+
+    .cta-button {
+      font-size: 1rem;
+      padding: 1.2rem 1rem;
+      min-height: 55px;
+    }
+  }
   .custom-meals-section h2 {
     font-size: 3rem;
   }

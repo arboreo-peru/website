@@ -1,30 +1,45 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-import { RESTAURANT_CONFIG } from './config/restaurant'
+import NavBar from './components/NavBar.vue'
+import Footer from './components/Footer.vue'
+import LoadingBroccoli from './components/LoadingBroccoli.vue'
+import CartButton from './components/CartButton.vue'
+import CartModal from './components/CartModal.vue'
+import { useLoading } from './composables/useLoading'
+
+const { isLoading } = useLoading()
+
+// Estado del carrito
+const showCartModal = ref(false)
+
+const openCart = () => {
+  showCartModal.value = true
+}
+
+const closeCart = () => {
+  showCartModal.value = false
+}
 </script>
 
 <template>
   <div id="app">
-    <header class="navbar">
-      <div class="nav-container">
-        <div class="logo-section">
-          <div class="logo-placeholder">
-            <!-- Espacio reservado para el logo -->
-            <span class="logo-text">{{ RESTAURANT_CONFIG.name }}</span>
-          </div>
-        </div>
+    <!-- Componente de loading global -->
+    <LoadingBroccoli :is-visible="isLoading" />
 
-        <nav class="nav-links">
-          <RouterLink to="/" class="nav-link">Home</RouterLink>
-          <RouterLink to="/prepara-orden" class="nav-link">Prepara tu Orden</RouterLink>
-          <RouterLink to="/carta" class="nav-link">Carta</RouterLink>
-        </nav>
-      </div>
-    </header>
+    <NavBar></NavBar>
 
     <main>
       <RouterView />
     </main>
+
+    <Footer></Footer>
+
+    <!-- Botón flotante del carrito -->
+    <CartButton @open-cart="openCart" />
+
+    <!-- Modal del carrito -->
+    <CartModal :is-visible="showCartModal" @close="closeCart" />
   </div>
 </template>
 

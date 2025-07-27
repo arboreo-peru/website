@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { SALAD_OPTIONS, RESTAURANT_CONFIG } from '../config/restaurant'
+import { SALAD_INGREDIENTS, RESTAURANT_CONFIG, getCustomSaladPrice } from '../config/restaurant'
+import CustomSaladCheckoutModal from '../components/CustomSaladCheckoutModal.vue'
 
 // Estado reactivo para las selecciones
 const selectedBase = ref('')
@@ -8,10 +9,18 @@ const selectedProteina = ref('')
 const selectedVinagreta = ref('')
 const selectedIngredientes = ref<string[]>([])
 
+// ✅ NUEVO: Estado para comentarios de la ensalada personalizada
+const comentarios = ref('')
+
 // Estado para mostrar/ocultar el resumen
 const showSummary = ref(true)
 
-// Computed para validar la selección
+// ✅ ACTUALIZADO: Computed para calcular precio total base (sin extras)
+const totalPrice = computed(() => {
+  return getCustomSaladPrice(false) // El refresco se agregará en el checkout
+})
+
+// ✅ ACTUALIZADO: Computed para validar la selección
 const isValidSelection = computed(() => {
   return (
     selectedBase.value &&
@@ -21,7 +30,7 @@ const isValidSelection = computed(() => {
   )
 })
 
-// Computed para mostrar un resumen compacto cuando está colapsado
+// ✅ ACTUALIZADO: Computed para mostrar un resumen compacto
 const compactSummary = computed(() => {
   const parts = []
   if (selectedBase.value) parts.push(selectedBase.value)
@@ -35,6 +44,41 @@ const compactSummary = computed(() => {
 // Función para toggle del resumen
 const toggleSummary = () => {
   showSummary.value = !showSummary.value
+
+  // ✅ MEJORADO: Mejor gestión del scroll para UX óptima
+  if (showSummary.value) {
+    // Al expandir: asegurar que el resumen sea visible
+    setTimeout(() => {
+      const summaryElement = document.querySelector('.summary-section')
+      if (summaryElement) {
+        const rect = summaryElement.getBoundingClientRect()
+        const viewportHeight = window.innerHeight
+
+        // Solo hacer scroll si el resumen no es completamente visible
+        if (rect.bottom > viewportHeight || rect.top < 0) {
+          summaryElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest', // ✅ Mejor posicionamiento
+            inline: 'nearest',
+          })
+        }
+      }
+    }, 150) // ✅ Delay optimizado para animación
+  } else {
+    // Al colapsar: mantener el header visible si está fuera de vista
+    setTimeout(() => {
+      const summaryCard = document.querySelector('.summary-card')
+      if (summaryCard) {
+        const rect = summaryCard.getBoundingClientRect()
+        if (rect.bottom < 60 || rect.top > window.innerHeight - 60) {
+          summaryCard.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+          })
+        }
+      }
+    }, 100)
+  }
 }
 
 // Función para manejar selección de ingredientes
@@ -47,45 +91,89 @@ const toggleIngrediente = (ingrediente: string) => {
   }
 }
 
-// Función para enviar pedido por email
-const enviarPedido = () => {
-  if (!isValidSelection.value) return
+// ✅ NUEVO: Función para generar el mensaje del pedido
+const generarMensajePedido = () => {
+  let mensaje = `🥗 NUEVO PEDIDO DE ENSALADA PERSONALIZADA
 
-  const subject = 'Pedido - Mi Ensalada Personalizada'
-  const body = `¡Hola! Quiero hacer un pedido de ${RESTAURANT_CONFIG.name}:
+👤 Cliente: [Por favor, incluye tu nombre]
+📍 Dirección de entrega: [Por favor, incluye tu dirección completa]
+📞 Teléfono: [Tu número de contacto]
 
-🥗 Mi Ensalada Personalizada
-Base: ${selectedBase.value}
-Proteína: ${selectedProteina.value}
-Vinagreta: ${selectedVinagreta.value}
-Ingredientes: ${selectedIngredientes.value.join(', ')}
+🛒 DETALLE DEL PEDIDO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
 
-💰 Total: ${RESTAURANT_CONFIG.currency}${RESTAURANT_CONFIG.price}
+  mensaje += `
+🥬 Base: ${selectedBase.value}
+🥩 Proteína: ${selectedProteina.value}
+🥄 Vinagreta: ${selectedVinagreta.value}`
+
+  if (selectedIngredientes.value.length > 0) {
+    mensaje += `
+🥕 Ingredientes adicionales: ${selectedIngredientes.value.join(', ')}`
+  }
+
+  // Agregar comentarios si los hay
+  if (comentarios.value.trim()) {
+    mensaje += `
+
+💬 Comentarios adicionales:
+${comentarios.value.trim()}`
+  }
+
+  // Desglose de precios
+  mensaje += `
+
+💰 Desglose de precios:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Ensalada personalizada: ${RESTAURANT_CONFIG.currency}${RESTAURANT_CONFIG.baseSaladPrice}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TOTAL: ${RESTAURANT_CONFIG.currency}${totalPrice.value}
 
 ¡Gracias!`
 
-  const mailtoUrl = `mailto:${RESTAURANT_CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-  window.location.href = mailtoUrl
+  return mensaje
 }
 
-// Función para resetear selección
+// ✅ NUEVO: Estado para controlar el modal de checkout
+const showCheckoutModal = ref(false)
+
+// ✅ NUEVO: Computed para crear el objeto de datos de la ensalada
+const saladData = computed(() => ({
+  selectedBase: selectedBase.value,
+  selectedProteina: selectedProteina.value,
+  selectedVinagreta: selectedVinagreta.value,
+  selectedIngredientes: selectedIngredientes.value,
+  totalPrice: totalPrice.value,
+  comentarios: comentarios.value,
+}))
+
+// ✅ ACTUALIZADO: Función para abrir el checkout modal
+const enviarPedido = () => {
+  if (!isValidSelection.value) return
+  showCheckoutModal.value = true
+}
+
+// ✅ NUEVO: Función para cerrar el modal
+const cerrarCheckoutModal = () => {
+  showCheckoutModal.value = false
+}
+
+// ✅ ACTUALIZADO: Función para resetear selección
 const resetearSeleccion = () => {
   selectedBase.value = ''
   selectedProteina.value = ''
   selectedVinagreta.value = ''
   selectedIngredientes.value = []
+  comentarios.value = ''
 }
 </script>
 
 <template>
   <div class="prepara-orden-container">
+    <!-- ✅ ACTUALIZADO: Header sin precio -->
     <div class="header-section">
       <h1>🥗 Prepara tu Ensalada</h1>
       <p class="subtitle">Crea tu ensalada perfecta eligiendo una opción de cada categoría</p>
-      <div class="price-display">
-        <span class="price">{{ RESTAURANT_CONFIG.currency }}{{ RESTAURANT_CONFIG.price }}</span>
-        <span class="price-label">Precio fijo</span>
-      </div>
     </div>
 
     <div class="selection-container">
@@ -93,12 +181,12 @@ const resetearSeleccion = () => {
       <section class="category-section">
         <h2 class="category-title">
           <span class="category-icon">🥬</span>
-          Elige tu Base
+          <span class="title-text">Elige tu Base</span>
           <span class="required">*</span>
         </h2>
         <div class="options-grid">
           <label
-            v-for="base in SALAD_OPTIONS.bases"
+            v-for="base in SALAD_INGREDIENTS.bases"
             :key="base"
             class="option-card"
             :class="{ active: selectedBase === base }"
@@ -113,13 +201,13 @@ const resetearSeleccion = () => {
       <section class="category-section">
         <h2 class="category-title">
           <span class="category-icon">🥕</span>
-          Elige tus Ingredientes
+          <span class="title-text">Elige tus Ingredientes</span>
           <span class="required">*</span>
           <span class="counter">({{ selectedIngredientes.length }}/4)</span>
         </h2>
         <div class="options-grid ingredientes-grid">
           <label
-            v-for="ingrediente in SALAD_OPTIONS.ingredientes"
+            v-for="ingrediente in SALAD_INGREDIENTS.ingredientes"
             :key="ingrediente"
             class="option-card"
             :class="{
@@ -146,12 +234,12 @@ const resetearSeleccion = () => {
       <section class="category-section">
         <h2 class="category-title">
           <span class="category-icon">🍗</span>
-          Elige tu Proteína
+          <span class="title-text">Elige tu Proteína</span>
           <span class="required">*</span>
         </h2>
         <div class="options-grid">
           <label
-            v-for="proteina in SALAD_OPTIONS.proteinas"
+            v-for="proteina in SALAD_INGREDIENTS.proteinas"
             :key="proteina"
             class="option-card"
             :class="{ active: selectedProteina === proteina }"
@@ -166,12 +254,12 @@ const resetearSeleccion = () => {
       <section class="category-section">
         <h2 class="category-title">
           <span class="category-icon">🫒</span>
-          Elige tu Vinagreta
+          <span class="title-text">Elige tu Vinagreta</span>
           <span class="required">*</span>
         </h2>
         <div class="options-grid">
           <label
-            v-for="vinagreta in SALAD_OPTIONS.vinagretas"
+            v-for="vinagreta in SALAD_INGREDIENTS.vinagretas"
             :key="vinagreta"
             class="option-card"
             :class="{ active: selectedVinagreta === vinagreta }"
@@ -188,12 +276,12 @@ const resetearSeleccion = () => {
       </section>
     </div>
 
-    <!-- Resumen y Acciones -->
+    <!-- ✅ ACTUALIZADO: Resumen y Total -->
     <div class="summary-section">
       <div class="summary-card" :class="{ collapsed: !showSummary }">
         <!-- Header del resumen con botón toggle -->
         <div class="summary-header" @click="toggleSummary">
-          <h3>📋 Resumen de tu Ensalada</h3>
+          <h3><span class="summary-icon">📋</span> Resumen de tu Pedido</h3>
           <button class="toggle-btn" :class="{ rotated: showSummary }" type="button">
             {{ showSummary ? '▼' : '▽' }}
           </button>
@@ -202,27 +290,43 @@ const resetearSeleccion = () => {
         <!-- Resumen compacto cuando está colapsado -->
         <div v-if="!showSummary && compactSummary" class="compact-summary">
           <p>{{ compactSummary }}</p>
-          <span class="compact-price"
-            >{{ RESTAURANT_CONFIG.currency }}{{ RESTAURANT_CONFIG.price }}</span
-          >
+          <span class="compact-price">{{ RESTAURANT_CONFIG.currency }}{{ totalPrice }}</span>
         </div>
 
         <!-- Resumen completo cuando está expandido -->
         <div v-if="showSummary" class="summary-content">
           <div v-if="selectedBase" class="summary-item">
-            <strong>Base:</strong> {{ selectedBase }}
+            <strong><span class="summary-icon">🥬</span> Base:</strong> {{ selectedBase }}
           </div>
           <div v-if="selectedIngredientes.length > 0" class="summary-item">
-            <strong>Ingredientes:</strong> {{ selectedIngredientes.join(', ') }}
+            <strong><span class="summary-icon">🥕</span> Ingredientes:</strong>
+            {{ selectedIngredientes.join(', ') }}
           </div>
           <div v-if="selectedProteina" class="summary-item">
-            <strong>Proteína:</strong> {{ selectedProteina }}
+            <strong><span class="summary-icon">🍗</span> Proteína:</strong> {{ selectedProteina }}
           </div>
           <div v-if="selectedVinagreta" class="summary-item">
-            <strong>Vinagreta:</strong> {{ selectedVinagreta }}
+            <strong><span class="summary-icon">🫒</span> Vinagreta:</strong> {{ selectedVinagreta }}
           </div>
+
+          <!-- ✅ NUEVO: Mostrar comentarios en resumen -->
+          <div v-if="comentarios.trim()" class="summary-item comments-item">
+            <strong><span class="summary-icon">💬</span> Comentarios:</strong>
+            <span class="comment-text">{{ comentarios.trim() }}</span>
+          </div>
+
+          <!-- ✅ ACTUALIZADO: Desglose de precios -->
+          <div class="price-breakdown-summary">
+            <div class="breakdown-item">
+              <span>Ensalada personalizada:</span>
+              <span>{{ RESTAURANT_CONFIG.currency }}{{ RESTAURANT_CONFIG.baseSaladPrice }}</span>
+            </div>
+          </div>
+
+          <!-- ✅ NUEVO: Total prominente -->
           <div class="summary-total">
-            <strong>Total: {{ RESTAURANT_CONFIG.currency }}{{ RESTAURANT_CONFIG.price }}</strong>
+            <div class="total-label">TOTAL A PAGAR:</div>
+            <div class="total-amount">{{ RESTAURANT_CONFIG.currency }}{{ totalPrice }}</div>
           </div>
         </div>
 
@@ -235,17 +339,25 @@ const resetearSeleccion = () => {
               !selectedBase &&
               !selectedProteina &&
               !selectedVinagreta &&
-              selectedIngredientes.length === 0
+              selectedIngredientes.length === 0 &&
+              !comentarios.trim()
             "
           >
             🔄 Resetear
           </button>
           <button @click="enviarPedido" class="btn btn-primary" :disabled="!isValidSelection">
-            � Enviar por Email
+            � Hacer Pedido
           </button>
         </div>
       </div>
     </div>
+
+    <!-- ✅ NUEVO: Modal de checkout completo para ensalada personalizada -->
+    <CustomSaladCheckoutModal
+      :is-visible="showCheckoutModal"
+      :salad-data="saladData"
+      @close="cerrarCheckoutModal"
+    />
   </div>
 </template>
 
@@ -256,6 +368,7 @@ const resetearSeleccion = () => {
   padding: 2rem;
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fffe 0%, #ecf7f5 50%, #e0f2eb 100%);
+  overflow-x: hidden;
 }
 
 .header-section {
@@ -354,10 +467,6 @@ const resetearSeleccion = () => {
   gap: 1rem;
   font-size: 2.6rem;
   font-weight: 600;
-  background: linear-gradient(135deg, #2c5530, #4a7c59);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
   border-bottom: 2px solid rgba(44, 85, 48, 0.1);
@@ -366,6 +475,21 @@ const resetearSeleccion = () => {
 .category-icon {
   font-size: 3.2rem;
   filter: drop-shadow(0 2px 4px rgba(44, 85, 48, 0.2));
+  z-index: 10;
+  position: relative;
+  /* ✅ Asegurar que el emoji no sea afectado por background-clip */
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
+}
+
+/* ✅ NUEVO: Aplicar el gradiente solo al texto del título */
+.title-text {
+  background: linear-gradient(135deg, #2c5530, #4a7c59);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .required {
@@ -388,12 +512,12 @@ const resetearSeleccion = () => {
 
 .options-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 1.5rem;
 }
 
 .ingredientes-grid {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
 }
 
 .option-card {
@@ -468,8 +592,10 @@ const resetearSeleccion = () => {
 .summary-section {
   position: sticky;
   bottom: 2rem;
-  z-index: 100;
+  z-index: 1100; /* ✅ Mayor que NavBar (1000) para quedar por encima */
   margin-top: 3rem;
+  max-height: calc(100vh - 4rem); /* ✅ Altura máxima para evitar overflow */
+  overflow-y: auto; /* ✅ Scroll interno si es necesario */
 }
 
 .summary-card {
@@ -480,10 +606,47 @@ const resetearSeleccion = () => {
   backdrop-filter: blur(20px);
   overflow: hidden;
   transition: all 0.4s ease;
+  max-height: calc(100vh - 6rem); /* ✅ Altura máxima del card */
 }
 
 .summary-card.collapsed {
   box-shadow: 0 8px 32px rgba(44, 85, 48, 0.12);
+  max-height: 80px; /* ✅ Altura fija cuando está colapsado */
+}
+
+/* ✅ NUEVO: Mayor z-index cuando está expandido */
+.summary-card:not(.collapsed) {
+  z-index: 1200; /* ✅ Aún mayor prioridad cuando está expandido */
+  position: relative;
+  box-shadow: 0 20px 80px rgba(44, 85, 48, 0.25); /* ✅ Sombra más prominente */
+  background: rgba(255, 255, 255, 0.98); /* ✅ Más opaco cuando expandido */
+  border: 2px solid rgba(34, 139, 34, 0.2); /* ✅ Borde más visible */
+}
+
+.summary-content {
+  color: #333;
+  max-height: calc(100vh - 12rem); /* ✅ Altura máxima del contenido */
+  overflow-y: auto; /* ✅ Scroll interno si el contenido es muy largo */
+  padding: 0 1rem; /* ✅ Padding para el scroll */
+}
+
+/* ✅ NUEVO: Estilos mejorados para el scroll */
+.summary-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.summary-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.summary-content::-webkit-scrollbar-thumb {
+  background: rgba(76, 175, 80, 0.3);
+  border-radius: 10px;
+}
+
+.summary-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(76, 175, 80, 0.5);
 }
 
 .summary-header {
@@ -497,6 +660,7 @@ const resetearSeleccion = () => {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  z-index: inherit; /* ✅ Hereda el z-index del parent */
 }
 
 .summary-header::before {
@@ -580,13 +744,26 @@ const resetearSeleccion = () => {
 
 .summary-item {
   padding: 0.4rem 0;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid #5d5a5a;
   line-height: 1.4;
   font-size: 1.2rem;
 }
 
 .summary-item:last-of-type {
   border-bottom: none;
+}
+
+/* ✅ NUEVO: Estilos para iconos del resumen */
+.summary-icon {
+  display: inline-block;
+  font-size: 1.2em;
+  margin-right: 0.3rem;
+  position: relative;
+  z-index: 10;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
 }
 
 .summary-total {
@@ -650,6 +827,316 @@ const resetearSeleccion = () => {
   transform: translateY(-2px);
 }
 
+.juice-section {
+  background: linear-gradient(135deg, rgba(255, 165, 0, 0.05) 0%, rgba(255, 200, 87, 0.05) 100%);
+  border-left: 4px solid #ffa500;
+}
+
+.cubiertos-section {
+  background: linear-gradient(135deg, rgba(108, 117, 125, 0.05) 0%, rgba(134, 142, 150, 0.05) 100%);
+  border-left: 4px solid #6c757d;
+}
+
+.comments-section {
+  background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, rgba(108, 117, 125, 0.05) 100%);
+  border-left: 4px solid #0d6efd;
+}
+
+.optional {
+  color: #ffa500;
+  font-size: 1.4rem;
+  font-weight: 500;
+  background: rgba(255, 165, 0, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+}
+
+.price-tag {
+  color: #4caf50;
+  font-size: 1.6rem;
+  font-weight: 600;
+  background: rgba(76, 175, 80, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.free-tag {
+  color: #6c757d;
+  font-size: 1.4rem;
+  font-weight: 500;
+  background: rgba(108, 117, 125, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+}
+
+.juice-toggle,
+.cubiertos-toggle {
+  margin-bottom: 1.5rem;
+}
+
+.toggle-option {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+.toggle-option:hover {
+  border-color: #4caf50;
+  background: rgba(76, 175, 80, 0.05);
+}
+
+.toggle-input {
+  margin-right: 1.5rem;
+  transform: scale(1.5);
+  accent-color: #4caf50;
+}
+
+.juice-note {
+  background: rgba(255, 193, 7, 0.1);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #ffc107;
+  animation: slideDown 0.4s ease-out;
+}
+
+.juice-note p {
+  margin: 0;
+  color: #856404;
+  font-style: italic;
+  font-size: 1.4rem;
+}
+
+.comments-container {
+  position: relative;
+}
+
+.comments-textarea {
+  width: 100%;
+  padding: 1.5rem;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  font-size: 1.4rem;
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.3s ease;
+  height: 15rem;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.comments-textarea:focus {
+  outline: none;
+  border-color: #4caf50;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.comments-textarea::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+  color: #6c757d;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid rgba(108, 117, 125, 0.2);
+}
+
+.juice-item {
+  background: rgba(255, 165, 0, 0.1);
+  border-left: 4px solid #ffa500;
+  padding: 0.8rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cubiertos-item {
+  background: rgba(108, 117, 125, 0.1);
+  border-left: 4px solid #6c757d;
+  padding: 0.8rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comments-item {
+  background: rgba(13, 110, 253, 0.1);
+  border-left: 4px solid #0d6efd;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.comment-text {
+  font-style: italic;
+  color: #495057;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  margin-top: 0.5rem;
+}
+
+.item-price {
+  color: #4caf50;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.price-breakdown-summary {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  border: 1px solid #dee2e6;
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+.breakdown-item:not(:last-child) {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.summary-total {
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  margin-top: 1.5rem;
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+}
+
+.total-label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.total-amount {
+  font-size: 3.2rem;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive para los nuevos elementos */
+@media (max-width: 768px) {
+  .toggle-option {
+    font-size: 1.4rem;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .comments-textarea {
+    font-size: 1.3rem;
+    padding: 1.2rem;
+  }
+
+  .total-amount {
+    font-size: 2.5rem;
+  }
+
+  .juice-item,
+  .cubiertos-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .breakdown-item {
+    font-size: 1.2rem;
+  }
+}
+
+/* Eliminar estilos del price-display que ya no se usa */
+.prepara-orden-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fffe 0%, #ecf7f5 50%, #e0f2eb 100%);
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.header-section::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #2c5530, transparent);
+  border-radius: 2px;
+}
+
+.header-section h1 {
+  font-size: 4.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #2c5530, #4a7c59, #228b22);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(44, 85, 48, 0.1);
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  color: #5a6c57;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .header-section h1 {
@@ -703,6 +1190,10 @@ const resetearSeleccion = () => {
 }
 
 @media (max-width: 480px) {
+  .prepara-orden-container {
+    padding: 0.5rem;
+  }
+
   .header-section h1 {
     font-size: 2.5rem;
   }
@@ -720,6 +1211,48 @@ const resetearSeleccion = () => {
     flex-wrap: wrap;
   }
 
+  /* ✅ NUEVO: Estilos responsivos mejorados para el resumen */
+  .summary-section {
+    bottom: 1rem;
+    margin-top: 2rem;
+    max-height: calc(100vh - 2rem);
+  }
+
+  .summary-card {
+    border-radius: 16px;
+    max-height: calc(100vh - 4rem);
+  }
+
+  .summary-card.collapsed {
+    max-height: 70px;
+  }
+
+  .summary-content {
+    max-height: calc(100vh - 8rem);
+    padding: 1rem 0.75rem;
+  }
+
+  .summary-header {
+    padding: 1rem;
+  }
+
+  .summary-title {
+    font-size: 1.1rem;
+  }
+
+  .summary-toggle-icon {
+    font-size: 1.2rem;
+  }
+
+  /* ✅ NUEVO: Asegurar z-index en móviles */
+  .summary-section {
+    z-index: 1100;
+  }
+
+  .summary-card:not(.collapsed) {
+    z-index: 1200;
+  }
+
   .category-icon {
     font-size: 2rem;
   }
@@ -735,6 +1268,218 @@ const resetearSeleccion = () => {
   .btn {
     font-size: 1.1rem;
     padding: 1rem 1.5rem;
+  }
+}
+
+/* ✅ NUEVO: Estilos del modal de contacto */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  padding: 2rem 2rem 1rem 2rem;
+  border-bottom: 1px solid #e0f2eb;
+  position: relative;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #2c5530;
+  font-weight: 600;
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  background: #f0f8f0;
+  color: #2c5530;
+}
+
+.modal-body {
+  padding: 1rem 2rem 2rem 2rem;
+}
+
+.modal-description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.contact-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-option {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-family: inherit;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.contact-option:hover::before {
+  left: 100%;
+}
+
+.whatsapp-option {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: white;
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 48px rgba(37, 211, 102, 0.4);
+  background: linear-gradient(135deg, #38e577, #25d366);
+}
+
+.email-option {
+  background: linear-gradient(135deg, #ff8a56, #ff6b35);
+  color: white;
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+}
+
+.email-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 48px rgba(255, 107, 53, 0.4);
+  background: linear-gradient(135deg, #ff9966, #ff8a56);
+}
+
+.option-icon {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.option-text {
+  flex: 1;
+}
+
+.option-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.option-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* Responsive para el modal */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    margin: 1rem;
+  }
+
+  .modal-header,
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  .modal-header h3 {
+    font-size: 1.5rem;
+  }
+
+  .contact-option {
+    padding: 1.2rem;
+  }
+
+  .option-icon {
+    font-size: 2rem;
+  }
+
+  .option-title {
+    font-size: 1.2rem;
+  }
+
+  .option-subtitle {
+    font-size: 1rem;
   }
 }
 </style>
