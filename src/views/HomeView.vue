@@ -49,23 +49,93 @@ const navigateWithLoading = (path: string) => {
       </div>
     </section>
 
+    <!-- Planes Arbóreo Section -->
+    <section class="plans-section">
+      <div class="container">
+        <h2>Planes Arbóreo</h2>
+        <p class="section-subtitle">
+          Ahorra con nuestros planes de comidas. Puedes elegir cualquier opción de nuestra carta y
+          disfrutar de una alimentación saludable y variada todos los días.
+        </p>
+
+        <div class="plans-content">
+          <!-- Plan 20 Comidas -->
+          <div class="plan-card featured">
+            <div class="plan-badge">Más Popular</div>
+            <div class="plan-icon">🍽️</div>
+            <h3>Plan 20 Comidas</h3>
+            <div class="plan-price">
+              <span class="price-amount">S/ 360</span>
+              <span class="price-per">S/ 18 por comida</span>
+            </div>
+            <ul class="plan-features">
+              <li>✓ 20 comidas incluidas</li>
+              <li>✓ Válido por 30 días</li>
+              <li>✓ Ahorro de S/ 40</li>
+              <li>✓ Delivery gratis programado</li>
+            </ul>
+            <a
+              href="#"
+              class="plan-button plan-20-button"
+              @click.prevent="navigateWithLoading('/carta')"
+            >
+              Elegir Plan 20
+            </a>
+          </div>
+
+          <!-- Plan 10 Comidas -->
+          <div class="plan-card">
+            <div class="plan-icon">🥗</div>
+            <h3>Plan 10 Comidas</h3>
+            <div class="plan-price">
+              <span class="price-amount">S/ 190</span>
+              <span class="price-per">S/ 19 por comida</span>
+            </div>
+            <ul class="plan-features">
+              <li>✓ 10 comidas incluidas</li>
+              <li>✓ Válido por 15 días</li>
+              <li>✓ Ahorro de S/ 10</li>
+              <li>✓ Delivery gratis programado</li>
+            </ul>
+            <a
+              href="#"
+              class="plan-button plan-10-button"
+              @click.prevent="navigateWithLoading('/carta')"
+            >
+              Elegir Plan 10
+            </a>
+          </div>
+        </div>
+
+        <!-- Opciones Disponibles -->
+        <div class="plan-options">
+          <h4>Se puede elegir cualquier opción de la carta:</h4>
+          <div class="option-tags">
+            <span class="option-tag">🥗 Ensaladas de la Casa</span>
+            <span class="option-tag">🥬 Saladbar</span>
+            <span class="option-tag">🍽️ Platos del Día</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Ensaladas Section -->
     <section class="salads-section">
       <div class="container">
         <h2>Ensaladas Frescas y Personalizadas</h2>
         <p class="section-subtitle">
-          Disfruta de nuestras ensaladas preparadas con ingredientes frescos y de temporada,
-          o crea tu propia combinación única con nuestros ingredientes premium.
+          Disfruta de nuestras ensaladas preparadas con ingredientes frescos y de temporada, o crea
+          tu propia combinación única con nuestros ingredientes premium.
         </p>
-        
+
         <div class="salads-content">
           <!-- Ensaladas Pre-hechas -->
           <div class="salads-card">
             <div class="card-icon">🥗</div>
             <h3>Ensaladas de la Casa</h3>
             <p>
-              Descubre nuestras combinaciones especiales creadas por nuestros chefs.
-              Cada ensalada está balanceada con los mejores ingredientes y aderezos artesanales.
+              Descubre nuestras combinaciones especiales creadas por nuestros chefs. Cada ensalada
+              está balanceada con los mejores ingredientes y aderezos artesanales.
             </p>
             <ul class="features-list">
               <li>✓ Ingredientes frescos diarios</li>
@@ -73,8 +143,8 @@ const navigateWithLoading = (path: string) => {
               <li>✓ Opciones veganas y vegetarianas</li>
               <li>✓ Proteínas de calidad</li>
             </ul>
-            <a 
-              href="#" 
+            <a
+              href="#"
               class="section-button salads-menu-button"
               @click.prevent="navigateWithLoading('/ensaladas')"
             >
@@ -87,8 +157,8 @@ const navigateWithLoading = (path: string) => {
             <div class="card-icon">🎨</div>
             <h3>Crea tu Ensalada Perfecta</h3>
             <p>
-              ¿Tienes gustos específicos? Personaliza tu ensalada eligiendo entre más de 20 ingredientes,
-              5 tipos de proteína y 8 aderezos diferentes.
+              ¿Tienes gustos específicos? Personaliza tu ensalada eligiendo entre más de 20
+              ingredientes, 5 tipos de proteína y 8 aderezos diferentes.
             </p>
             <ul class="features-list">
               <li>✓ Más de 20 ingredientes disponibles</li>
@@ -96,12 +166,50 @@ const navigateWithLoading = (path: string) => {
               <li>✓ 8 aderezos artesanales</li>
               <li>✓ Tamaños personalizables</li>
             </ul>
-            <a 
-              href="#" 
+            <a
+              href="#"
               class="section-button custom-salad-button"
               @click.prevent="navigateWithLoading('/prepara-orden')"
             >
               Personalizar mi Ensalada
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu del Día Section -->
+    <section class="daily-menu-section">
+      <div class="container">
+        <h2>Menú del Día</h2>
+        <p class="section-subtitle">
+          Cada día preparamos opciones diferentes y deliciosas para que disfrutes de una experiencia
+          gastronómica única. Platos caseros, saludables y llenos de sabor.
+        </p>
+
+        <div class="daily-menu-content">
+          <!-- Menú Único del Día -->
+          <div class="menu-card-single">
+            <div class="card-icon">🍽️</div>
+            <h3>Carta del Día</h3>
+            <p>
+              Disfruta de nuestro menú ejecutivo con opciones balanceadas y nutritivas. Perfecto
+              para el almuerzo, con ingredientes frescos y preparación casera.
+            </p>
+            <ul class="features-list">
+              <li>✓ Platos diferentes cada día</li>
+              <li>✓ Preparación casera</li>
+              <li>✓ Ingredientes frescos</li>
+              <li>✓ Opciones balanceadas</li>
+              <li>✓ Precio accesible</li>
+              <li>✓ Porciones generosas</li>
+            </ul>
+            <a
+              href="#"
+              class="section-button daily-menu-button"
+              @click.prevent="navigateWithLoading('/carta')"
+            >
+              Ver Carta del Día
             </a>
           </div>
         </div>
@@ -438,6 +546,228 @@ const navigateWithLoading = (path: string) => {
   box-shadow: 0 12px 48px rgba(255, 255, 255, 0.3);
 }
 
+/* Plans Section */
+.plans-section {
+  padding: 8rem 0;
+  background: linear-gradient(135deg, #f8f4f0 0%, #f5f0e8 50%, #f2ebe0 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.plans-section::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -20%;
+  width: 140%;
+  height: 160%;
+  background: radial-gradient(circle, rgba(255, 183, 77, 0.1) 0%, transparent 50%);
+  transform: rotate(-15deg);
+  z-index: 1;
+}
+
+.plans-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.plans-section h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.plans-section .section-subtitle {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 4rem;
+  color: #666;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.plan-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 183, 77, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.plan-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #ffb74d 0%, #ff9800 50%, #f57c00 100%);
+}
+
+.plan-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 183, 77, 0.4);
+}
+
+.plan-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.plan-price {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ff9800;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.plan-price .currency {
+  font-size: 1.5rem;
+  font-weight: 500;
+  vertical-align: top;
+}
+
+.plan-meals {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+}
+
+.plan-features li {
+  padding: 0.75rem 0;
+  color: #555;
+  font-size: 1rem;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.plan-features li:last-child {
+  border-bottom: none;
+}
+
+.plan-features li::before {
+  content: '✓';
+  color: #4caf50;
+  font-weight: 700;
+  margin-right: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.plan-button {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+  width: 100%;
+}
+
+.plan-button:hover {
+  background: linear-gradient(135deg, #f57c00 0%, #e65100 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+}
+
+.plan-options {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.plan-options h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.option-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.option-tag {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  color: #f57c00;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(245, 124, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.option-tag:hover {
+  background: linear-gradient(135deg, #ffe0b2 0%, #ffcc80 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 124, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .plans-section {
+    padding: 5rem 0;
+  }
+
+  .plans-section h2 {
+    font-size: 2.5rem;
+  }
+
+  .plans-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .plan-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .plan-price {
+    font-size: 3rem;
+  }
+}
+
 /* Ensaladas Section */
 .salads-section {
   padding: 8rem 0;
@@ -458,8 +788,13 @@ const navigateWithLoading = (path: string) => {
 }
 
 @keyframes gentle-float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(2deg); }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
 }
 
 .salads-section .container {
@@ -670,15 +1005,15 @@ const navigateWithLoading = (path: string) => {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-  
+
   .salads-card {
     padding: 3rem;
   }
-  
+
   .salads-section h2 {
     font-size: 3rem;
   }
-  
+
   .section-subtitle {
     font-size: 1.4rem;
   }
@@ -688,32 +1023,209 @@ const navigateWithLoading = (path: string) => {
   .salads-section {
     padding: 6rem 0;
   }
-  
+
   .salads-card {
     padding: 2.5rem;
   }
-  
+
   .card-icon {
     width: 70px;
     height: 70px;
     font-size: 2.5rem;
   }
-  
+
   .salads-card h3 {
     font-size: 2rem;
   }
-  
+
   .section-button {
     padding: 1.3rem 2.5rem;
     font-size: 1.2rem;
   }
-  
+
   .salads-section h2 {
     font-size: 2.5rem;
   }
-  
+
   .section-subtitle {
     font-size: 1.2rem;
+  }
+}
+
+/* Menu del Día Section */
+.daily-menu-section {
+  padding: 8rem 0;
+  background: linear-gradient(135deg, #fff8f0 0%, #ffeee5 50%, #ffe5d9 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.daily-menu-section::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 40%;
+  height: 140%;
+  background: radial-gradient(circle at center, rgba(255, 138, 86, 0.05) 0%, transparent 70%);
+  animation: gentle-float 25s ease-in-out infinite reverse;
+}
+
+.daily-menu-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.daily-menu-section h2 {
+  font-size: 3.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #e55a2b, #ff6b35, #ff8a56);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(255, 107, 53, 0.1);
+}
+
+.daily-menu-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.menu-card-single {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 4rem;
+  box-shadow: 0 12px 48px rgba(255, 138, 86, 0.1);
+  border: 1px solid rgba(255, 138, 86, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+}
+
+.menu-card-single::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff8a56, #ff6b35, #e55a2b);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.menu-card-single:hover::before {
+  transform: scaleX(1);
+}
+
+.menu-card-single:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 64px rgba(255, 138, 86, 0.15);
+  background: rgba(255, 255, 255, 1);
+}
+
+.menu-card-single .card-icon {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+  background: linear-gradient(135deg, #ff8a56, #ff6b35, #e55a2b);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  box-shadow: 0 8px 32px rgba(255, 138, 86, 0.3);
+  transition: all 0.4s ease;
+}
+
+.menu-card-single:hover .card-icon {
+  transform: scale(1.1);
+  box-shadow: 0 12px 48px rgba(255, 138, 86, 0.4);
+}
+
+.menu-card-single h3 {
+  font-size: 2.4rem;
+  color: #2c5530;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.menu-card-single p {
+  color: #6b7b68;
+  line-height: 1.8;
+  font-size: 1.4rem;
+  margin-bottom: 2.5rem;
+}
+
+.daily-menu-button {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 153, 102, 0.4),
+    rgba(255, 138, 86, 0.4),
+    rgba(255, 107, 53, 0.4)
+  );
+  border-color: rgba(255, 138, 86, 0.3);
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+}
+
+.daily-menu-button:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 153, 102, 0.9),
+    rgba(255, 138, 86, 0.9),
+    rgba(255, 107, 53, 0.9)
+  );
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(255, 107, 53, 0.6);
+  border-color: rgba(255, 138, 86, 0.7);
+}
+
+/* Responsive Design para la sección del menú */
+@media (max-width: 768px) {
+  .daily-menu-content {
+    max-width: 100%;
+  }
+
+  .menu-card-single {
+    padding: 3rem;
+  }
+
+  .daily-menu-section h2 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .daily-menu-section {
+    padding: 6rem 0;
+  }
+
+  .menu-card-single {
+    padding: 2.5rem;
+  }
+
+  .menu-card-single .card-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2.5rem;
+  }
+
+  .menu-card-single h3 {
+    font-size: 2rem;
+  }
+
+  .daily-menu-section h2 {
+    font-size: 2.5rem;
   }
 }
 
