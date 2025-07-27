@@ -23,104 +23,108 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
       </div>
     </section>
 
+    <!-- Comidas a tu Medida Section -->
+    <section class="custom-meals-section">
+      <div class="container">
+        <h2>Comidas a tu medida</h2>
+        <div class="meals-grid">
+          <div class="meal-item">
+            <div class="meal-icon">MV</div>
+            <h3>Comidas a tu medida</h3>
+            <p>Saludables y alineadas a tus metas.</p>
+          </div>
+          <div class="meal-item">
+            <div class="meal-icon">MV</div>
+            <h3>Menú siempre distinto</h3>
+            <p>Elige tu favorito cada día.</p>
+          </div>
+          <div class="meal-item">
+            <div class="meal-icon">MV</div>
+            <h3>Más ahorro, cero esfuerzo</h3>
+            <p>Sin cocinar. Delivery gratis al programar.</p>
+          </div>
+          <div class="meal-item">
+            <div class="meal-icon">MV</div>
+            <h3>Tú eliges cuándo y dónde</h3>
+            <p>Programa o recibe hoy. Flexibilidad total.*</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact Section -->
     <section class="contact-section">
-      <div class="contact-container">
+      <div class="container">
         <h2>¡Haz tu pedido ahora!</h2>
-        <div class="whatsapp-section">
-          <div class="whatsapp-info">
-            <span class="whatsapp-icon"
-              ><img
-                class="icon"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1022px-WhatsApp.svg.png"
-              />
-            </span>
+        <div class="email-section">
+          <a 
+            :href="`mailto:${RESTAURANT_CONFIG.email}?subject=Pedido desde sitio web&body=Hola, me gustaría hacer un pedido.`"
+            class="email-info"
+          >
+            <span class="email-icon">�</span>
             <div>
-              <p class="whatsapp-label">WhatsApp:</p>
-              <a
-                :href="`https://wa.me/${RESTAURANT_CONFIG.whatsapp}`"
-                class="whatsapp-number"
-                target="_blank"
-              >
-                {{ RESTAURANT_CONFIG.whatsapp }}
+              <p class="email-label">Email:</p>
+              <span class="email-address">{{ RESTAURANT_CONFIG.email }}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>{{ RESTAURANT_CONFIG.name }}</h3>
+            <p>La mejor opción para comer saludable y delicioso en la ciudad.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Enlaces Rápidos</h4>
+            <ul class="footer-links">
+              <li><RouterLink to="/">Inicio</RouterLink></li>
+              <li><RouterLink to="/prepara-orden">Prepara tu Orden</RouterLink></li>
+              <li><RouterLink to="/carta">Ver Carta</RouterLink></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Contacto</h4>
+            <div class="footer-contact">
+              <p>� {{ RESTAURANT_CONFIG.email }}</p>
+              <p>�📱 {{ RESTAURANT_CONFIG.whatsapp }}</p>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h4>Síguenos</h4>
+            <div class="social-links">
+              <a :href="RESTAURANT_CONFIG.socialMedia.facebook" target="_blank" class="social-link">
+                Facebook
+              </a>
+              <a :href="RESTAURANT_CONFIG.socialMedia.instagram" target="_blank" class="social-link">
+                Instagram
               </a>
             </div>
           </div>
         </div>
-
-        <!-- Social Media -->
-        <div class="social-media">
-          <h3>Síguenos en nuestras redes:</h3>
-          <div class="social-links">
-            <a
-              :href="RESTAURANT_CONFIG.socialMedia.facebook"
-              target="_blank"
-              class="social-link facebook"
-              aria-label="Facebook"
-            >
-              <img
-                class="icon"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/512px-2021_Facebook_icon.svg.png"
-                alt="Facebook"
-              />
-            </a>
-            <a
-              :href="RESTAURANT_CONFIG.socialMedia.twitter"
-              target="_blank"
-              class="social-link twitter"
-              aria-label="Twitter"
-            >
-              🐦
-            </a>
-            <a
-              :href="RESTAURANT_CONFIG.socialMedia.instagram"
-              target="_blank"
-              class="social-link instagram"
-              aria-label="Instagram"
-            >
-              📷
-            </a>
-          </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 {{ RESTAURANT_CONFIG.name }}. Todos los derechos reservados.</p>
         </div>
       </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features-section">
-      <div class="features-container">
-        <h2>¿Por qué elegir {{ RESTAURANT_CONFIG.name }}?</h2>
-        <div class="features-grid">
-          <div class="feature">
-            <div class="feature-icon">🥬</div>
-            <h3>Ingredientes Frescos</h3>
-            <p>Seleccionamos los mejores ingredientes del día para garantizar frescura y calidad</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">🎯</div>
-            <h3>Personalización Total</h3>
-            <p>Crea tu ensalada perfecta eligiendo entre más de 20 ingredientes diferentes</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">⚡</div>
-            <h3>Preparación Rápida</h3>
-            <p>Tu ensalada estará lista en pocos minutos, perfecta para el almuerzo</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon">💚</div>
-            <h3>Opción Saludable</h3>
-            <p>Alimentación balanceada y nutritiva para cuidar tu bienestar</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    </footer>
   </div>
 </template>
 
 <style scoped>
 .home-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 2rem;
 }
 
 .icon {
@@ -132,241 +136,274 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #a8e6cf 0%, #88d8a3 50%, #7fcdcd 100%);
-  border-radius: 16px;
-  margin-bottom: 3rem;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #2c5530 0%, #4a7c59 50%, #6b8e23 100%);
+  color: white;
+  padding: 6rem 0;
+  text-align: center;
 }
 
 .hero-content {
-  padding: 4rem 2rem;
-  text-align: center;
-  color: white;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .hero-title {
-  font-size: 3.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   opacity: 0.95;
+  font-weight: 300;
 }
 
 .hero-description {
   font-size: 1.1rem;
-  margin-bottom: 2.5rem;
-  max-width: 600px;
+  margin-bottom: 3rem;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  opacity: 0.9;
   line-height: 1.6;
+  opacity: 0.9;
 }
 
 .cta-buttons {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .cta-button {
-  padding: 1rem 2rem;
-  border-radius: 50px;
+  padding: 1.2rem 2.5rem;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
   transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .cta-button.primary {
-  background: #ff6b6b;
+  background: #ff6b35;
   color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
 }
 
 .cta-button.primary:hover {
-  background: #ff5252;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  background: #e55a2b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
 }
 
 .cta-button.secondary {
-  background: white;
-  color: #4caf50;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
 }
 
 .cta-button.secondary:hover {
+  background: white;
+  color: #2c5530;
+  transform: translateY(-2px);
+}
+
+/* Comidas a tu Medida Section */
+.custom-meals-section {
+  padding: 6rem 0;
   background: #f8f9fa;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Contact Section */
-.contact-section {
-  background: white;
-  border-radius: 16px;
-  margin-bottom: 3rem;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-}
-
-.contact-container {
-  padding: 3rem 2rem;
-  text-align: center;
-}
-
-.contact-container h2 {
-  color: #2c3e50;
+.custom-meals-section h2 {
   font-size: 2.5rem;
-  margin-bottom: 2rem;
-}
-
-.whatsapp-section {
-  margin-bottom: 2.5rem;
-}
-
-.whatsapp-info {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  background: #25d366;
-  color: white;
-  padding: 1.5rem 2rem;
-  border-radius: 50px;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-  transition: transform 0.3s ease;
-}
-
-.whatsapp-info:hover {
-  transform: translateY(-3px);
-}
-
-.whatsapp-icon {
-  font-size: 2rem;
-}
-
-.whatsapp-label {
-  margin: 0;
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-.whatsapp-number {
-  color: white;
-  text-decoration: none;
-  font-size: 1.3rem;
-  font-weight: bold;
-}
-
-.social-media h3 {
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-}
-
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  text-decoration: none;
-  font-size: 1.5rem;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.social-link:hover {
-  transform: translateY(-3px) scale(1.1);
-}
-
-.social-link.facebook {
-  background: #1877f2;
-  color: white;
-}
-
-.social-link.twitter {
-  background: #1da1f2;
-  color: white;
-}
-
-.social-link.instagram {
-  background: linear-gradient(
-    45deg,
-    #f09433 0%,
-    #e6683c 25%,
-    #dc2743 50%,
-    #cc2366 75%,
-    #bc1888 100%
-  );
-  color: white;
-}
-
-/* Features Section */
-.features-section {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-}
-
-.features-container {
-  padding: 3rem 2rem;
-}
-
-.features-container h2 {
+  color: #2c5530;
   text-align: center;
-  color: #2c3e50;
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  font-weight: 700;
 }
 
-.features-grid {
+.meals-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
 
-.feature {
+.meal-item {
   text-align: center;
   padding: 2rem;
+  background: white;
   border-radius: 12px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
 }
 
-.feature:hover {
+.meal-item:hover {
   transform: translateY(-5px);
 }
 
-.feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+.meal-icon {
+  background: #4caf50;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 0 auto 1.5rem;
 }
 
-.feature h3 {
-  color: #2c3e50;
-  margin-bottom: 1rem;
+.meal-item h3 {
   font-size: 1.3rem;
+  color: #2c5530;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
-.feature p {
+.meal-item p {
   color: #666;
   line-height: 1.6;
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 6rem 0;
+  background: white;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 2.5rem;
+  color: #2c5530;
+  margin-bottom: 3rem;
+  font-weight: 700;
+}
+
+.email-section {
+  display: flex;
+  justify-content: center;
+}
+
+.email-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: #ff6b35;
+  color: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.email-info:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+}
+
+.email-icon {
+  font-size: 2rem;
+}
+
+.email-label {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.email-address {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+/* Footer */
+.footer {
+  background: #2c5530;
+  color: white;
+  padding: 4rem 0 2rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #a8e6a1;
+}
+
+.footer-section h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #a8e6a1;
+}
+
+.footer-section p {
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+}
+
+.footer-contact p {
+  margin-bottom: 0.5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  color: white;
+  text-decoration: none;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.social-link:hover {
+  opacity: 1;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+  text-align: center;
+  opacity: 0.8;
 }
 
 /* Responsive Design */
@@ -374,63 +411,51 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
   .hero-title {
     font-size: 2.5rem;
   }
-
+  
   .hero-subtitle {
     font-size: 1.2rem;
   }
-
-  .hero-description {
-    font-size: 1rem;
-  }
-
+  
   .cta-buttons {
     flex-direction: column;
     align-items: center;
   }
-
+  
   .cta-button {
     width: 100%;
     max-width: 300px;
-    justify-content: center;
-  }
-
-  .whatsapp-info {
-    flex-direction: column;
     text-align: center;
   }
-
-  .features-grid {
+  
+  .meals-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
-
-  .social-links {
-    gap: 0.5rem;
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
-
-  .social-link {
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
+  
+  .container {
+    padding: 0 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .hero-content {
-    padding: 2rem 1rem;
-  }
-
   .hero-title {
     font-size: 2rem;
   }
-
-  .contact-container,
-  .features-container {
-    padding: 2rem 1rem;
-  }
-
-  .contact-container h2,
-  .features-container h2 {
+  
+  .custom-meals-section h2,
+  .contact-section h2 {
     font-size: 2rem;
+  }
+  
+  .email-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
   }
 }
 </style>

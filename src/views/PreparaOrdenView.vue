@@ -47,13 +47,14 @@ const toggleIngrediente = (ingrediente: string) => {
   }
 }
 
-// Función para enviar pedido por WhatsApp
+// Función para enviar pedido por email
 const enviarPedido = () => {
   if (!isValidSelection.value) return
 
-  const mensaje = `¡Hola! Quiero hacer un pedido de ${RESTAURANT_CONFIG.name}:
+  const subject = 'Pedido - Mi Ensalada Personalizada'
+  const body = `¡Hola! Quiero hacer un pedido de ${RESTAURANT_CONFIG.name}:
 
-🥗 *Mi Ensalada Personalizada*
+🥗 Mi Ensalada Personalizada
 Base: ${selectedBase.value}
 Proteína: ${selectedProteina.value}
 Vinagreta: ${selectedVinagreta.value}
@@ -63,8 +64,8 @@ Ingredientes: ${selectedIngredientes.value.join(', ')}
 
 ¡Gracias!`
 
-  const url = `https://wa.me/${RESTAURANT_CONFIG.whatsapp}?text=${encodeURIComponent(mensaje)}`
-  window.open(url, '_blank')
+  const mailtoUrl = `mailto:${RESTAURANT_CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  window.location.href = mailtoUrl
 }
 
 // Función para resetear selección
@@ -240,7 +241,7 @@ const resetearSeleccion = () => {
             🔄 Resetear
           </button>
           <button @click="enviarPedido" class="btn btn-primary" :disabled="!isValidSelection">
-            📱 Enviar por WhatsApp
+            � Enviar por Email
           </button>
         </div>
       </div>
@@ -352,7 +353,7 @@ const resetearSeleccion = () => {
   cursor: pointer;
   transition: all 0.3s ease;
   background: #fafafa;
-  position: relative; /*Color de las letras delas opciones*/
+  position: relative; /*Color de las letras de las opciones*/
   color: #3b3b3b;
 }
 

@@ -2,6 +2,7 @@
 export const RESTAURANT_CONFIG = {
   name: 'Arboreo Peru',
   whatsapp: '912447456',
+  email: 'arboreo-peru@gmail.com',
   price: 21,
   currency: 'S/.',
   socialMedia: {

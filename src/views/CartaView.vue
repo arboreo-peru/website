@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { MENU_ITEMS, RESTAURANT_CONFIG } from '../config/restaurant'
 
-// Función para enviar pedido por WhatsApp
+// Función para enviar pedido por email
 const enviarPedidoCarta = (item: (typeof MENU_ITEMS)[0]) => {
-  const mensaje = `¡Hola! Quiero hacer un pedido de ${RESTAURANT_CONFIG.name}:
+  const subject = `Pedido - ${item.name}`
+  const body = `¡Hola! Quiero hacer un pedido de ${RESTAURANT_CONFIG.name}:
 
-🥗 *${item.name}*
+🥗 ${item.name}
 ${item.description}
 
 💰 Total: ${RESTAURANT_CONFIG.currency}${item.price}
 
 ¡Gracias!`
 
-  const url = `https://wa.me/${RESTAURANT_CONFIG.whatsapp}?text=${encodeURIComponent(mensaje)}`
-  window.open(url, '_blank')
+  const mailtoUrl = `mailto:${RESTAURANT_CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  window.location.href = mailtoUrl
 }
 </script>
 
@@ -42,7 +43,7 @@ ${item.description}
         <p class="menu-description">{{ item.description }}</p>
 
         <div class="menu-actions">
-          <button @click="enviarPedidoCarta(item)" class="order-btn">📱 Pedir por WhatsApp</button>
+          <button @click="enviarPedidoCarta(item)" class="order-btn">� Pedir por Email</button>
         </div>
       </div>
     </div>
