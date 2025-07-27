@@ -404,18 +404,18 @@ const navigateWithLoading = (path: string) => {
     max-width: 100%;
     padding: 0 1.5rem;
   }
-  
+
   .nav-link {
     font-size: 1rem;
     padding: 0.7rem 1rem;
     min-width: 110px;
   }
-  
+
   .nav-menu {
     gap: 0.8rem;
     padding: 0.7rem 1.3rem;
   }
-  
+
   .contact-item {
     font-size: 0.85rem;
     padding: 0.25rem 0.7rem;
@@ -427,18 +427,18 @@ const navigateWithLoading = (path: string) => {
     margin-left: 0.8rem;
     padding-left: 0.8rem;
   }
-  
+
   .contact-item {
     font-size: 0.8rem;
     padding: 0.2rem 0.6rem;
   }
-  
+
   .nav-link {
     font-size: 0.95rem;
     padding: 0.6rem 0.9rem;
     min-width: 100px;
   }
-  
+
   .nav-menu {
     gap: 0.6rem;
     padding: 0.6rem 1.1rem;
@@ -451,17 +451,17 @@ const navigateWithLoading = (path: string) => {
     padding: 0.6rem 0.8rem;
     min-width: 90px;
   }
-  
+
   .nav-menu {
     gap: 0.5rem;
     padding: 0.5rem 1rem;
   }
-  
+
   .contact-item {
     font-size: 0.75rem;
     padding: 0.15rem 0.5rem;
   }
-  
+
   .contact-info {
     gap: 0.3rem;
   }
@@ -496,12 +496,12 @@ const navigateWithLoading = (path: string) => {
     padding: 0.5rem 0.6rem;
     min-width: 80px;
   }
-  
+
   .nav-menu {
     gap: 0.3rem;
     padding: 0.4rem 0.8rem;
   }
-  
+
   .contact-item {
     font-size: 0.65rem;
     padding: 0.1rem 0.3rem;
@@ -512,23 +512,24 @@ const navigateWithLoading = (path: string) => {
   .brand-text {
     font-size: 1.5rem;
   }
-  
+
   .nav-link {
     font-size: 0.75rem;
     padding: 0.4rem 0.5rem;
     min-width: 75px;
   }
-  
+
   .nav-menu {
     gap: 0.2rem;
     padding: 0.4rem 0.7rem;
   }
-  
+
   .contact-item {
     font-size: 0.6rem;
     padding: 0.05rem 0.25rem;
   }
-}@media (max-width: 768px) {
+}
+@media (max-width: 768px) {
   .nav-toggle {
     display: flex;
   }
