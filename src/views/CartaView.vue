@@ -43,7 +43,7 @@ ${item.description}
         <p class="menu-description">{{ item.description }}</p>
 
         <div class="menu-actions">
-          <button @click="enviarPedidoCarta(item)" class="order-btn">� Pedir por Email</button>
+          <button @click="enviarPedidoCarta(item)" class="order-btn">📧 Pedir por Email</button>
         </div>
       </div>
     </div>
@@ -95,96 +95,196 @@ ${item.description}
 .carta-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fffe 0%, #ecf7f5 50%, #e0f2eb 100%);
+  position: relative;
+}
+
+.carta-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 70% 30%, rgba(34, 139, 34, 0.06) 0%, transparent 50%);
+  animation: gentle-rotate 80s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gentle-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .header-section {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.header-section::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #2c5530, transparent);
+  border-radius: 2px;
 }
 
 .header-section h1 {
-  font-size: 3rem;
-  color: #2c3e50;
-  margin-bottom: 1rem;
+  font-size: 4.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #2c5530, #4a7c59, #228b22);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(44, 85, 48, 0.1);
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 1.5rem;
-  max-width: 600px;
+  font-size: 1.8rem;
+  color: #5a6c57;
+  margin-bottom: 3rem;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
-  line-height: 1.6;
+  line-height: 1.8;
+  font-weight: 400;
 }
 
 .price-info {
   display: inline-block;
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  background: linear-gradient(135deg, #ff8a56, #ff6b35, #e55a2b);
   color: white;
-  padding: 1rem 2rem;
+  padding: 1.5rem 3rem;
   border-radius: 50px;
   font-weight: 600;
-  font-size: 1.1rem;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  font-size: 1.6rem;
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.price-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.price-info:hover::before {
+  left: 100%;
+}
+
+.price-info:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(255, 107, 53, 0.6);
 }
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 3rem;
+  margin-bottom: 5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .menu-card {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: 0 12px 48px rgba(44, 85, 48, 0.12);
+  border: 1px solid rgba(34, 139, 34, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2c5530, #4a7c59, #228b22);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.menu-card:hover::before {
+  transform: scaleX(1);
 }
 
 .menu-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  border-color: #4caf50;
+  transform: translateY(-12px);
+  box-shadow: 0 20px 64px rgba(44, 85, 48, 0.2);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .menu-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1.5rem;
-  gap: 1rem;
+  margin-bottom: 2rem;
+  gap: 1.5rem;
 }
 
 .menu-title {
-  color: #2c3e50;
-  font-size: 1.5rem;
-  font-weight: bold;
+  background: linear-gradient(135deg, #2c5530, #4a7c59);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2rem;
+  font-weight: 700;
   margin: 0;
   flex: 1;
+  line-height: 1.3;
 }
 
 .menu-price {
-  background: #4caf50;
+  background: linear-gradient(135deg, #4caf50, #45a049, #228b22);
   color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 1.1rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.3rem;
   white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
+  transition: all 0.3s ease;
+}
+
+.menu-card:hover .menu-price {
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px rgba(76, 175, 80, 0.4);
 }
 
 .menu-description {
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  font-size: 1rem;
+  color: #6b7b68;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  font-size: 1.4rem;
+  font-weight: 400;
 }
 
 .menu-actions {
@@ -192,184 +292,364 @@ ${item.description}
 }
 
 .order-btn {
-  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  background: linear-gradient(135deg, #ff8a56, #ff6b35, #e55a2b);
   color: white;
   border: none;
-  padding: 1rem 2rem;
+  padding: 1.5rem 3rem;
   border-radius: 50px;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   width: 100%;
-  max-width: 250px;
+  max-width: 280px;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.order-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.order-btn:hover::before {
+  left: 100%;
 }
 
 .order-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(255, 107, 53, 0.6);
+  background: linear-gradient(135deg, #ff9966, #ff8a56, #ff6b35);
 }
 
 .info-section {
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .info-card {
-  background: linear-gradient(135deg, #a8e6cf 0%, #88d8a3 100%);
+  background: linear-gradient(135deg, #2c5530 0%, #3e6b42 50%, #4a7c59 100%);
   color: white;
-  padding: 3rem 2rem;
-  border-radius: 16px;
+  padding: 4rem 3rem;
+  border-radius: 24px;
   text-align: center;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 16px 64px rgba(44, 85, 48, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.info-card > * {
+  position: relative;
+  z-index: 2;
 }
 
 .info-card h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .info-card p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  margin-bottom: 3rem;
   opacity: 0.95;
-  line-height: 1.6;
-  max-width: 600px;
+  line-height: 1.8;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .custom-order-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: white;
-  color: #4caf50;
-  padding: 1rem 2rem;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #2c5530;
+  padding: 1.5rem 3rem;
   border-radius: 50px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-size: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.custom-order-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(44, 85, 48, 0.1), transparent);
+  transition: left 0.6s;
+}
+
+.custom-order-btn:hover::before {
+  left: 100%;
 }
 
 .custom-order-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  background: #f8f9fa;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 1);
+  color: #228b22;
 }
 
 .nutrition-section {
-  background: white;
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  box-shadow: 0 12px 48px rgba(44, 85, 48, 0.12);
+  border: 1px solid rgba(34, 139, 34, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 2;
+}
+
+.nutrition-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2c5530, #4a7c59, #228b22);
 }
 
 .nutrition-section h2 {
   text-align: center;
-  color: #2c3e50;
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin-bottom: 4rem;
+  background: linear-gradient(135deg, #2c5530, #4a7c59, #228b22);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(44, 85, 48, 0.1);
 }
 
 .nutrition-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
 }
 
 .nutrition-item {
   text-align: center;
-  padding: 2rem 1rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  transition: transform 0.3s ease;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 249, 250, 0.9) 100%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(44, 85, 48, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.nutrition-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(34, 139, 34, 0.02), rgba(76, 175, 80, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nutrition-item:hover::before {
+  opacity: 1;
 }
 
 .nutrition-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(44, 85, 48, 0.15);
+  border-color: rgba(76, 175, 80, 0.3);
 }
 
 .nutrition-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 4px 8px rgba(44, 85, 48, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.nutrition-item:hover .nutrition-icon {
+  transform: scale(1.1);
 }
 
 .nutrition-item h4 {
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
+  color: #2c5530;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
 .nutrition-item p {
-  color: #666;
-  line-height: 1.5;
-  font-size: 0.95rem;
+  color: #6b7b68;
+  line-height: 1.7;
+  font-size: 1.3rem;
+  font-weight: 400;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .carta-container {
+    padding: 1.5rem;
+  }
+
   .header-section h1 {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.6rem;
+  }
+
+  .price-info {
+    font-size: 1.4rem;
+    padding: 1.2rem 2.5rem;
   }
 
   .menu-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .menu-card {
-    padding: 1.5rem;
+    padding: 2.5rem;
   }
 
   .menu-header {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     text-align: center;
   }
 
   .menu-title {
+    font-size: 1.8rem;
+  }
+
+  .menu-price {
+    font-size: 1.2rem;
+    padding: 0.7rem 1.3rem;
+  }
+
+  .menu-description {
     font-size: 1.3rem;
+  }
+
+  .order-btn {
+    font-size: 1.3rem;
+    padding: 1.3rem 2.5rem;
   }
 
   .nutrition-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .info-card {
-    padding: 2rem 1.5rem;
+    padding: 3rem 2rem;
+  }
+
+  .info-card h2 {
+    font-size: 2.4rem;
   }
 
   .nutrition-section {
-    padding: 2rem 1.5rem;
+    padding: 3rem 2rem;
+  }
+
+  .nutrition-section h2 {
+    font-size: 2.8rem;
+  }
+
+  .custom-order-btn {
+    font-size: 1.3rem;
+    padding: 1.3rem 2.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .header-section h1 {
-    font-size: 2rem;
+    font-size: 2.8rem;
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
   }
 
   .info-card h2,
   .nutrition-section h2 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
   }
 
   .menu-card {
-    padding: 1rem;
+    padding: 2rem;
+  }
+
+  .menu-title {
+    font-size: 1.6rem;
   }
 
   .menu-description {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
 
   .order-btn {
-    font-size: 0.9rem;
-    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    padding: 1.2rem 2rem;
+  }
+
+  .nutrition-item {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .nutrition-item h4 {
+    font-size: 1.6rem;
+  }
+
+  .nutrition-item p {
+    font-size: 1.2rem;
+  }
+
+  .custom-order-btn {
+    font-size: 1.2rem;
+    padding: 1.2rem 2rem;
   }
 }
 </style>

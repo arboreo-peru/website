@@ -22,7 +22,7 @@ import { RESTAURANT_CONFIG } from './config/restaurant'
       </div>
     </header>
 
-    <main class="main-content">
+    <main>
       <RouterView />
     </main>
   </div>
@@ -115,9 +115,6 @@ import { RESTAURANT_CONFIG } from './config/restaurant'
   .nav-link {
     font-size: 1rem;
     padding: 0.4rem 0.8rem;
-  }
-
-  .main-content {
   }
 }
 

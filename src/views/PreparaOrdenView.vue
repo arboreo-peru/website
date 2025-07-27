@@ -253,115 +253,186 @@ const resetearSeleccion = () => {
 .prepara-orden-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fffe 0%, #ecf7f5 50%, #e0f2eb 100%);
 }
 
 .header-section {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.header-section::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #2c5530, transparent);
+  border-radius: 2px;
 }
 
 .header-section h1 {
-  font-size: 3rem;
-  color: #2c3e50;
-  margin-bottom: 1rem;
+  font-size: 4.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #2c5530, #4a7c59, #228b22);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(44, 85, 48, 0.1);
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #5a6c57;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 .price-display {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.8rem;
   background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
   color: white;
-  padding: 1rem 2rem;
+  padding: 1.2rem 2.5rem;
   border-radius: 50px;
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  font-size: 1.8rem;
+  font-weight: 600;
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .price {
-  font-size: 2rem;
+  font-size: 2.8rem;
   font-weight: bold;
 }
 
 .price-label {
-  font-size: 1rem;
+  font-size: 1.5rem;
   opacity: 0.9;
 }
 
 .selection-container {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  margin-bottom: 3rem;
+  gap: 4rem;
+  margin-bottom: 4rem;
 }
 
 .category-section {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: 0 12px 48px rgba(44, 85, 48, 0.12);
+  border: 1px solid rgba(34, 139, 34, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.category-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2c5530, #4a7c59, #228b22);
 }
 
 .category-title {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 1.8rem;
-  color: #2c3e50;
-  margin-bottom: 1.5rem;
-  border-bottom: 3px solid #4caf50;
-  padding-bottom: 0.5rem;
+  gap: 1rem;
+  font-size: 2.6rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #2c5530, #4a7c59);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(44, 85, 48, 0.1);
 }
 
 .category-icon {
-  font-size: 2rem;
+  font-size: 3.2rem;
+  filter: drop-shadow(0 2px 4px rgba(44, 85, 48, 0.2));
 }
 
 .required {
   color: #e74c3c;
-  font-size: 1rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  background: rgba(231, 76, 60, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
 }
 
 .counter {
   color: #4caf50;
-  font-size: 1rem;
-  font-weight: normal;
+  font-size: 1.6rem;
+  font-weight: 500;
+  background: rgba(76, 175, 80, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
 }
 
 .options-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 .ingredientes-grid {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .option-card {
   display: flex;
   align-items: center;
-  padding: 1rem 1.5rem;
-  border: 2px solid #e9ecef;
-  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  border: 2px solid rgba(44, 85, 48, 0.15);
+  border-radius: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  background: #fafafa;
-  position: relative; /*Color de las letras de las opciones*/
-  color: #3b3b3b;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.8);
+  position: relative;
+  color: #2c5530;
+  font-weight: 500;
+  backdrop-filter: blur(5px);
+}
+
+.option-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.option-card:hover:not(.disabled)::before {
+  opacity: 1;
 }
 
 .option-card:hover:not(.disabled) {
   border-color: #4caf50;
-  background: #f8f9fa;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(76, 175, 80, 0.2);
 }
 
 .option-card.active {
@@ -369,78 +440,112 @@ const resetearSeleccion = () => {
   background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
   color: #155724;
   font-weight: 600;
+  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
+}
+
+.option-card.active::before {
+  opacity: 0;
 }
 
 .option-card.disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
-  background: #f8f9fa;
+  background: rgba(248, 249, 250, 0.8);
 }
 
 .option-input {
-  margin-right: 1rem;
-  transform: scale(1.2);
+  margin-right: 2rem;
+  transform: scale(1.8);
   accent-color: #4caf50;
 }
 
 .option-text {
   flex: 1;
-  font-size: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 .summary-section {
   position: sticky;
-  bottom: 1rem;
+  bottom: 2rem;
   z-index: 100;
+  margin-top: 3rem;
 }
 
 .summary-card {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-  border: 2px solid #4caf50;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  box-shadow: 0 16px 64px rgba(44, 85, 48, 0.15);
+  border: 1px solid rgba(34, 139, 34, 0.1);
+  backdrop-filter: blur(20px);
   overflow: hidden;
+  transition: all 0.4s ease;
 }
 
 .summary-card.collapsed {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(44, 85, 48, 0.12);
 }
 
 .summary-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
+  padding: 1.5rem 2rem;
   cursor: pointer;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-bottom: 1px solid #dee2e6;
-  transition: background 0.3s ease;
+  background: linear-gradient(135deg, #2c5530 0%, #3e6b42 100%);
+  color: white;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s;
+}
+
+.summary-header:hover::before {
+  left: 100%;
 }
 
 .summary-header:hover {
-  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  background: linear-gradient(135deg, #3e6b42 0%, #4a7c59 100%);
 }
 
 .summary-header h3 {
-  color: #2c3e50;
+  color: white;
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .toggle-btn {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  color: #4caf50;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  font-size: 1.6rem;
+  color: white;
   cursor: pointer;
-  transition: transform 0.3s ease;
-  padding: 0.5rem;
+  transition: all 0.3s ease;
+  padding: 0.8rem;
   border-radius: 50%;
+  backdrop-filter: blur(10px);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .toggle-btn:hover {
-  background: rgba(76, 175, 80, 0.1);
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
 }
 
 .toggle-btn.rotated {
@@ -458,14 +563,14 @@ const resetearSeleccion = () => {
 .compact-summary p {
   margin: 0;
   color: #3b3b3b;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   flex: 1;
 }
 
 .compact-price {
   color: #4caf50;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
 }
 
 .summary-content {
@@ -477,7 +582,7 @@ const resetearSeleccion = () => {
   padding: 0.4rem 0;
   border-bottom: 1px solid #f1f1f1;
   line-height: 1.4;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
 }
 
 .summary-item:last-of-type {
@@ -486,7 +591,7 @@ const resetearSeleccion = () => {
 
 .summary-total {
   padding: 0.8rem 0;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   color: #4caf50;
   text-align: center;
   border-top: 1px solid #4caf50;
@@ -503,17 +608,17 @@ const resetearSeleccion = () => {
 }
 
 .btn {
-  padding: 0.8rem 1.5rem;
+  padding: 1.2rem 2rem;
   border: none;
   border-radius: 25px;
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  min-width: 140px;
+  min-width: 180px;
   justify-content: center;
 }
 
@@ -548,7 +653,11 @@ const resetearSeleccion = () => {
 /* Responsive Design */
 @media (max-width: 768px) {
   .header-section h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
   }
 
   .options-grid,
@@ -563,10 +672,11 @@ const resetearSeleccion = () => {
 
   .btn {
     width: 100%;
+    font-size: 1.2rem;
   }
 
   .summary-header h3 {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
   }
 
   .compact-summary {
@@ -579,27 +689,52 @@ const resetearSeleccion = () => {
     padding: 1.5rem;
   }
 
-  .summary-card {
-    padding: 1.5rem;
+  .category-title {
+    font-size: 2rem;
+  }
+
+  .category-icon {
+    font-size: 2.5rem;
+  }
+
+  .option-text {
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
   .header-section h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
   }
 
   .price {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .category-title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     flex-wrap: wrap;
   }
 
+  .category-icon {
+    font-size: 2rem;
+  }
+
   .option-card {
-    padding: 0.8rem 1rem;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .option-text {
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
   }
 }
 </style>
