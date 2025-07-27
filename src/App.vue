@@ -20,6 +20,14 @@ const openCart = () => {
 const closeCart = () => {
   showCartModal.value = false
 }
+
+// Función para scroll to top
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+}
 </script>
 
 <template>
@@ -37,6 +45,9 @@ const closeCart = () => {
 
     <!-- Botón flotante del carrito -->
     <CartButton @open-cart="openCart" />
+
+    <!-- Botón scroll to top -->
+    <button class="scroll-to-top" @click="scrollToTop" title="Volver al inicio">↑</button>
 
     <!-- Modal del carrito -->
     <CartModal :is-visible="showCartModal" @close="closeCart" />
@@ -145,6 +156,58 @@ const closeCart = () => {
   .nav-link {
     font-size: 0.9rem;
     padding: 0.3rem 0.6rem;
+  }
+}
+
+/* Botón Scroll to Top */
+.scroll-to-top {
+  position: fixed;
+  bottom: 7rem; /* Posicionado arriba del carrito que está en bottom: 2rem */
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  transition: all 0.3s ease;
+  z-index: 998; /* Menor que el carrito (999) pero visible */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-to-top:hover {
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.scroll-to-top:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 5rem; /* Ajustado para móvil */
+    right: 1rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-to-top {
+    bottom: 4.5rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
   }
 }
 </style>

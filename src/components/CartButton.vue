@@ -49,7 +49,7 @@ const openCart = () => {
 }
 
 .cart-button {
-  background: linear-gradient(135deg, #4a7c59, #2c5530);
+  background: linear-gradient(135deg, #ff8a56, #ff6b35); /* ← Gradiente naranja */
   color: white;
   border: none;
   border-radius: 50px;
