@@ -24,8 +24,9 @@
           <h4>Enlaces Rápidos</h4>
           <ul class="footer-links">
             <li><RouterLink to="/">🏠 Inicio</RouterLink></li>
-            <li><RouterLink to="/prepara-orden">🥗 Prepara tu Orden</RouterLink></li>
-            <li><RouterLink to="/carta">📋 Ver Carta</RouterLink></li>
+            <li><RouterLink to="/prepara-orden">🎨 Prepara tu Orden</RouterLink></li>
+            <li><RouterLink to="/Ensaladas">🥗 Ver Ensaladas</RouterLink></li>
+            <li><RouterLink to="/carta">📋 Ver Menú</RouterLink></li>
           </ul>
         </div>
 
@@ -58,6 +59,10 @@
             <a :href="RESTAURANT_CONFIG.socialMedia.instagram" target="_blank" class="social-link">
               <span>📷</span>
               Instagram
+            </a>
+            <a :href="RESTAURANT_CONFIG.socialMedia.twitter" target="_blank" class="social-link">
+              <span>🐦</span>
+              Twitter
             </a>
           </div>
 

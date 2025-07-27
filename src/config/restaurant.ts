@@ -6,9 +6,9 @@ export const RESTAURANT_CONFIG = {
   currency: 'S/.',
   juicePrice: 1,
   socialMedia: {
-    facebook: 'https://facebook.com/saladbar',
-    twitter: 'https://twitter.com/saladbar',
-    instagram: 'https://instagram.com/saladbar',
+    facebook: 'https://www.facebook.com/arboreo.peru/?locale=es_LA',
+    twitter: 'https://x.com/arboreoperu',
+    instagram: 'https://www.instagram.com/arboreo.peru/?hl=es',
     whatsapp: '957293769',
     email: 'arboreoperu@gmail.com',
   },
@@ -81,36 +81,42 @@ export const SALAD_OPTIONS = [
     description:
       'Lechuga crespa, palta, choclo, zanahoria cocida y beterraga, pollo empanizado con vinagreta Honey mustard',
     price: 21,
+    image: 'ChickenCrispy.jpg',
   },
   {
     name: 'César',
     description:
       'Lechuga crespa, queso parmesano, crutones y palta, pollo a la plancha con vinagreta César',
     price: 21,
+    image: 'Cesar.jpg',
   },
   {
     name: 'Cocida',
     description:
       'Base de papa cocida en cubos, brócoli, zanahoria cocida, vainita, huevo y palta con pollo a la plancha con vinagreta de Mayonesa',
     price: 21,
+    image: 'Cocida.jpg',
   },
   {
     name: 'Andina',
     description:
       'Mix de espinaca y lechuga, quinua, papa cocida en cubos, choclo desgranado, cebolla blanca, queso fresco y pollo empanizado, con vinagreta de limón',
     price: 21,
+    image: 'Andina.jpg',
   },
   {
     name: 'Oriental',
     description:
       'Mix de espinaca y lechuga, palta en trozos, pepino, zanahoria rallada, wantán frito, semillas de ajonjolí y pollo empanizado acompañado de nuestra vinagreta oriental',
     price: 21,
+    image: 'Oriental.jpg',
   },
   {
     name: 'Atun',
     description:
       'Lechuga crespa, palta, choclo desgranado, tomate, zanahoria rallada y filete de atún en conserva con nuestra vinagreta de Limón',
     price: 21,
+    image: 'Atun.jpg',
   },
 ]
 

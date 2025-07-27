@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { SALAD_INGREDIENTS, RESTAURANT_CONFIG, getCustomSaladPrice } from '../config/restaurant'
-import CustomSaladCheckoutModal from '../components/CustomSaladCheckoutModal.vue'
+import { useCart } from '../composables/useCart'
+import ItemSelector from '../components/ItemSelector.vue'
+
+// ✅ NUEVO: Usar el carrito
+const { addToCart } = useCart()
 
 // Estado reactivo para las selecciones
 const selectedBase = ref('')
@@ -12,8 +16,9 @@ const selectedIngredientes = ref<string[]>([])
 // ✅ NUEVO: Estado para comentarios de la ensalada personalizada
 const comentarios = ref('')
 
-// Estado para mostrar/ocultar el resumen
-const showSummary = ref(true)
+// ✅ NUEVO: Estado para controlar el modal de selección de item
+const showItemSelector = ref(false)
+const selectedCustomSalad = ref<any>(null)
 
 // ✅ ACTUALIZADO: Computed para calcular precio total base (sin extras)
 const totalPrice = computed(() => {
@@ -29,57 +34,6 @@ const isValidSelection = computed(() => {
     selectedIngredientes.value.length > 0
   )
 })
-
-// ✅ ACTUALIZADO: Computed para mostrar un resumen compacto
-const compactSummary = computed(() => {
-  const parts = []
-  if (selectedBase.value) parts.push(selectedBase.value)
-  if (selectedIngredientes.value.length > 0)
-    parts.push(`${selectedIngredientes.value.length} ingredientes`)
-  if (selectedProteina.value) parts.push(selectedProteina.value)
-  if (selectedVinagreta.value) parts.push(selectedVinagreta.value)
-  return parts.join(' | ')
-})
-
-// Función para toggle del resumen
-const toggleSummary = () => {
-  showSummary.value = !showSummary.value
-
-  // ✅ MEJORADO: Mejor gestión del scroll para UX óptima
-  if (showSummary.value) {
-    // Al expandir: asegurar que el resumen sea visible
-    setTimeout(() => {
-      const summaryElement = document.querySelector('.summary-section')
-      if (summaryElement) {
-        const rect = summaryElement.getBoundingClientRect()
-        const viewportHeight = window.innerHeight
-
-        // Solo hacer scroll si el resumen no es completamente visible
-        if (rect.bottom > viewportHeight || rect.top < 0) {
-          summaryElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest', // ✅ Mejor posicionamiento
-            inline: 'nearest',
-          })
-        }
-      }
-    }, 150) // ✅ Delay optimizado para animación
-  } else {
-    // Al colapsar: mantener el header visible si está fuera de vista
-    setTimeout(() => {
-      const summaryCard = document.querySelector('.summary-card')
-      if (summaryCard) {
-        const rect = summaryCard.getBoundingClientRect()
-        if (rect.bottom < 60 || rect.top > window.innerHeight - 60) {
-          summaryCard.scrollIntoView({
-            behavior: 'smooth',
-            block: 'end',
-          })
-        }
-      }
-    }, 100)
-  }
-}
 
 // Función para manejar selección de ingredientes
 const toggleIngrediente = (ingrediente: string) => {
@@ -134,28 +88,55 @@ TOTAL: ${RESTAURANT_CONFIG.currency}${totalPrice.value}
   return mensaje
 }
 
-// ✅ NUEVO: Estado para controlar el modal de checkout
-const showCheckoutModal = ref(false)
-
-// ✅ NUEVO: Computed para crear el objeto de datos de la ensalada
-const saladData = computed(() => ({
-  selectedBase: selectedBase.value,
-  selectedProteina: selectedProteina.value,
-  selectedVinagreta: selectedVinagreta.value,
-  selectedIngredientes: selectedIngredientes.value,
-  totalPrice: totalPrice.value,
-  comentarios: comentarios.value,
-}))
-
-// ✅ ACTUALIZADO: Función para abrir el checkout modal
+// ✅ ACTUALIZADO: Función para abrir el selector de item con ensalada personalizada
 const enviarPedido = () => {
   if (!isValidSelection.value) return
-  showCheckoutModal.value = true
+
+  // Crear el item personalizado para el selector
+  selectedCustomSalad.value = {
+    name: 'Ensalada Personalizada',
+    price: totalPrice.value,
+    description: generarDescripcionEnsalada(),
+    includeEntrada: false,
+    isCustomSalad: true,
+    customDetails: {
+      base: selectedBase.value,
+      proteina: selectedProteina.value,
+      vinagreta: selectedVinagreta.value,
+      ingredientes: selectedIngredientes.value,
+      comentarios: comentarios.value,
+    },
+  }
+
+  showItemSelector.value = true
 }
 
-// ✅ NUEVO: Función para cerrar el modal
-const cerrarCheckoutModal = () => {
-  showCheckoutModal.value = false
+// ✅ NUEVO: Función para generar descripción de la ensalada
+const generarDescripcionEnsalada = () => {
+  let descripcion = `Base: ${selectedBase.value}, Proteína: ${selectedProteina.value}, Vinagreta: ${selectedVinagreta.value}`
+
+  if (selectedIngredientes.value.length > 0) {
+    descripcion += `, Ingredientes: ${selectedIngredientes.value.join(', ')}`
+  }
+
+  if (comentarios.value.trim()) {
+    descripcion += `. Comentarios: ${comentarios.value.trim()}`
+  }
+
+  return descripcion
+}
+
+// ✅ NUEVO: Función para cerrar el modal del selector
+const cerrarItemSelector = () => {
+  showItemSelector.value = false
+  selectedCustomSalad.value = null
+}
+
+// ✅ NUEVO: Función cuando se agrega al carrito
+const onItemAdded = () => {
+  console.log('Ensalada personalizada agregada al carrito!')
+  // Opcional: Resetear la selección después de agregar
+  // resetearSeleccion()
 }
 
 // ✅ ACTUALIZADO: Función para resetear selección
@@ -276,87 +257,62 @@ const resetearSeleccion = () => {
       </section>
     </div>
 
-    <!-- ✅ ACTUALIZADO: Resumen y Total -->
-    <div class="summary-section">
-      <div class="summary-card" :class="{ collapsed: !showSummary }">
-        <!-- Header del resumen con botón toggle -->
-        <div class="summary-header" @click="toggleSummary">
-          <h3><span class="summary-icon">📋</span> Resumen de tu Pedido</h3>
-          <button class="toggle-btn" :class="{ rotated: showSummary }" type="button">
-            {{ showSummary ? '▼' : '▽' }}
-          </button>
+    <!-- ✅ NUEVO: Sección de comentarios opcionales -->
+    <div class="comments-section-container">
+      <section class="category-section comments-section">
+        <h2 class="category-title">
+          <span class="category-icon">�</span>
+          <span class="title-text">Comentarios Adicionales</span>
+          <span class="optional">(Opcional)</span>
+        </h2>
+        <div class="comments-container">
+          <textarea
+            v-model="comentarios"
+            class="comments-textarea"
+            placeholder="¿Alguna instrucción especial para tu ensalada? (Ej: sin cebolla, aderezo aparte, etc.)"
+            maxlength="200"
+          ></textarea>
+          <div class="char-counter">{{ comentarios.length }}/200</div>
         </div>
-
-        <!-- Resumen compacto cuando está colapsado -->
-        <div v-if="!showSummary && compactSummary" class="compact-summary">
-          <p>{{ compactSummary }}</p>
-          <span class="compact-price">{{ RESTAURANT_CONFIG.currency }}{{ totalPrice }}</span>
-        </div>
-
-        <!-- Resumen completo cuando está expandido -->
-        <div v-if="showSummary" class="summary-content">
-          <div v-if="selectedBase" class="summary-item">
-            <strong><span class="summary-icon">🥬</span> Base:</strong> {{ selectedBase }}
-          </div>
-          <div v-if="selectedIngredientes.length > 0" class="summary-item">
-            <strong><span class="summary-icon">🥕</span> Ingredientes:</strong>
-            {{ selectedIngredientes.join(', ') }}
-          </div>
-          <div v-if="selectedProteina" class="summary-item">
-            <strong><span class="summary-icon">🍗</span> Proteína:</strong> {{ selectedProteina }}
-          </div>
-          <div v-if="selectedVinagreta" class="summary-item">
-            <strong><span class="summary-icon">🫒</span> Vinagreta:</strong> {{ selectedVinagreta }}
-          </div>
-
-          <!-- ✅ NUEVO: Mostrar comentarios en resumen -->
-          <div v-if="comentarios.trim()" class="summary-item comments-item">
-            <strong><span class="summary-icon">💬</span> Comentarios:</strong>
-            <span class="comment-text">{{ comentarios.trim() }}</span>
-          </div>
-
-          <!-- ✅ ACTUALIZADO: Desglose de precios -->
-          <div class="price-breakdown-summary">
-            <div class="breakdown-item">
-              <span>Ensalada personalizada:</span>
-              <span>{{ RESTAURANT_CONFIG.currency }}{{ RESTAURANT_CONFIG.baseSaladPrice }}</span>
-            </div>
-          </div>
-
-          <!-- ✅ NUEVO: Total prominente -->
-          <div class="summary-total">
-            <div class="total-label">TOTAL A PAGAR:</div>
-            <div class="total-amount">{{ RESTAURANT_CONFIG.currency }}{{ totalPrice }}</div>
-          </div>
-        </div>
-
-        <!-- Botones siempre visibles -->
-        <div class="action-buttons">
-          <button
-            @click="resetearSeleccion"
-            class="btn btn-secondary"
-            :disabled="
-              !selectedBase &&
-              !selectedProteina &&
-              !selectedVinagreta &&
-              selectedIngredientes.length === 0 &&
-              !comentarios.trim()
-            "
-          >
-            🔄 Resetear
-          </button>
-          <button @click="enviarPedido" class="btn btn-primary" :disabled="!isValidSelection">
-            � Hacer Pedido
-          </button>
-        </div>
-      </div>
+      </section>
     </div>
 
-    <!-- ✅ NUEVO: Modal de checkout completo para ensalada personalizada -->
-    <CustomSaladCheckoutModal
-      :is-visible="showCheckoutModal"
-      :salad-data="saladData"
-      @close="cerrarCheckoutModal"
+    <!-- ✅ NUEVO: Botón simple para agregar al carrito -->
+    <div class="add-to-cart-section">
+      <button
+        @click="enviarPedido"
+        class="add-to-cart-btn"
+        :disabled="!isValidSelection"
+        :class="{ pulse: isValidSelection }"
+      >
+        <span class="cart-icon">🛒</span>
+        <div class="cart-content">
+          <span class="cart-text">Agregar al Carrito</span>
+          <span class="cart-price">{{ RESTAURANT_CONFIG.currency }}{{ totalPrice }}</span>
+        </div>
+      </button>
+
+      <button
+        @click="resetearSeleccion"
+        class="reset-btn"
+        :disabled="
+          !selectedBase &&
+          !selectedProteina &&
+          !selectedVinagreta &&
+          selectedIngredientes.length === 0 &&
+          !comentarios.trim()
+        "
+      >
+        🔄 Resetear Selección
+      </button>
+    </div>
+
+    <!-- ✅ Modal de selección de item para ensalada personalizada -->
+    <ItemSelector
+      :is-visible="showItemSelector"
+      :selected-item="selectedCustomSalad"
+      @close="cerrarItemSelector"
+      @added="onItemAdded"
     />
   </div>
 </template>
@@ -589,13 +545,193 @@ const resetearSeleccion = () => {
   font-weight: 500;
 }
 
-.summary-section {
-  position: sticky;
-  bottom: 2rem;
-  z-index: 1100; /* ✅ Mayor que NavBar (1000) para quedar por encima */
-  margin-top: 3rem;
-  max-height: calc(100vh - 4rem); /* ✅ Altura máxima para evitar overflow */
-  overflow-y: auto; /* ✅ Scroll interno si es necesario */
+/* ✅ NUEVO: Estilos para la sección de comentarios */
+.comments-section-container {
+  margin: 4rem 0;
+}
+
+.comments-section {
+  background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, rgba(108, 117, 125, 0.05) 100%);
+  border-left: 4px solid #0d6efd;
+}
+
+.optional {
+  color: #0d6efd;
+  font-size: 1.4rem;
+  font-weight: 500;
+  background: rgba(13, 110, 253, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+}
+
+.comments-container {
+  position: relative;
+}
+
+.comments-textarea {
+  width: 100%;
+  padding: 1.5rem;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  font-size: 1.4rem;
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  box-sizing: border-box;
+}
+
+.comments-textarea:focus {
+  outline: none;
+  border-color: #4caf50;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.comments-textarea::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+  color: #6c757d;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid rgba(108, 117, 125, 0.2);
+}
+
+/* ✅ NUEVO: Estilos para la sección de agregar al carrito */
+.add-to-cart-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 4rem 0 2rem 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(76, 175, 80, 0.1);
+}
+
+.add-to-cart-btn {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: white;
+  border: none;
+  padding: 2rem 3rem;
+  border-radius: 25px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+  position: relative;
+  overflow: hidden;
+  min-width: 320px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.add-to-cart-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.add-to-cart-btn:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #66bb6a, #4caf50);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 50px rgba(76, 175, 80, 0.5);
+}
+
+.add-to-cart-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  background: linear-gradient(135deg, #9e9e9e, #757575);
+  box-shadow: 0 4px 16px rgba(158, 158, 158, 0.3);
+}
+
+.add-to-cart-btn.pulse:not(:disabled) {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    box-shadow: 0 12px 40px rgba(76, 175, 80, 0.5);
+  }
+  100% {
+    box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+  }
+}
+
+.cart-icon {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.cart-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cart-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.cart-price {
+  font-size: 2.2rem;
+  font-weight: 900;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.reset-btn {
+  background: linear-gradient(135deg, #6c757d, #5a6268);
+  color: white;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  border-radius: 20px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(108, 117, 125, 0.3);
+}
+
+.reset-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a6268, #495057);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(108, 117, 125, 0.4);
+}
+
+.reset-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
 }
 
 .summary-card {
@@ -1480,6 +1616,144 @@ const resetearSeleccion = () => {
 
   .option-subtitle {
     font-size: 1rem;
+  }
+}
+
+/* ✅ NUEVO: Estilos responsivos actualizados para la nueva interfaz */
+@media (max-width: 768px) {
+  .header-section h1 {
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
+  }
+
+  .options-grid,
+  .ingredientes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-section {
+    padding: 1.5rem;
+  }
+
+  .category-title {
+    font-size: 2rem;
+  }
+
+  .category-icon {
+    font-size: 2.5rem;
+  }
+
+  .option-text {
+    font-size: 1.2rem;
+  }
+
+  .add-to-cart-section {
+    padding: 1.5rem;
+    margin: 3rem 0 1.5rem 0;
+  }
+
+  .add-to-cart-btn {
+    min-width: 280px;
+    padding: 1.8rem 2.5rem;
+    font-size: 1.4rem;
+  }
+
+  .cart-text {
+    font-size: 1.4rem;
+  }
+
+  .cart-price {
+    font-size: 2rem;
+  }
+
+  .reset-btn {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+  }
+
+  .comments-textarea {
+    font-size: 1.3rem;
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .prepara-orden-container {
+    padding: 0.5rem;
+  }
+
+  .header-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .category-title {
+    font-size: 1.8rem;
+    flex-wrap: wrap;
+  }
+
+  .category-icon {
+    font-size: 2rem;
+  }
+
+  .option-card {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .option-text {
+    font-size: 1.1rem;
+  }
+
+  .add-to-cart-section {
+    padding: 1rem;
+    margin: 2rem 0 1rem 0;
+  }
+
+  .add-to-cart-btn {
+    min-width: 260px;
+    padding: 1.5rem 2rem;
+    font-size: 1.2rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .cart-content {
+    align-items: center;
+  }
+
+  .cart-text {
+    font-size: 1.2rem;
+  }
+
+  .cart-price {
+    font-size: 1.8rem;
+  }
+
+  .cart-icon {
+    font-size: 2rem;
+  }
+
+  .reset-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .comments-textarea {
+    font-size: 1.2rem;
+    padding: 1rem;
+    min-height: 100px;
+  }
+
+  .char-counter {
+    font-size: 1rem;
+    padding: 0.2rem 0.6rem;
   }
 }
 </style>
