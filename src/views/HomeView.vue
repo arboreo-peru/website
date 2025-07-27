@@ -65,14 +65,13 @@ const navigateWithLoading = (path: string) => {
             <div class="plan-icon">🍽️</div>
             <h3>Plan 20 Comidas</h3>
             <div class="plan-price">
-              <span class="price-amount">S/ 360</span>
+              <span class="price-amount">S/ 360 - </span>
               <span class="price-per">S/ 18 por comida</span>
             </div>
             <ul class="plan-features">
-              <li>✓ 20 comidas incluidas</li>
-              <li>✓ Válido por 30 días</li>
-              <li>✓ Ahorro de S/ 40</li>
-              <li>✓ Delivery gratis programado</li>
+              <li>20 comidas incluidas</li>
+              <li>Ahorro de S/ 40</li>
+              <li>Delivery gratis programado</li>
             </ul>
             <a
               href="#"
@@ -88,14 +87,13 @@ const navigateWithLoading = (path: string) => {
             <div class="plan-icon">🥗</div>
             <h3>Plan 10 Comidas</h3>
             <div class="plan-price">
-              <span class="price-amount">S/ 190</span>
+              <span class="price-amount">S/ 190 - </span>
               <span class="price-per">S/ 19 por comida</span>
             </div>
             <ul class="plan-features">
-              <li>✓ 10 comidas incluidas</li>
-              <li>✓ Válido por 15 días</li>
-              <li>✓ Ahorro de S/ 10</li>
-              <li>✓ Delivery gratis programado</li>
+              <li>10 comidas incluidas</li>
+              <li>Ahorro de S/ 10</li>
+              <li>Delivery gratis programado</li>
             </ul>
             <a
               href="#"
@@ -248,41 +246,73 @@ const navigateWithLoading = (path: string) => {
     <!-- Contact Section -->
     <section class="contact-section">
       <div class="container">
-        <h2>¡Haz tu pedido ahora!</h2>
-        <div class="delivery-content">
-          <!-- Imagen de delivery -->
-          <div class="delivery-image">
-            <img src="../../public/images/delivery.png" alt="Entrega a domicilio" />
-          </div>
+        <h2>Delivery Rápido y Efectivo</h2>
 
-          <!-- Contenido de texto y botones -->
+        <!-- Imagen de delivery arriba -->
+        <div class="delivery-image">
+          <img src="../../public/images/delivery.png" alt="Entrega a domicilio" />
+        </div>
+
+        <!-- Contenido de texto abajo -->
+        <div class="delivery-content">
           <div class="delivery-info">
-            <h3>Entrega a domicilio</h3>
-            <p>Recibe tu pedido directamente en tu casa u oficina</p>
-            <div class="contact-buttons">
-              <a
-                :href="`https://wa.me/51${RESTAURANT_CONFIG.socialMedia.whatsapp}?text=Hola, me gustaría hacer un pedido desde su sitio web.`"
-                class="contact-button whatsapp-button"
-                target="_blank"
-              >
-                <span class="contact-icon">📱</span>
-                <div class="contact-text">
-                  <span class="contact-label">Pedir por WhatsApp</span>
-                  <span class="contact-address"
-                    >+51 {{ RESTAURANT_CONFIG.socialMedia.whatsapp }}</span
+            <h3>Sin Salir de Casa</h3>
+            <p>
+              Disfruta de comida saludable y deliciosa sin la necesidad de salir de tu hogar u
+              oficina. Nuestro servicio de delivery es rápido, confiable y diseñado para tu
+              comodidad.
+            </p>
+
+            <!-- Beneficios del delivery -->
+            <div class="delivery-benefits">
+              <div class="benefit-item">
+                <span class="benefit-icon">⚡</span>
+                <div class="benefit-text">
+                  <h4>Entrega Rápida</h4>
+                  <p>Recibe tu pedido en tiempo récord</p>
+                </div>
+              </div>
+
+              <div class="benefit-item">
+                <span class="benefit-icon">🏠</span>
+                <div class="benefit-text">
+                  <h4>Comodidad Total</h4>
+                  <p>Sin salir de tu hogar u oficina</p>
+                </div>
+              </div>
+
+              <div class="benefit-item">
+                <span class="benefit-icon">📱</span>
+                <div class="benefit-text">
+                  <h4>Fácil Comunicación</h4>
+                  <p>Realiza tu pedido por WhatsApp o email</p>
+                </div>
+              </div>
+
+              <div class="benefit-item">
+                <span class="benefit-icon">🔒</span>
+                <div class="benefit-text">
+                  <h4>Seguro y Confiable</h4>
+                  <p>Entrega garantizada y segura</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Información de contacto simple -->
+            <div class="contact-info">
+              <h4>Haz tu Pedido:</h4>
+              <div class="contact-methods">
+                <div class="contact-method">
+                  <span class="method-icon">📱</span>
+                  <span class="method-text"
+                    >WhatsApp: +51 {{ RESTAURANT_CONFIG.socialMedia.whatsapp }}</span
                   >
                 </div>
-              </a>
-              <a
-                :href="`mailto:${RESTAURANT_CONFIG.socialMedia.email}?subject=Pedido desde sitio web&body=Hola, me gustaría hacer un pedido.`"
-                class="contact-button email-button"
-              >
-                <span class="contact-icon">📧</span>
-                <div class="contact-text">
-                  <span class="contact-label">Enviar por email</span>
-                  <span class="contact-address">{{ RESTAURANT_CONFIG.socialMedia.email }}</span>
+                <div class="contact-method">
+                  <span class="method-icon">📧</span>
+                  <span class="method-text">Email: {{ RESTAURANT_CONFIG.socialMedia.email }}</span>
                 </div>
-              </a>
+              </div>
             </div>
           </div>
         </div>
@@ -438,29 +468,29 @@ const navigateWithLoading = (path: string) => {
 .menu-button {
   background: linear-gradient(
     135deg,
-    rgba(255, 153, 102, 0.4),
-    rgba(255, 138, 86, 0.4),
-    rgba(255, 107, 53, 0.4)
+    rgba(102, 187, 106, 0.4),
+    rgba(76, 175, 80, 0.4),
+    rgba(46, 125, 50, 0.4)
   ) !important;
   color: white;
-  border: 2px solid rgba(255, 138, 86, 0.3);
+  border: 2px solid rgba(76, 175, 80, 0.3);
   box-shadow:
-    0 8px 32px rgba(255, 107, 53, 0.3),
+    0 8px 32px rgba(46, 125, 50, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .menu-button:hover {
   background: linear-gradient(
     135deg,
-    rgba(255, 153, 102, 0.9),
-    rgba(255, 138, 86, 0.9),
-    rgba(255, 107, 53, 0.9)
+    rgba(102, 187, 106, 0.9),
+    rgba(76, 175, 80, 0.9),
+    rgba(46, 125, 50, 0.9)
   ) !important;
   transform: translateY(-4px);
   box-shadow:
-    0 12px 48px rgba(255, 107, 53, 0.6),
+    0 12px 48px rgba(46, 125, 50, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  border-color: rgba(255, 138, 86, 0.7);
+  border-color: rgba(76, 175, 80, 0.7);
 }
 
 .salads-button {
@@ -494,42 +524,42 @@ const navigateWithLoading = (path: string) => {
 .custom-button {
   background: linear-gradient(
     135deg,
-    rgba(255, 193, 7, 0.4),
-    rgba(255, 179, 0, 0.4),
-    rgba(255, 160, 0, 0.4)
+    rgba(76, 175, 80, 0.4),
+    rgba(67, 160, 71, 0.4),
+    rgba(56, 142, 60, 0.4)
   ) !important;
   color: white;
-  border: 2px solid rgba(255, 193, 7, 0.3);
+  border: 2px solid rgba(76, 175, 80, 0.3);
   box-shadow:
-    0 8px 32px rgba(255, 193, 7, 0.3),
+    0 8px 32px rgba(76, 175, 80, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .custom-button:hover {
   background: linear-gradient(
     135deg,
-    rgba(255, 193, 7, 0.9),
-    rgba(255, 179, 0, 0.9),
-    rgba(255, 160, 0, 0.9)
+    rgba(76, 175, 80, 0.9),
+    rgba(67, 160, 71, 0.9),
+    rgba(56, 142, 60, 0.9)
   ) !important;
   transform: translateY(-4px);
   box-shadow:
-    0 12px 48px rgba(255, 193, 7, 0.6),
+    0 12px 48px rgba(76, 175, 80, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  border-color: rgba(255, 193, 7, 0.7);
+  border-color: rgba(76, 175, 80, 0.7);
 }
 
 .cta-button.primary {
-  background: linear-gradient(135deg, #ff8a56, #ff6b35, #e55a2b);
+  background: linear-gradient(135deg, #2e7d32, #4caf50, #66bb6a);
   color: white;
-  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.4);
   border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .cta-button.primary:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 48px rgba(255, 107, 53, 0.6);
-  background: linear-gradient(135deg, #ff9966, #ff8a56, #ff6b35);
+  box-shadow: 0 12px 48px rgba(76, 175, 80, 0.6);
+  background: linear-gradient(135deg, #1b5e20, #2e7d32, #4caf50);
 }
 
 .cta-button.secondary {
@@ -549,7 +579,7 @@ const navigateWithLoading = (path: string) => {
 /* Plans Section */
 .plans-section {
   padding: 8rem 0;
-  background: linear-gradient(135deg, #f8f4f0 0%, #f5f0e8 50%, #f2ebe0 100%);
+  background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 50%, #dcedc8 100%);
   position: relative;
   overflow: hidden;
 }
@@ -561,7 +591,7 @@ const navigateWithLoading = (path: string) => {
   left: -20%;
   width: 140%;
   height: 160%;
-  background: radial-gradient(circle, rgba(255, 183, 77, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 50%);
   transform: rotate(-15deg);
   z-index: 1;
 }
@@ -594,19 +624,21 @@ const navigateWithLoading = (path: string) => {
 .plans-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 3rem;
+  gap: 5rem;
   max-width: 800px;
   margin: 0 auto;
 }
 
 .plan-card {
   background: rgba(255, 255, 255, 0.9);
+  color: #333;
   border-radius: 20px;
   padding: 3rem 2rem;
+  margin: 1rem;
   text-align: center;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 183, 77, 0.2);
+  border: 2px solid rgba(76, 175, 80, 0.2);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -619,13 +651,13 @@ const navigateWithLoading = (path: string) => {
   left: 0;
   right: 0;
   height: 5px;
-  background: linear-gradient(90deg, #ffb74d 0%, #ff9800 50%, #f57c00 100%);
+  background: linear-gradient(90deg, #66bb6a 0%, #4caf50 50%, #2e7d32 100%);
 }
 
 .plan-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  border-color: rgba(255, 183, 77, 0.4);
+  border-color: rgba(76, 175, 80, 0.4);
 }
 
 .plan-name {
@@ -638,7 +670,7 @@ const navigateWithLoading = (path: string) => {
 .plan-price {
   font-size: 3.5rem;
   font-weight: 700;
-  color: #ff9800;
+  color: #2e7d32;
   margin-bottom: 0.5rem;
   line-height: 1;
 }
@@ -683,7 +715,7 @@ const navigateWithLoading = (path: string) => {
 }
 
 .plan-button {
-  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
   color: white;
   border: none;
   padding: 1rem 2.5rem;
@@ -694,14 +726,14 @@ const navigateWithLoading = (path: string) => {
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
   width: 100%;
 }
 
 .plan-button:hover {
-  background: linear-gradient(135deg, #f57c00 0%, #e65100 100%);
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
 }
 
 .plan-options {
@@ -726,13 +758,13 @@ const navigateWithLoading = (path: string) => {
 }
 
 .option-tag {
-  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-  color: #f57c00;
+  background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+  color: #2e7d32;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 500;
-  border: 1px solid rgba(245, 124, 0, 0.2);
+  border: 1px solid rgba(46, 125, 50, 0.2);
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
@@ -740,9 +772,9 @@ const navigateWithLoading = (path: string) => {
 }
 
 .option-tag:hover {
-  background: linear-gradient(135deg, #ffe0b2 0%, #ffcc80 100%);
+  background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(245, 124, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
 }
 
 @media (max-width: 768px) {
@@ -853,7 +885,7 @@ const navigateWithLoading = (path: string) => {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #4caf50, #76b57c, #4a7c59);
+  background: linear-gradient(90deg, #4caf50, #76b57c, #7a7c4a);
   transform: scaleX(0);
   transition: transform 0.4s ease;
 }
@@ -979,24 +1011,24 @@ const navigateWithLoading = (path: string) => {
 .custom-salad-button {
   background: linear-gradient(
     135deg,
-    rgba(255, 193, 7, 0.4),
-    rgba(255, 179, 0, 0.4),
-    rgba(255, 160, 0, 0.4)
+    rgba(76, 175, 80, 0.4),
+    rgba(67, 160, 71, 0.4),
+    rgba(56, 142, 60, 0.4)
   );
-  border-color: rgba(255, 193, 7, 0.3);
-  box-shadow: 0 8px 32px rgba(255, 193, 7, 0.3);
+  border-color: rgba(76, 175, 80, 0.3);
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
 }
 
 .custom-salad-button:hover {
   background: linear-gradient(
     135deg,
-    rgba(255, 193, 7, 0.9),
-    rgba(255, 179, 0, 0.9),
-    rgba(255, 160, 0, 0.9)
+    rgba(76, 175, 80, 0.9),
+    rgba(67, 160, 71, 0.9),
+    rgba(56, 142, 60, 0.9)
   );
   transform: translateY(-4px);
-  box-shadow: 0 12px 48px rgba(255, 193, 7, 0.6);
-  border-color: rgba(255, 193, 7, 0.7);
+  box-shadow: 0 12px 48px rgba(76, 175, 80, 0.6);
+  border-color: rgba(76, 175, 80, 0.7);
 }
 
 /* Responsive Design para la sección de ensaladas */
@@ -1055,7 +1087,7 @@ const navigateWithLoading = (path: string) => {
 /* Menu del Día Section */
 .daily-menu-section {
   padding: 8rem 0;
-  background: linear-gradient(135deg, #fff8f0 0%, #ffeee5 50%, #ffe5d9 100%);
+  background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 50%, #dcedc8 100%);
   position: relative;
   overflow: hidden;
 }
@@ -1067,7 +1099,7 @@ const navigateWithLoading = (path: string) => {
   left: -20%;
   width: 40%;
   height: 140%;
-  background: radial-gradient(circle at center, rgba(255, 138, 86, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(76, 175, 80, 0.05) 0%, transparent 70%);
   animation: gentle-float 25s ease-in-out infinite reverse;
 }
 
@@ -1081,11 +1113,11 @@ const navigateWithLoading = (path: string) => {
   font-weight: 700;
   text-align: center;
   margin-bottom: 2rem;
-  background: linear-gradient(135deg, #e55a2b, #ff6b35, #ff8a56);
+  background: linear-gradient(135deg, #1b5e20, #2e7d32, #4caf50);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 4px 8px rgba(255, 107, 53, 0.1);
+  text-shadow: 0 4px 8px rgba(46, 125, 50, 0.1);
 }
 
 .daily-menu-content {
@@ -1117,7 +1149,7 @@ const navigateWithLoading = (path: string) => {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #ff8a56, #ff6b35, #e55a2b);
+  background: linear-gradient(90deg, #4caf50, #2e7d32, #1b5e20);
   transform: scaleX(0);
   transition: transform 0.4s ease;
 }
@@ -1128,7 +1160,7 @@ const navigateWithLoading = (path: string) => {
 
 .menu-card-single:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 64px rgba(255, 138, 86, 0.15);
+  box-shadow: 0 20px 64px rgba(76, 175, 80, 0.15);
   background: rgba(255, 255, 255, 1);
 }
 
@@ -1136,7 +1168,7 @@ const navigateWithLoading = (path: string) => {
   font-size: 4rem;
   margin-bottom: 2rem;
   display: inline-block;
-  background: linear-gradient(135deg, #ff8a56, #ff6b35, #e55a2b);
+  background: linear-gradient(135deg, #4caf50, #2e7d32, #1b5e20);
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -1144,7 +1176,7 @@ const navigateWithLoading = (path: string) => {
   align-items: center;
   justify-content: center;
   margin: 0 auto 2rem;
-  box-shadow: 0 8px 32px rgba(255, 138, 86, 0.3);
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
   transition: all 0.4s ease;
 }
 
@@ -1170,24 +1202,24 @@ const navigateWithLoading = (path: string) => {
 .daily-menu-button {
   background: linear-gradient(
     135deg,
-    rgba(255, 153, 102, 0.4),
-    rgba(255, 138, 86, 0.4),
-    rgba(255, 107, 53, 0.4)
+    rgba(76, 175, 80, 0.4),
+    rgba(69, 160, 73, 0.4),
+    rgba(56, 142, 60, 0.4)
   );
-  border-color: rgba(255, 138, 86, 0.3);
-  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+  border-color: rgba(76, 175, 80, 0.3);
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
 }
 
 .daily-menu-button:hover {
   background: linear-gradient(
     135deg,
-    rgba(255, 153, 102, 0.9),
-    rgba(255, 138, 86, 0.9),
-    rgba(255, 107, 53, 0.9)
+    rgba(76, 175, 80, 0.9),
+    rgba(69, 160, 73, 0.9),
+    rgba(56, 142, 60, 0.9)
   );
   transform: translateY(-4px);
-  box-shadow: 0 12px 48px rgba(255, 107, 53, 0.6);
-  border-color: rgba(255, 138, 86, 0.7);
+  box-shadow: 0 12px 48px rgba(76, 175, 80, 0.6);
+  border-color: rgba(76, 175, 80, 0.7);
 }
 
 /* Responsive Design para la sección del menú */
@@ -1397,6 +1429,13 @@ const navigateWithLoading = (path: string) => {
 .contact-section .container {
   position: relative;
   z-index: 2;
+  padding: 1rem 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
 }
 
 .contact-section h2 {
@@ -1408,27 +1447,11 @@ const navigateWithLoading = (path: string) => {
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.delivery-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.delivery-info h3 {
-  font-size: 2.8rem;
-  margin-bottom: 2rem;
-  color: white;
-  font-weight: 600;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
 .delivery-image {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3rem;
   position: relative;
 }
 
@@ -1441,17 +1464,9 @@ const navigateWithLoading = (path: string) => {
   filter: blur(20px);
 }
 
-.delivery-info p {
-  font-size: 1.6rem;
-  margin-bottom: 2.5rem;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.8;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .delivery-image img {
   width: 100%;
-  max-width: 450px;
+  max-width: 350px;
   border-radius: 20px;
   box-shadow: 0 16px 64px rgba(0, 0, 0, 0.3);
   transition: all 0.4s ease;
@@ -1462,6 +1477,32 @@ const navigateWithLoading = (path: string) => {
 .delivery-image img:hover {
   transform: scale(1.05);
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+}
+
+.delivery-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.delivery-info h3 {
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.delivery-info {
+  text-align: center;
+}
+
+.delivery-info p {
+  font-size: 1.6rem;
+  margin-bottom: 2.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes float {
@@ -1475,6 +1516,7 @@ const navigateWithLoading = (path: string) => {
 }
 
 .delivery-info {
+  padding: 2rem;
   text-align: left;
 }
 
@@ -1494,118 +1536,102 @@ const navigateWithLoading = (path: string) => {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.contact-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.contact-button {
-  display: inline-flex;
-  align-items: center;
+.delivery-benefits {
+  margin: 2.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
-  color: white;
-  padding: 2rem 3rem;
-  border-radius: 50px;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
-  min-width: 300px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
 }
 
-.contact-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.6s;
+.benefit-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
 }
 
-.contact-button:hover::before {
-  left: 100%;
-}
-
-.contact-button:hover {
-  transform: translateY(-4px);
-}
-
-.whatsapp-button {
-  background: linear-gradient(135deg, #25d366, #128c7e, #075e54);
-  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
-}
-
-.whatsapp-button:hover {
-  background: linear-gradient(135deg, #38e577, #25d366, #128c7e);
-  box-shadow: 0 12px 48px rgba(37, 211, 102, 0.6);
-}
-
-.email-button {
-  background: linear-gradient(135deg, #ff8a56, #ff6b35, #e55a2b);
-  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.4);
-}
-
-.email-button:hover {
-  background: linear-gradient(135deg, #ff9966, #ff8a56, #ff6b35);
-  box-shadow: 0 12px 48px rgba(255, 107, 53, 0.6);
-}
-
-.contact-icon {
-  font-size: 3rem;
+.benefit-icon {
+  font-size: 2rem;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-  animation: gentle-pulse 3s ease-in-out infinite;
 }
 
-@keyframes gentle-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
+.benefit-text h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: white;
 }
 
-.contact-text {
+.benefit-text p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.contact-info {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-info h4 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.contact-methods {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
-.contact-label {
+.contact-method {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.contact-method:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+}
+
+.method-icon {
   font-size: 1.5rem;
-  font-weight: 700;
-  opacity: 0.95;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-.contact-address {
-  font-size: 1.2rem;
-  opacity: 0.85;
-  font-weight: 400;
+.method-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .delivery-content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    text-align: center;
-  }
-
-  .delivery-info {
-    text-align: center;
+  .delivery-image {
+    margin-bottom: 2rem;
   }
 
   .delivery-image img {
@@ -1620,23 +1646,24 @@ const navigateWithLoading = (path: string) => {
     font-size: 1.2rem;
   }
 
-  .email-button {
-    padding: 1.8rem 2.5rem;
-    width: 100%;
-    max-width: 400px;
-    justify-content: center;
+  .delivery-benefits {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
-  .contact-buttons {
-    align-items: center;
-    width: 100%;
+  .benefit-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
   }
 
-  .contact-button {
-    width: 100%;
-    max-width: 400px;
+  .contact-methods {
+    gap: 0.75rem;
+  }
+
+  .contact-method {
     justify-content: center;
-    min-width: auto;
+    text-align: center;
   }
 }
 
@@ -1884,29 +1911,29 @@ const navigateWithLoading = (path: string) => {
   .custom-button {
     background: linear-gradient(
       135deg,
-      rgba(255, 193, 7, 0.85),
-      rgba(255, 179, 0, 0.85),
-      rgba(255, 160, 0, 0.85)
+      rgba(76, 175, 80, 0.85),
+      rgba(67, 160, 71, 0.85),
+      rgba(56, 142, 60, 0.85)
     ) !important;
     color: white;
-    border: 2px solid rgba(255, 193, 7, 0.4);
+    border: 2px solid rgba(76, 175, 80, 0.4);
     box-shadow:
-      0 8px 32px rgba(255, 193, 7, 0.4),
+      0 8px 32px rgba(76, 175, 80, 0.4),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
   .custom-button:hover {
     background: linear-gradient(
       135deg,
-      rgba(255, 193, 7, 0.9),
-      rgba(255, 179, 0, 0.9),
-      rgba(255, 160, 0, 0.9)
+      rgba(76, 175, 80, 0.9),
+      rgba(67, 160, 71, 0.9),
+      rgba(56, 142, 60, 0.9)
     ) !important;
     transform: translateY(-4px);
     box-shadow:
-      0 12px 48px rgba(255, 193, 7, 0.6),
+      0 12px 48px rgba(76, 175, 80, 0.6),
       inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    border-color: rgba(255, 193, 7, 0.7);
+    border-color: rgba(76, 175, 80, 0.7);
   }
 
   /* ... resto de estilos permanecen igual hasta las media queries ... */
@@ -2183,6 +2210,28 @@ const navigateWithLoading = (path: string) => {
 
   .footer-section h4 {
     font-size: 1.3rem;
+  }
+}
+
+/* Regla general para móviles: todas las secciones (excepto hero) vuelven a auto height */
+@media (max-width: 768px) {
+  .plans-section,
+  .salads-section,
+  .daily-menu-section,
+  .custom-meals-section,
+  .contact-section {
+    height: auto !important;
+    min-height: auto !important;
+    padding: 3rem 0 !important;
+  }
+
+  .plans-section .container,
+  .salads-section .container,
+  .daily-menu-section .container,
+  .custom-meals-section .container,
+  .contact-section .container {
+    height: auto !important;
+    overflow-y: visible !important;
   }
 }
 </style>
