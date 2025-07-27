@@ -57,7 +57,7 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
       <div class="container">
         <h2>¡Haz tu pedido ahora!</h2>
         <div class="email-section">
-          <a 
+          <a
             :href="`mailto:${RESTAURANT_CONFIG.email}?subject=Pedido desde sitio web&body=Hola, me gustaría hacer un pedido.`"
             class="email-info"
           >
@@ -100,7 +100,11 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
               <a :href="RESTAURANT_CONFIG.socialMedia.facebook" target="_blank" class="social-link">
                 Facebook
               </a>
-              <a :href="RESTAURANT_CONFIG.socialMedia.instagram" target="_blank" class="social-link">
+              <a
+                :href="RESTAURANT_CONFIG.socialMedia.instagram"
+                target="_blank"
+                class="social-link"
+              >
                 Instagram
               </a>
             </div>
@@ -411,32 +415,32 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-subtitle {
     font-size: 1.2rem;
   }
-  
+
   .cta-buttons {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .cta-button {
     width: 100%;
     max-width: 300px;
     text-align: center;
   }
-  
+
   .meals-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .footer-content {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .container {
     padding: 0 1rem;
   }
@@ -446,12 +450,12 @@ import { RESTAURANT_CONFIG } from '../config/restaurant'
   .hero-title {
     font-size: 2rem;
   }
-  
+
   .custom-meals-section h2,
   .contact-section h2 {
     font-size: 2rem;
   }
-  
+
   .email-info {
     flex-direction: column;
     text-align: center;

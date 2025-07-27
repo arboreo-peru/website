@@ -28,7 +28,7 @@ import { RESTAURANT_CONFIG } from './config/restaurant'
   </div>
 </template>
 
-<style scoped>
+<style>
 #app {
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -94,11 +94,6 @@ import { RESTAURANT_CONFIG } from './config/restaurant'
   font-weight: 600;
 }
 
-.main-content {
-  min-height: calc(100vh - 100px);
-  padding: 2rem;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .nav-container {
@@ -123,7 +118,6 @@ import { RESTAURANT_CONFIG } from './config/restaurant'
   }
 
   .main-content {
-    padding: 1rem;
   }
 }
 
