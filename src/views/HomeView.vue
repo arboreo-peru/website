@@ -147,7 +147,7 @@ const navigateWithLoading = (path: string) => {
 
 /* Hero Section */
 .hero-section {
-  background-image: url('../../public/images/salad-wallpaper.png');
+  background-image: url('/website/images/salad-wallpaper.png');
   background-size: cover; /* Que cubra todo el contenedor */
   background-position: center; /* Que siempre esté centrada */
   background-repeat: no-repeat; /* Que no se repita */
@@ -211,24 +211,45 @@ const navigateWithLoading = (path: string) => {
 }
 
 .cta-buttons {
-  display: flex;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
   justify-content: center;
-  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .cta-button {
-  padding: 1.5rem 3rem;
+  padding: 1.2rem 2rem;
   border-radius: 50px;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 800;
   font-size: 1.4rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
   overflow: hidden;
+  color: white;
+  text-align: center;
+
+  /* ✅ NUEVO: Tamaños uniformes pero no tan altos */
+  min-height: 60px;
+  width: 100%;
+  max-width: 320px;
+
+  /* ✅ NUEVO: Base translúcida por defecto */
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .cta-button::before {
@@ -244,6 +265,91 @@ const navigateWithLoading = (path: string) => {
 
 .cta-button:hover::before {
   left: 100%;
+}
+
+/* ✅ NUEVOS: Estilos específicos para cada botón */
+.menu-button {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 153, 102, 0.4),
+    rgba(255, 138, 86, 0.4),
+    rgba(255, 107, 53, 0.4)
+  ) !important;
+  color: white;
+  border: 2px solid rgba(255, 138, 86, 0.3);
+  box-shadow:
+    0 8px 32px rgba(255, 107, 53, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.menu-button:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 153, 102, 0.9),
+    rgba(255, 138, 86, 0.9),
+    rgba(255, 107, 53, 0.9)
+  ) !important;
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 48px rgba(255, 107, 53, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 138, 86, 0.7);
+}
+
+.salads-button {
+  background: linear-gradient(
+    135deg,
+    rgba(76, 175, 80, 0.4),
+    rgba(69, 160, 73, 0.4),
+    rgba(56, 142, 60, 0.4)
+  ) !important;
+  color: white;
+  border: 2px solid rgba(76, 175, 80, 0.3);
+  box-shadow:
+    0 8px 32px rgba(76, 175, 80, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.salads-button:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(76, 175, 80, 0.9),
+    rgba(69, 160, 73, 0.9),
+    rgba(56, 142, 60, 0.9)
+  ) !important;
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 48px rgba(76, 175, 80, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border-color: rgba(76, 175, 80, 0.7);
+}
+
+.custom-button {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 193, 7, 0.4),
+    rgba(255, 179, 0, 0.4),
+    rgba(255, 160, 0, 0.4)
+  ) !important;
+  color: white;
+  border: 2px solid rgba(255, 193, 7, 0.3);
+  box-shadow:
+    0 8px 32px rgba(255, 193, 7, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.custom-button:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 193, 7, 0.9),
+    rgba(255, 179, 0, 0.9),
+    rgba(255, 160, 0, 0.9)
+  ) !important;
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 48px rgba(255, 193, 7, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 193, 7, 0.7);
 }
 
 .cta-button.primary {
@@ -835,7 +941,7 @@ const navigateWithLoading = (path: string) => {
     padding: 1.8rem 2.5rem;
     border-radius: 20px;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 800; /* ✅ Mantener negrita en responsive */
     font-size: 1.3rem;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
@@ -845,10 +951,14 @@ const navigateWithLoading = (path: string) => {
     letter-spacing: 0.5px;
     position: relative;
     overflow: hidden;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
+    /* ✅ Mantener fondo semi-opaco en responsive */
+    backdrop-filter: blur(15px);
     text-align: center;
     min-height: 70px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 
   .cta-button::before {
@@ -872,37 +982,76 @@ const navigateWithLoading = (path: string) => {
 
   /* Botón Ver Menú del Día */
   .menu-button {
-    background: linear-gradient(135deg, #ff8a56, #ff6b35, #e55a2b);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 138, 86, 0.85),
+      rgba(255, 107, 53, 0.85),
+      rgba(229, 90, 43, 0.85)
+    ) !important;
     color: white;
-    box-shadow: 0 8px 32px rgba(255, 107, 53, 0.4);
+    border: 2px solid rgba(255, 138, 86, 0.4);
+    box-shadow:
+      0 8px 32px rgba(255, 107, 53, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
   .menu-button:hover {
-    background: linear-gradient(135deg, #ff9966, #ff8a56, #ff6b35);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 153, 102, 0.95),
+      rgba(255, 138, 86, 0.95),
+      rgba(255, 107, 53, 0.95)
+    ) !important;
     box-shadow: 0 15px 50px rgba(255, 107, 53, 0.6);
   }
 
   /* Botón Ver Carta de Ensaladas */
   .salads-button {
-    background: linear-gradient(135deg, #4caf50, #45a049, #388e3c);
+    background: linear-gradient(
+      135deg,
+      rgba(76, 175, 80, 0.85),
+      rgba(69, 160, 73, 0.85),
+      rgba(56, 142, 60, 0.85)
+    ) !important;
     color: white;
-    box-shadow: 0 8px 32px rgba(76, 175, 80, 0.4);
+    border: 2px solid rgba(76, 175, 80, 0.4);
+    box-shadow:
+      0 8px 32px rgba(76, 175, 80, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
   .salads-button:hover {
-    background: linear-gradient(135deg, #66bb6a, #4caf50, #43a047);
+    background: linear-gradient(
+      135deg,
+      rgba(102, 187, 106, 0.95),
+      rgba(76, 175, 80, 0.95),
+      rgba(67, 160, 71, 0.95)
+    ) !important;
     box-shadow: 0 15px 50px rgba(76, 175, 80, 0.6);
   }
 
   /* Botón Personalizar mi Ensalada */
   .custom-button {
-    background: linear-gradient(135deg, #9c27b0, #8e24aa, #7b1fa2);
+    background: linear-gradient(
+      135deg,
+      rgba(156, 39, 176, 0.85),
+      rgba(142, 36, 170, 0.85),
+      rgba(123, 31, 162, 0.85)
+    ) !important;
     color: white;
-    box-shadow: 0 8px 32px rgba(156, 39, 176, 0.4);
+    border: 2px solid rgba(156, 39, 176, 0.4);
+    box-shadow:
+      0 8px 32px rgba(156, 39, 176, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
   .custom-button:hover {
-    background: linear-gradient(135deg, #ab47bc, #9c27b0, #8e24aa);
+    background: linear-gradient(
+      135deg,
+      rgba(171, 71, 188, 0.95),
+      rgba(156, 39, 176, 0.95),
+      rgba(142, 36, 170, 0.95)
+    ) !important;
     box-shadow: 0 15px 50px rgba(156, 39, 176, 0.6);
   }
 
