@@ -2385,4 +2385,27 @@ const navigateWithLoading = (path: string) => {
     overflow-y: visible !important;
   }
 }
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(108, 108, 108, 0.4); /* ← Overlay oscuro semi-transparente */
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2; /* ← Asegura que el texto esté encima del overlay */
+}
+
+.hero-subtitle,
+.hero-description {
+  text-shadow:
+    1px 1px 6px rgba(68, 68, 68, 0.7),
+    0 0 15px rgba(201, 201, 201, 0.5);
+}
 </style>

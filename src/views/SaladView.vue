@@ -327,7 +327,7 @@ const handleImageError = (event: Event) => {
 
 .price-tag {
   font-weight: 800;
-  color: #32cd32;
+  color: #175617;
   font-size: 1.4rem;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
@@ -452,7 +452,7 @@ const handleImageError = (event: Event) => {
 }
 
 .nutrition-section {
-  background: linear-gradient(135deg, #228b22, #32cd32);
+  background: linear-gradient(135deg, #405440, #469546);
   border-radius: 20px;
   padding: 4rem 3rem;
   color: white;
