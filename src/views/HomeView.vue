@@ -49,6 +49,65 @@ const navigateWithLoading = (path: string) => {
       </div>
     </section>
 
+    <!-- Ensaladas Section -->
+    <section class="salads-section">
+      <div class="container">
+        <h2>Ensaladas Frescas y Personalizadas</h2>
+        <p class="section-subtitle">
+          Disfruta de nuestras ensaladas preparadas con ingredientes frescos y de temporada,
+          o crea tu propia combinación única con nuestros ingredientes premium.
+        </p>
+        
+        <div class="salads-content">
+          <!-- Ensaladas Pre-hechas -->
+          <div class="salads-card">
+            <div class="card-icon">🥗</div>
+            <h3>Ensaladas de la Casa</h3>
+            <p>
+              Descubre nuestras combinaciones especiales creadas por nuestros chefs.
+              Cada ensalada está balanceada con los mejores ingredientes y aderezos artesanales.
+            </p>
+            <ul class="features-list">
+              <li>✓ Ingredientes frescos diarios</li>
+              <li>✓ Aderezos caseros</li>
+              <li>✓ Opciones veganas y vegetarianas</li>
+              <li>✓ Proteínas de calidad</li>
+            </ul>
+            <a 
+              href="#" 
+              class="section-button salads-menu-button"
+              @click.prevent="navigateWithLoading('/ensaladas')"
+            >
+              Ver Carta de Ensaladas
+            </a>
+          </div>
+
+          <!-- Personalización -->
+          <div class="salads-card">
+            <div class="card-icon">🎨</div>
+            <h3>Crea tu Ensalada Perfecta</h3>
+            <p>
+              ¿Tienes gustos específicos? Personaliza tu ensalada eligiendo entre más de 20 ingredientes,
+              5 tipos de proteína y 8 aderezos diferentes.
+            </p>
+            <ul class="features-list">
+              <li>✓ Más de 20 ingredientes disponibles</li>
+              <li>✓ 5 opciones de proteína</li>
+              <li>✓ 8 aderezos artesanales</li>
+              <li>✓ Tamaños personalizables</li>
+            </ul>
+            <a 
+              href="#" 
+              class="section-button custom-salad-button"
+              @click.prevent="navigateWithLoading('/prepara-orden')"
+            >
+              Personalizar mi Ensalada
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Comidas a tu Medida Section -->
     <section class="custom-meals-section">
       <div class="container">
@@ -377,6 +436,285 @@ const navigateWithLoading = (path: string) => {
   color: #2c5530;
   transform: translateY(-4px);
   box-shadow: 0 12px 48px rgba(255, 255, 255, 0.3);
+}
+
+/* Ensaladas Section */
+.salads-section {
+  padding: 8rem 0;
+  background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 50%, #e0f2eb 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.salads-section::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -30%;
+  width: 60%;
+  height: 160%;
+  background: radial-gradient(circle at center, rgba(76, 175, 80, 0.05) 0%, transparent 70%);
+  animation: gentle-float 20s ease-in-out infinite;
+}
+
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+.salads-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.salads-section h2 {
+  font-size: 3.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #4a7c59, #76b57c, #4caf50);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(76, 175, 80, 0.1);
+}
+
+.section-subtitle {
+  font-size: 1.6rem;
+  text-align: center;
+  color: #5a6c57;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8;
+  opacity: 0.9;
+}
+
+.salads-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 4rem;
+  align-items: start;
+}
+
+.salads-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 4rem;
+  box-shadow: 0 12px 48px rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.salads-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4caf50, #76b57c, #4a7c59);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.salads-card:hover::before {
+  transform: scaleX(1);
+}
+
+.salads-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 64px rgba(76, 175, 80, 0.15);
+  background: rgba(255, 255, 255, 1);
+}
+
+.card-icon {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+  background: linear-gradient(135deg, #4caf50, #45a049, #228b22);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+  transition: all 0.4s ease;
+}
+
+.salads-card:hover .card-icon {
+  transform: scale(1.1);
+  box-shadow: 0 12px 48px rgba(76, 175, 80, 0.4);
+}
+
+.salads-card h3 {
+  font-size: 2.4rem;
+  color: #2c5530;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.salads-card p {
+  color: #6b7b68;
+  line-height: 1.8;
+  font-size: 1.4rem;
+  margin-bottom: 2.5rem;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 3rem 0;
+  text-align: left;
+}
+
+.features-list li {
+  color: #5a6c57;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  padding-left: 0;
+  position: relative;
+}
+
+.section-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 3rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.4rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  min-height: 60px;
+  border: 2px solid transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.section-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.section-button:hover::before {
+  left: 100%;
+}
+
+.salads-menu-button {
+  background: linear-gradient(
+    135deg,
+    rgba(76, 175, 80, 0.4),
+    rgba(69, 160, 73, 0.4),
+    rgba(56, 142, 60, 0.4)
+  );
+  border-color: rgba(76, 175, 80, 0.3);
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+}
+
+.salads-menu-button:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(76, 175, 80, 0.9),
+    rgba(69, 160, 73, 0.9),
+    rgba(56, 142, 60, 0.9)
+  );
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(76, 175, 80, 0.6);
+  border-color: rgba(76, 175, 80, 0.7);
+}
+
+.custom-salad-button {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 193, 7, 0.4),
+    rgba(255, 179, 0, 0.4),
+    rgba(255, 160, 0, 0.4)
+  );
+  border-color: rgba(255, 193, 7, 0.3);
+  box-shadow: 0 8px 32px rgba(255, 193, 7, 0.3);
+}
+
+.custom-salad-button:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 193, 7, 0.9),
+    rgba(255, 179, 0, 0.9),
+    rgba(255, 160, 0, 0.9)
+  );
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(255, 193, 7, 0.6);
+  border-color: rgba(255, 193, 7, 0.7);
+}
+
+/* Responsive Design para la sección de ensaladas */
+@media (max-width: 768px) {
+  .salads-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .salads-card {
+    padding: 3rem;
+  }
+  
+  .salads-section h2 {
+    font-size: 3rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .salads-section {
+    padding: 6rem 0;
+  }
+  
+  .salads-card {
+    padding: 2.5rem;
+  }
+  
+  .card-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2.5rem;
+  }
+  
+  .salads-card h3 {
+    font-size: 2rem;
+  }
+  
+  .section-button {
+    padding: 1.3rem 2.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .salads-section h2 {
+    font-size: 2.5rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1.2rem;
+  }
 }
 
 /* Comidas a tu Medida Section */
