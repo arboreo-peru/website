@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { RESTAURANT_CONFIG } from '../config/restaurant'
 import { useLoading } from '../composables/useLoading'
+import PlanModal from '../components/PlanModal.vue'
 
 const router = useRouter()
 const { showLoading } = useLoading()
+
+// Estado para el modal de planes
+const showPlanModal = ref(false)
+const selectedPlan = ref<any>(null)
 
 // Función para navegación con loading
 const navigateWithLoading = (path: string) => {
@@ -12,6 +18,44 @@ const navigateWithLoading = (path: string) => {
     showLoading(1000)
   }
   router.push(path)
+}
+
+// Función para solicitar un plan
+const solicitarPlan = (planType: 'plan20' | 'plan10') => {
+  if (planType === 'plan20') {
+    selectedPlan.value = {
+      name: 'Plan 20 Comidas',
+      price: 360,
+      icon: '🍽️',
+      benefits: [
+        '20 comidas incluidas',
+        'Ahorro de S/ 40',
+        'Delivery gratis programado',
+        'S/ 18 por comida',
+        'Flexibilidad de horarios',
+      ],
+    }
+  } else {
+    selectedPlan.value = {
+      name: 'Plan 10 Comidas',
+      price: 190,
+      icon: '🥗',
+      benefits: [
+        '10 comidas incluidas',
+        'Ahorro de S/ 10',
+        'Delivery gratis programado',
+        'S/ 19 por comida',
+        'Ideal para probar',
+      ],
+    }
+  }
+  showPlanModal.value = true
+}
+
+// Función para cerrar el modal
+const cerrarPlanModal = () => {
+  showPlanModal.value = false
+  selectedPlan.value = null
 }
 </script>
 
@@ -89,13 +133,9 @@ const navigateWithLoading = (path: string) => {
               <li>Ahorro de S/ 40</li>
               <li>Delivery gratis programado</li>
             </ul>
-            <a
-              href="#"
-              class="plan-button plan-20-button"
-              @click.prevent="navigateWithLoading('/carta')"
-            >
-              Elegir Plan 20
-            </a>
+            <button class="plan-button plan-20-button" @click="solicitarPlan('plan20')">
+              Solicitar Plan 20 Comidas
+            </button>
           </div>
 
           <!-- Plan 10 Comidas -->
@@ -111,13 +151,9 @@ const navigateWithLoading = (path: string) => {
               <li>Ahorro de S/ 10</li>
               <li>Delivery gratis programado</li>
             </ul>
-            <a
-              href="#"
-              class="plan-button plan-10-button"
-              @click.prevent="navigateWithLoading('/carta')"
-            >
-              Elegir Plan 10
-            </a>
+            <button class="plan-button plan-10-button" @click="solicitarPlan('plan10')">
+              Solicitar Plan 10 Comidas
+            </button>
           </div>
         </div>
       </div>
@@ -324,6 +360,9 @@ const navigateWithLoading = (path: string) => {
         </div>
       </div>
     </section>
+
+    <!-- Modal de solicitud de planes -->
+    <PlanModal :is-visible="showPlanModal" :selected-plan="selectedPlan" @close="cerrarPlanModal" />
   </div>
 </template>
 
