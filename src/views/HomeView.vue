@@ -226,22 +226,22 @@ const navigateWithLoading = (path: string) => {
         <h2>Comidas a tu medida</h2>
         <div class="meals-grid">
           <div class="meal-item">
-            <div class="meal-icon">✅</div>
+            <div class="meal-icon">🎯</div>
             <h3>Comidas a tu medida</h3>
             <p>Saludables y alineadas a tus metas.</p>
           </div>
           <div class="meal-item">
-            <div class="meal-icon">✅</div>
+            <div class="meal-icon">🔄</div>
             <h3>Menú siempre distinto</h3>
             <p>Elige tu favorito cada día.</p>
           </div>
           <div class="meal-item">
-            <div class="meal-icon">✅</div>
+            <div class="meal-icon">💰</div>
             <h3>Más ahorro, cero esfuerzo</h3>
             <p>Sin cocinar. Delivery gratis al programar.</p>
           </div>
           <div class="meal-item">
-            <div class="meal-icon">✅</div>
+            <div class="meal-icon">📍</div>
             <h3>Tú eliges cuándo y dónde</h3>
             <p>Programa o recibe hoy. Flexibilidad total.*</p>
           </div>
@@ -629,9 +629,9 @@ const navigateWithLoading = (path: string) => {
 
 .plans-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 5rem;
-  max-width: 800px;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 4rem;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
