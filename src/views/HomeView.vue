@@ -74,7 +74,7 @@ const navigateWithLoading = (path: string) => {
           </div>
         </div>
 
-        <div class="plans-content">
+        <div class="plans-grid">
           <!-- Plan 20 Comidas -->
           <div class="plan-card featured">
             <div class="plan-badge">Más Popular</div>
@@ -386,7 +386,7 @@ const navigateWithLoading = (path: string) => {
   font-size: 5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 2px rgba(201, 201, 201, 0.3);
   background: linear-gradient(45deg, #ffffff, #e8f5e8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1428,16 +1428,6 @@ const navigateWithLoading = (path: string) => {
   width: 200%;
   height: 200%;
   background: radial-gradient(circle at 30% 70%, rgba(34, 139, 34, 0.08) 0%, transparent 50%);
-  animation: gentle-rotate 60s linear infinite;
-}
-
-@keyframes gentle-rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .custom-meals-section .container {
@@ -2012,25 +2002,25 @@ const navigateWithLoading = (path: string) => {
   .menu-button {
     background: linear-gradient(
       135deg,
-      rgba(255, 138, 86, 0.85),
-      rgba(255, 107, 53, 0.85),
-      rgba(229, 90, 43, 0.85)
+      rgba(76, 175, 80, 0.85),
+      rgba(69, 160, 73, 0.85),
+      rgba(56, 142, 60, 0.85)
     ) !important;
     color: white;
-    border: 2px solid rgba(255, 138, 86, 0.4);
+    border: 2px solid rgba(76, 175, 80, 0.4);
     box-shadow:
-      0 8px 32px rgba(255, 107, 53, 0.4),
+      0 8px 32px rgba(76, 175, 80, 0.4),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
   .menu-button:hover {
     background: linear-gradient(
       135deg,
-      rgba(255, 153, 102, 0.95),
-      rgba(255, 138, 86, 0.95),
-      rgba(255, 107, 53, 0.95)
+      rgba(102, 187, 106, 0.95),
+      rgba(76, 175, 80, 0.95),
+      rgba(67, 160, 71, 0.95)
     ) !important;
-    box-shadow: 0 15px 50px rgba(255, 107, 53, 0.6);
+    box-shadow: 0 15px 50px rgba(76, 175, 80, 0.6);
   }
 
   /* Botón Ver Carta de Ensaladas */

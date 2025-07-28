@@ -257,26 +257,6 @@ const resetearSeleccion = () => {
       </section>
     </div>
 
-    <!-- ✅ NUEVO: Sección de comentarios opcionales -->
-    <div class="comments-section-container">
-      <section class="category-section comments-section">
-        <h2 class="category-title">
-          <span class="category-icon">�</span>
-          <span class="title-text">Comentarios Adicionales</span>
-          <span class="optional">(Opcional)</span>
-        </h2>
-        <div class="comments-container">
-          <textarea
-            v-model="comentarios"
-            class="comments-textarea"
-            placeholder="¿Alguna instrucción especial para tu ensalada? (Ej: sin cebolla, aderezo aparte, etc.)"
-            maxlength="200"
-          ></textarea>
-          <div class="char-counter">{{ comentarios.length }}/200</div>
-        </div>
-      </section>
-    </div>
-
     <!-- ✅ NUEVO: Botón simple para agregar al carrito -->
     <div class="add-to-cart-section">
       <button

@@ -630,7 +630,8 @@ const navigateWithLoading = (path: string) => {
   }
 
   .brand-text {
-    display: none;
+    display: block !important; /* ← Mostrar siempre el nombre */
+    font-size: 1.2rem; /* ← Tamaño más pequeño para móvil */
   }
 
   .brand-icon {
@@ -660,6 +661,10 @@ const navigateWithLoading = (path: string) => {
 
   .brand-icon {
     font-size: 2rem;
+  }
+
+  .brand-text {
+    font-size: 1rem !important; /* ← Aún más pequeño en pantallas muy pequeñas */
   }
 
   .nav-contact {

@@ -144,19 +144,6 @@ const onItemAdded = () => {
   overflow: hidden;
 }
 
-.carta-container::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 70% 30%, rgba(34, 139, 34, 0.06) 0%, transparent 50%);
-  animation: gentle-rotate 80s linear infinite;
-  pointer-events: none;
-  will-change: transform;
-}
-
 @keyframes gentle-rotate {
   from {
     transform: rotate(0deg);
