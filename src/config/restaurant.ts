@@ -14,6 +14,7 @@ export const RESTAURANT_CONFIG = {
   currency: 'S/.',
   juicePrice: 1, // ← CAMBIAR AQUÍ: Precio adicional del refresco
   // ... resto de configuración sin cambios
+  horario: 'Lun a Sab: 11:00 AM - 2:00 PM',
   socialMedia: {
     facebook: 'https://www.facebook.com/arboreo.peru/?locale=es_LA',
     twitter: 'https://x.com/arboreoperu',

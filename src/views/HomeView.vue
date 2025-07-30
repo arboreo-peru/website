@@ -195,7 +195,7 @@ const cerrarPlanModal = () => {
           <!-- Personalización -->
           <div class="salads-card">
             <div class="card-icon">🎨</div>
-            <h3>Crea tu Ensalada Perfecta</h3>
+            <h3>Crea tu Ensalada</h3>
             <p>
               ¿Tienes gustos específicos? Personaliza tu ensalada eligiendo entre más de 20
               ingredientes, 5 tipos de proteína y 8 aderezos diferentes. No te quedes sin probarlas

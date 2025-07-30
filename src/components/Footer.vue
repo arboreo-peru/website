@@ -68,7 +68,7 @@
 
           <div class="schedule">
             <h5>Horarios</h5>
-            <p>Lun - Sab: 11:00 AM - 2:00 PM</p>
+            <p>{{ RESTAURANT_CONFIG.horario }}</p>
           </div>
         </div>
       </div>
