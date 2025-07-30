@@ -68,9 +68,7 @@
 
           <div class="schedule">
             <h5>Horarios</h5>
-            <p>Lun - Vie: 9:00 AM - 6:00 PM</p>
-            <p>Sáb: 10:00 AM - 4:00 PM</p>
-            <p>Dom: Cerrado</p>
+            <p>Lun - Sab: 11:00 AM - 2:00 PM</p>
           </div>
         </div>
       </div>
