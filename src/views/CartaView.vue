@@ -17,11 +17,15 @@ const { showLoading } = useLoading()
 const getImageUrl = (item: any) => {
   console.log('🔍 Debug - item.name:', item.name)
   console.log('🔍 Debug - item.image:', item.image)
+  console.log('🔍 Debug - typeof item.image:', typeof item.image)
+
   if (!item.image) {
     console.log('⚠️ item.image está vacío o undefined, usando fallback')
     return `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/AjiDeGallina.jpeg`
   }
-  const imageUrl = `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/AjiDeGallina.jpeg`
+
+  const imageUrl = `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/${item.image}`
+  console.log('🔍 Debug - BASE_URL:', import.meta.env.BASE_URL)
   console.log('🔍 Debug - URL generada:', imageUrl)
   return imageUrl
 }
@@ -30,7 +34,7 @@ const getImageUrl = (item: any) => {
 const handleImageError = (event: Event) => {
   const target = event.target as HTMLImageElement
   console.log('❌ Error loading image:', target.src)
-  target.src = `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/DefaultMenu.jpg`
+  target.src = `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/AjiDeGallina.jpeg`
 }
 
 // Función para navegación con loading
@@ -557,11 +561,6 @@ const onItemAdded = () => {
 
   .menu-title {
     font-size: 1.6rem;
-  }
-
-  .menu-price {
-    font-size: 1.4rem;
-    align-self: flex-end;
   }
 
   .order-btn {

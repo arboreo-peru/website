@@ -549,23 +549,19 @@ const handleImageError = (event: Event) => {
   }
 
   .menu-card {
+    padding: 0;
+  }
+
+  .menu-content {
     padding: 2rem;
   }
 
-  .menu-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+  .menu-image {
+    height: 200px;
   }
 
   .menu-title {
     font-size: 1.6rem;
-    min-width: auto;
-  }
-
-  .menu-price {
-    font-size: 1.4rem;
-    align-self: flex-end;
   }
 
   .order-btn {
