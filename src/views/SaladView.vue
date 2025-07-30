@@ -270,6 +270,8 @@ const handleImageError = (event: Event) => {
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: 2px solid transparent;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .menu-card::before {
@@ -334,6 +336,9 @@ const handleImageError = (event: Event) => {
 
 .menu-content {
   padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .menu-header {
@@ -357,6 +362,7 @@ const handleImageError = (event: Event) => {
 
 .menu-actions {
   text-align: center;
+  margin-top: auto;
 }
 
 .order-btn {

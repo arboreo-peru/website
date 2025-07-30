@@ -38,6 +38,7 @@ export const RESTAURANT_CONFIG = {
   },
 }
 
+// ✅ NUEVO: Opciones de entrada disponibles solo para platos del menú
 export const ENTRADA_OPTIONS = [
   'Sopa del día',
   'Crema de verduras',
@@ -45,11 +46,6 @@ export const ENTRADA_OPTIONS = [
   'Sopa de quinua',
   'Ensalada verde',
   'Sin entrada',
-  // ========================================
-  // 🍲 INSTRUCCIONES PARA OPCIONES DE ENTRADA
-  // ========================================
-  // Para agregar nuevas opciones de entrada, simplemente añade el nombre entre comillas y coma al final:
-  // Ejemplo: 'Sopa de pescado',
 ]
 
 export const MENU_OPTIONS = [
