@@ -54,12 +54,15 @@ export const MENU_OPTIONS = [
       'Por defecto es arroz integral, se puede cambiar por verduras cocidas o arroz blanco )especificar por WhatsApp o Correo.',
     price: 20,
     includeEntrada: true, // ✅ Indica que este plato incluye entrada
+    image: 'AjiDeGallina.jpeg',
   },
   {
     name: 'Seco a la Norteña de Pollo con Frejol',
-    description: 'Por defecto es arroz integral, se puede cambiar por verduras cocidas o arroz blanco )especificar por WhatsApp o Correo.',
+    description:
+      'Por defecto es arroz integral, se puede cambiar por verduras cocidas o arroz blanco )especificar por WhatsApp o Correo.',
     price: 20,
     includeEntrada: true,
+    image: 'SecoNorteno.jpeg',
   },
   // ========================================
   // 📝 PARA AGREGAR UN NUEVO PLATO DEL MENÚ:

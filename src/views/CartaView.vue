@@ -13,6 +13,26 @@ const selectedItem = ref<any>(null)
 const router = useRouter()
 const { showLoading } = useLoading()
 
+// ✅ NUEVA: Función para generar URL de imagen desde MenuPictures
+const getImageUrl = (item: any) => {
+  console.log('🔍 Debug - item.name:', item.name)
+  console.log('🔍 Debug - item.image:', item.image)
+  if (!item.image) {
+    console.log('⚠️ item.image está vacío o undefined, usando fallback')
+    return `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/AjiDeGallina.jpeg`
+  }
+  const imageUrl = `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/${item.image}`
+  console.log('🔍 Debug - URL generada:', imageUrl)
+  return imageUrl
+}
+
+// ✅ NUEVA: Función para manejar errores de imagen
+const handleImageError = (event: Event) => {
+  const target = event.target as HTMLImageElement
+  console.log('❌ Error loading image:', target.src)
+  target.src = `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/DefaultMenu.jpg`
+}
+
 // Función para navegación con loading
 const navigateWithLoading = (path: string) => {
   if (router.currentRoute.value.path !== path) {
@@ -53,23 +73,37 @@ const onItemAdded = () => {
         recetas auténticas
       </p>
       <div class="price-info">
-        <span class="price-text"
-          >Platos desde {{ RESTAURANT_CONFIG.currency }}{{ RESTAURANT_CONFIG.baseMenuPrice }}</span
-        >
+        <span class="price-text">
+          Platos desde {{ RESTAURANT_CONFIG.currency }}{{ RESTAURANT_CONFIG.baseMenuPrice }}
+        </span>
       </div>
     </div>
 
     <div class="menu-grid">
       <div v-for="item in MENU_OPTIONS" :key="item.name" class="menu-card">
-        <div class="menu-header">
-          <h3 class="menu-title">{{ item.name }}</h3>
-          <div class="menu-price">{{ RESTAURANT_CONFIG.currency }}{{ item.price }}</div>
+        <!-- Imagen del plato -->
+        <div class="menu-image">
+          <img
+            :src="getImageUrl(item)"
+            :alt="item.name"
+            class="menu-photo"
+            @error="handleImageError"
+          />
+          <div class="image-overlay">
+            <span class="price-tag">{{ RESTAURANT_CONFIG.currency }}{{ item.price }}</span>
+          </div>
         </div>
 
-        <p class="menu-description">{{ item.description }}</p>
+        <div class="menu-content">
+          <div class="menu-header">
+            <h3 class="menu-title">{{ item.name }}</h3>
+          </div>
 
-        <div class="menu-actions">
-          <button @click="seleccionarItem(item)" class="order-btn">🛒 Agregar al carrito</button>
+          <p class="menu-description">{{ item.description }}</p>
+
+          <div class="menu-actions">
+            <button @click="seleccionarItem(item)" class="order-btn">🛒 Agregar al carrito</button>
+          </div>
         </div>
       </div>
     </div>
@@ -224,12 +258,14 @@ const onItemAdded = () => {
 .menu-card {
   background: white;
   border-radius: 20px;
-  padding: 2.5rem;
+  padding: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: 2px solid transparent;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .menu-card::before {
@@ -254,13 +290,52 @@ const onItemAdded = () => {
   border-color: #4a7c59;
 }
 
-.menu-header {
+/* Estilos para imágenes de platos */
+.menu-image {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.menu-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.menu-card:hover .menu-photo {
+  transform: scale(1.08);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.price-tag {
+  font-weight: 800;
+  color: #2c5530;
+  font-size: 1.4rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.menu-content {
+  padding: 2.5rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.menu-header {
   margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
 }
 
 .menu-title {
@@ -268,18 +343,6 @@ const onItemAdded = () => {
   color: #2c5530;
   margin: 0;
   font-weight: 700;
-  flex: 1;
-  min-width: 200px;
-}
-
-.menu-price {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #228b22;
-  background: #e8f5e8;
-  padding: 0.5rem 1rem;
-  border-radius: 12px;
-  min-width: fit-content;
 }
 
 .menu-description {
@@ -292,6 +355,7 @@ const onItemAdded = () => {
 
 .menu-actions {
   text-align: center;
+  margin-top: auto;
 }
 
 .order-btn {
@@ -480,18 +544,19 @@ const onItemAdded = () => {
   }
 
   .menu-card {
+    padding: 0;
+  }
+
+  .menu-content {
     padding: 2rem;
   }
 
-  .menu-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+  .menu-image {
+    height: 200px;
   }
 
   .menu-title {
     font-size: 1.6rem;
-    min-width: auto;
   }
 
   .menu-price {
@@ -534,7 +599,15 @@ const onItemAdded = () => {
   }
 
   .menu-card {
+    padding: 0;
+  }
+
+  .menu-content {
     padding: 1.5rem;
+  }
+
+  .menu-image {
+    height: 180px;
   }
 
   .menu-title {
