@@ -21,7 +21,7 @@ const getImageUrl = (item: any) => {
     console.log('⚠️ item.image está vacío o undefined, usando fallback')
     return `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/AjiDeGallina.jpeg`
   }
-  const imageUrl = `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/${item.image}`
+  const imageUrl = `${import.meta.env.BASE_URL}images/FoodPictures/MenuPictures/AjiDeGallina.jpeg`
   console.log('🔍 Debug - URL generada:', imageUrl)
   return imageUrl
 }
