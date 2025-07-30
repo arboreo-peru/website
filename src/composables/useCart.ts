@@ -15,6 +15,13 @@ export interface CartItem {
   isCustomSalad?: boolean
   customIngredients?: string[]
   customDressing?: string
+  customDetails?: {
+    base?: string
+    proteina?: string
+    vinagreta?: string
+    ingredientes?: string[]
+    comentarios?: string
+  }
 }
 
 export interface CustomerData {

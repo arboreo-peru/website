@@ -86,6 +86,13 @@ interface SelectedItem {
   isCustomSalad?: boolean
   customIngredients?: string[]
   customDressing?: string
+  customDetails?: {
+    base?: string
+    proteina?: string
+    vinagreta?: string
+    ingredientes?: string[]
+    comentarios?: string
+  }
 }
 
 const props = defineProps<{
@@ -153,6 +160,7 @@ const agregarAlCarrito = () => {
     isCustomSalad: props.selectedItem.isCustomSalad,
     customIngredients: props.selectedItem.customIngredients,
     customDressing: props.selectedItem.customDressing,
+    customDetails: props.selectedItem.customDetails,
   }
 
   addToCart(cartItem)

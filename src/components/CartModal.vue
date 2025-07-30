@@ -43,9 +43,18 @@
                 <!-- Para ensaladas personalizadas -->
                 <div v-if="item.isCustomSalad" class="custom-salad-details">
                   <div
-                    v-if="item.customIngredients && item.customIngredients.length > 0"
+                    v-if="item.customDetails"
                     class="item-extra"
                   >
+                    🥬 Base: {{ item.customDetails.base || '-' }}<br />
+                    🥩 Proteína: {{ item.customDetails.proteina || '-' }}<br />
+                    🥄 Vinagreta: {{ item.customDetails.vinagreta || '-' }}<br />
+                    🥗 Ingredientes: {{ Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-' }}
+                    <div v-if="item.customDetails.comentarios && item.customDetails.comentarios.trim()" class="item-extra">
+                      💬 Comentarios: {{ item.customDetails.comentarios.trim() }}
+                    </div>
+                  </div>
+                  <div v-else-if="item.customIngredients && item.customIngredients.length > 0" class="item-extra">
                     🥗 Ingredientes: {{ item.customIngredients.join(', ') }}
                   </div>
                   <div v-if="item.customDressing" class="item-extra">
@@ -298,13 +307,18 @@ ${index + 1}. ${item.name} (x${item.quantity})
     }
 
     if (item.isCustomSalad) {
-      if (item.customIngredients && item.customIngredients.length > 0) {
-        mensaje += `
-   🥗 Ingredientes: ${item.customIngredients.join(', ')}`
-      }
-      if (item.customDressing) {
-        mensaje += `
-   🥄 Aderezo: ${item.customDressing}`
+      if (item.customDetails) {
+        mensaje += `\n   🥬 Base: ${item.customDetails.base || '-'}\n   🥩 Proteína: ${item.customDetails.proteina || '-'}\n   🥄 Vinagreta: ${item.customDetails.vinagreta || '-'}\n   🥗 Ingredientes: ${Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-'}`;
+        if (item.customDetails.comentarios && item.customDetails.comentarios.trim()) {
+          mensaje += `\n   💬 Comentarios: ${item.customDetails.comentarios.trim()}`;
+        }
+      } else {
+        if (item.customIngredients && item.customIngredients.length > 0) {
+          mensaje += `\n   🥗 Ingredientes: ${item.customIngredients.join(', ')}`;
+        }
+        if (item.customDressing) {
+          mensaje += `\n   🥄 Aderezo: ${item.customDressing}`;
+        }
       }
     }
 
@@ -407,13 +421,18 @@ ${index + 1}. ${item.name} x${item.quantity}
     }
 
     if (item.isCustomSalad) {
-      if (item.customIngredients && item.customIngredients.length > 0) {
-        body += `
-- Ingredientes: ${item.customIngredients.join(', ')}`
-      }
-      if (item.customDressing) {
-        body += `
-- Aderezo: ${item.customDressing}`
+      if (item.customDetails) {
+        body += `\n- Base: ${item.customDetails.base || '-'}\n- Proteína: ${item.customDetails.proteina || '-'}\n- Vinagreta: ${item.customDetails.vinagreta || '-'}\n- Ingredientes: ${Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-'}`;
+        if (item.customDetails.comentarios && item.customDetails.comentarios.trim()) {
+          body += `\n- Comentarios: ${item.customDetails.comentarios.trim()}`;
+        }
+      } else {
+        if (item.customIngredients && item.customIngredients.length > 0) {
+          body += `\n- Ingredientes: ${item.customIngredients.join(', ')}`;
+        }
+        if (item.customDressing) {
+          body += `\n- Aderezo: ${item.customDressing}`;
+        }
       }
     }
 
