@@ -39,11 +39,10 @@ export const RESTAURANT_CONFIG = {
 }
 
 export const ENTRADA_OPTIONS = [
-  'Sopa del día',
-  'Crema de verduras',
-  'Consomé de pollo',
-  'Sopa de quinua',
-  'Ensalada verde',
+  'Crema de Ocopa',
+  'Ensalada de Frutas',
+  'Ensalada Fresca',
+  'Ensalada Cocida',
   'Sin entrada',
   // ========================================
   // 🍲 INSTRUCCIONES PARA OPCIONES DE ENTRADA
@@ -54,34 +53,16 @@ export const ENTRADA_OPTIONS = [
 
 export const MENU_OPTIONS = [
   {
-    name: 'Arroz con Pollo',
+    name: 'Aji de Gallina',
     description:
-      'Delicioso arroz con pollo tradicional peruano, acompañado de verduras frescas y salsa criolla',
-    price: 18,
+      'Por defecto es arroz integral, se puede cambiar por verduras cocidas o arroz blanco )especificar por WhatsApp o Correo.',
+    price: 20,
     includeEntrada: true, // ✅ Indica que este plato incluye entrada
   },
   {
-    name: 'Tallarines Verdes',
-    description: 'Pasta en salsa de albahaca y espinaca, acompañada de bistec a lo pobre',
-    price: 16,
-    includeEntrada: true,
-  },
-  {
-    name: 'Ají de Gallina',
-    description: 'Tradicional ají de gallina con papa amarilla y aceitunas negras',
-    price: 17,
-    includeEntrada: true,
-  },
-  {
-    name: 'Lomo Saltado',
-    description: 'Clásico lomo saltado con papas fritas y arroz blanco',
-    price: 22,
-    includeEntrada: true,
-  },
-  {
-    name: 'Seco de Cabrito',
-    description: 'Tierno cabrito guisado en salsa de cilantro con frejoles y yuca',
-    price: 25,
+    name: 'Seco a la Norteña de Pollo con Frejol',
+    description: 'Por defecto es arroz integral, se puede cambiar por verduras cocidas o arroz blanco )especificar por WhatsApp o Correo.',
+    price: 20,
     includeEntrada: true,
   },
   // ========================================
@@ -134,13 +115,6 @@ export const SALAD_OPTIONS = [
       'Mix de espinaca y lechuga, palta en trozos, pepino, zanahoria rallada, wantán frito, semillas de ajonjolí y pollo empanizado acompañado de nuestra vinagreta oriental',
     price: 21,
     image: 'Oriental.jpg',
-  },
-  {
-    name: 'Atun',
-    description:
-      'Lechuga crespa, palta, choclo desgranado, tomate, zanahoria rallada y filete de atún en conserva con nuestra vinagreta de Limón',
-    price: 21,
-    image: 'Atun.jpg',
   },
   {
     name: 'Atun',
