@@ -61,8 +61,8 @@
               Instagram
             </a>
             <a :href="RESTAURANT_CONFIG.socialMedia.twitter" target="_blank" class="social-link">
-              <span>🐦</span>
-              Twitter
+              <span>✖️</span>
+              X
             </a>
           </div>
 
