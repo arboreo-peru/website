@@ -198,7 +198,8 @@ const cerrarPlanModal = () => {
             <h3>Crea tu Ensalada Perfecta</h3>
             <p>
               ¿Tienes gustos específicos? Personaliza tu ensalada eligiendo entre más de 20
-              ingredientes, 5 tipos de proteína y 8 aderezos diferentes.
+              ingredientes, 5 tipos de proteína y 8 aderezos diferentes. No te quedes sin probarlas
+              todas!
             </p>
             <ul class="features-list">
               <li>✓ Más de 20 ingredientes disponibles</li>
@@ -1066,6 +1067,9 @@ const cerrarPlanModal = () => {
   position: relative;
   overflow: hidden;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .salads-card::before {
@@ -1158,6 +1162,7 @@ const cerrarPlanModal = () => {
   min-height: 60px;
   border: 2px solid transparent;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-top: auto;
 }
 
 .section-button::before {
