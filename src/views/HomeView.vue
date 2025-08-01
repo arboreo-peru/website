@@ -1153,77 +1153,45 @@ const cerrarPlanModal = () => {
   text-decoration: none;
   font-weight: 700;
   font-size: 1.4rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   position: relative;
   overflow: hidden;
   color: white;
   min-height: 60px;
-  border: 2px solid transparent;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: none;
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.3);
   margin-top: auto;
 }
 
-.section-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.6s;
-}
-
-.section-button:hover::before {
-  left: 100%;
+.section-button:hover {
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
 }
 
 .salads-menu-button {
-  background: linear-gradient(
-    135deg,
-    rgba(76, 175, 80, 0.4),
-    rgba(69, 160, 73, 0.4),
-    rgba(56, 142, 60, 0.4)
-  );
-  border-color: rgba(76, 175, 80, 0.3);
-  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.3);
 }
 
 .salads-menu-button:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(76, 175, 80, 0.9),
-    rgba(69, 160, 73, 0.9),
-    rgba(56, 142, 60, 0.9)
-  );
-  transform: translateY(-4px);
-  box-shadow: 0 12px 48px rgba(76, 175, 80, 0.6);
-  border-color: rgba(76, 175, 80, 0.7);
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
 }
 
 .custom-salad-button {
-  background: linear-gradient(
-    135deg,
-    rgba(76, 175, 80, 0.4),
-    rgba(67, 160, 71, 0.4),
-    rgba(56, 142, 60, 0.4)
-  );
-  border-color: rgba(76, 175, 80, 0.3);
-  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.3);
 }
 
 .custom-salad-button:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(76, 175, 80, 0.9),
-    rgba(67, 160, 71, 0.9),
-    rgba(56, 142, 60, 0.9)
-  );
-  transform: translateY(-4px);
-  box-shadow: 0 12px 48px rgba(76, 175, 80, 0.6);
-  border-color: rgba(76, 175, 80, 0.7);
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
 }
 
 /* Responsive Design para la sección de ensaladas */
@@ -1395,26 +1363,14 @@ const cerrarPlanModal = () => {
 }
 
 .daily-menu-button {
-  background: linear-gradient(
-    135deg,
-    rgba(76, 175, 80, 0.4),
-    rgba(69, 160, 73, 0.4),
-    rgba(56, 142, 60, 0.4)
-  );
-  border-color: rgba(76, 175, 80, 0.3);
-  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.3);
 }
 
 .daily-menu-button:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(76, 175, 80, 0.9),
-    rgba(69, 160, 73, 0.9),
-    rgba(56, 142, 60, 0.9)
-  );
-  transform: translateY(-4px);
-  box-shadow: 0 12px 48px rgba(76, 175, 80, 0.6);
-  border-color: rgba(76, 175, 80, 0.7);
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
 }
 
 /* Responsive Design para la sección del menú */
