@@ -97,13 +97,13 @@ const generarMensajePlan = () => {
 
   return `¡Hola! Me interesa solicitar el siguiente plan de comidas:
 
-🍽️ *${props.selectedPlan.name}*
-💰 Precio: ${RESTAURANT_CONFIG.currency}${props.selectedPlan.price}
+ *${props.selectedPlan.name}*
+ Precio: ${RESTAURANT_CONFIG.currency}${props.selectedPlan.price}
 
-📋 *Beneficios incluidos:*
+ *Beneficios incluidos:*
 ${props.selectedPlan.benefits.map((benefit) => `✓ ${benefit}`).join('\n')}
 
-📍 *Ubicación del restaurante:*
+ *Ubicación del restaurante:*
 ${RESTAURANT_CONFIG.location.address}
 ${RESTAURANT_CONFIG.location.detail}
 ${RESTAURANT_CONFIG.location.district}, ${RESTAURANT_CONFIG.location.city}

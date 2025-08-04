@@ -19,7 +19,7 @@ export const RESTAURANT_CONFIG = {
     facebook: 'https://www.facebook.com/arboreo.peru/?locale=es_LA',
     twitter: 'https://x.com/arboreoperu',
     instagram: 'https://www.instagram.com/arboreo.peru/?hl=es',
-    whatsapp: '957293769',
+    whatsapp: '927760986',
     email: 'arboreoperu@gmail.com',
   },
   location: {

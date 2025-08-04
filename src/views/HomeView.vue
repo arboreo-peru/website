@@ -26,7 +26,6 @@ const solicitarPlan = (planType: 'plan20' | 'plan10') => {
     selectedPlan.value = {
       name: 'Plan 20 Comidas',
       price: 360,
-      icon: '🍽️',
       benefits: [
         '20 comidas incluidas',
         'Ahorro de S/ 40',
@@ -39,7 +38,6 @@ const solicitarPlan = (planType: 'plan20' | 'plan10') => {
     selectedPlan.value = {
       name: 'Plan 10 Comidas',
       price: 190,
-      icon: '🥗',
       benefits: [
         '10 comidas incluidas',
         'Ahorro de S/ 10',

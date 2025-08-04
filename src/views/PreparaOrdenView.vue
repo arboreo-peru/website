@@ -45,39 +45,39 @@ const toggleIngrediente = (ingrediente: string) => {
   }
 }
 
-// ✅ NUEVO: Función para generar el mensaje del pedido
+// NUEVO: Función para generar el mensaje del pedido
 const generarMensajePedido = () => {
-  let mensaje = `🥗 NUEVO PEDIDO DE ENSALADA PERSONALIZADA
+  let mensaje = `NUEVO PEDIDO DE ENSALADA PERSONALIZADA
 
-👤 Cliente: [Por favor, incluye tu nombre]
-📍 Dirección de entrega: [Por favor, incluye tu dirección completa]
-📞 Teléfono: [Tu número de contacto]
+Cliente: [Por favor, incluye tu nombre]
+Direccion de entrega: [Por favor, incluye tu direccion completa]
+Telefono: [Tu numero de contacto]
 
-🛒 DETALLE DEL PEDIDO:
+DETALLE DEL PEDIDO:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
 
   mensaje += `
-🥬 Base: ${selectedBase.value}
-🥩 Proteína: ${selectedProteina.value}
-🥄 Vinagreta: ${selectedVinagreta.value}`
+Base: ${selectedBase.value}
+Proteina: ${selectedProteina.value}
+Vinagreta: ${selectedVinagreta.value}`
 
   if (selectedIngredientes.value.length > 0) {
     mensaje += `
-🥕 Ingredientes adicionales: ${selectedIngredientes.value.join(', ')}`
+Ingredientes adicionales: ${selectedIngredientes.value.join(', ')}`
   }
 
   // Agregar comentarios si los hay
   if (comentarios.value.trim()) {
     mensaje += `
 
-💬 Comentarios adicionales:
+Comentarios adicionales:
 ${comentarios.value.trim()}`
   }
 
   // Desglose de precios
   mensaje += `
 
-💰 Desglose de precios:
+Desglose de precios:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Ensalada personalizada: ${RESTAURANT_CONFIG.currency}${RESTAURANT_CONFIG.baseSaladPrice}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

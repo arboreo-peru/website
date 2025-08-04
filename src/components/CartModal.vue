@@ -42,19 +42,28 @@
 
                 <!-- Para ensaladas personalizadas -->
                 <div v-if="item.isCustomSalad" class="custom-salad-details">
-                  <div
-                    v-if="item.customDetails"
-                    class="item-extra"
-                  >
+                  <div v-if="item.customDetails" class="item-extra">
                     🥬 Base: {{ item.customDetails.base || '-' }}<br />
                     🥩 Proteína: {{ item.customDetails.proteina || '-' }}<br />
                     🥄 Vinagreta: {{ item.customDetails.vinagreta || '-' }}<br />
-                    🥗 Ingredientes: {{ Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-' }}
-                    <div v-if="item.customDetails.comentarios && item.customDetails.comentarios.trim()" class="item-extra">
+                    🥗 Ingredientes:
+                    {{
+                      Array.isArray(item.customDetails.ingredientes) &&
+                      item.customDetails.ingredientes.length > 0
+                        ? item.customDetails.ingredientes.join(', ')
+                        : '-'
+                    }}
+                    <div
+                      v-if="item.customDetails.comentarios && item.customDetails.comentarios.trim()"
+                      class="item-extra"
+                    >
                       💬 Comentarios: {{ item.customDetails.comentarios.trim() }}
                     </div>
                   </div>
-                  <div v-else-if="item.customIngredients && item.customIngredients.length > 0" class="item-extra">
+                  <div
+                    v-else-if="item.customIngredients && item.customIngredients.length > 0"
+                    class="item-extra"
+                  >
                     🥗 Ingredientes: {{ item.customIngredients.join(', ') }}
                   </div>
                   <div v-if="item.customDressing" class="item-extra">
@@ -277,87 +286,87 @@ const generarMensajePedido = () => {
       metodoPagoTexto += ' (Aún no sabe si tiene exacto)'
     }
   } else if (customerData.value.metodoPago === 'yape') {
-    metodoPagoTexto = '📱 Yape'
+    metodoPagoTexto = 'Yape'
   } else if (customerData.value.metodoPago === 'plin') {
-    metodoPagoTexto = '📲 Plin'
+    metodoPagoTexto = 'Plin'
   }
 
-  let mensaje = `🍽️ NUEVO PEDIDO MÚLTIPLE
+  let mensaje = `NUEVO PEDIDO MULTIPLE
 
-👤 ${customerData.value.nombre}
-📞 ${customerData.value.telefono}
+${customerData.value.nombre}
+${customerData.value.telefono}
 
-🛒 PEDIDOS (${cartItemCount.value} items):`
+PEDIDOS (${cartItemCount.value} items):`
 
   // Agregar cada item del carrito
   cartItems.value.forEach((item, index) => {
     mensaje += `
 
 ${index + 1}. ${item.name} (x${item.quantity})
-   💰 ${RESTAURANT_CONFIG.currency}${item.price} c/u`
+   ${RESTAURANT_CONFIG.currency}${item.price} c/u`
 
     if (item.includeEntrada && item.selectedEntrada) {
       mensaje += `
-   🍲 Entrada: ${item.selectedEntrada}`
+   Entrada: ${item.selectedEntrada}`
     }
 
     if (item.includeJuice) {
       mensaje += `
-   🥤 Refresco (+${RESTAURANT_CONFIG.currency}${RESTAURANT_CONFIG.juicePrice})`
+   Refresco (+${RESTAURANT_CONFIG.currency}${RESTAURANT_CONFIG.juicePrice})`
     }
 
     if (item.isCustomSalad) {
       if (item.customDetails) {
-        mensaje += `\n   🥬 Base: ${item.customDetails.base || '-'}\n   🥩 Proteína: ${item.customDetails.proteina || '-'}\n   🥄 Vinagreta: ${item.customDetails.vinagreta || '-'}\n   🥗 Ingredientes: ${Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-'}`;
+        mensaje += `\n   Base: ${item.customDetails.base || '-'}\n   Proteina: ${item.customDetails.proteina || '-'}\n   Vinagreta: ${item.customDetails.vinagreta || '-'}\n   Ingredientes: ${Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-'}`
         if (item.customDetails.comentarios && item.customDetails.comentarios.trim()) {
-          mensaje += `\n   💬 Comentarios: ${item.customDetails.comentarios.trim()}`;
+          mensaje += `\n   Comentarios: ${item.customDetails.comentarios.trim()}`
         }
       } else {
         if (item.customIngredients && item.customIngredients.length > 0) {
-          mensaje += `\n   🥗 Ingredientes: ${item.customIngredients.join(', ')}`;
+          mensaje += `\n   Ingredientes: ${item.customIngredients.join(', ')}`
         }
         if (item.customDressing) {
-          mensaje += `\n   🥄 Aderezo: ${item.customDressing}`;
+          mensaje += `\n   Aderezo: ${item.customDressing}`
         }
       }
     }
 
     mensaje += `
-   🍴 Cubiertos: ${item.includeCubiertos ? 'Sí' : 'No'}
-   💵 Subtotal: ${RESTAURANT_CONFIG.currency}${getItemSubtotal(item)}`
+   Cubiertos: ${item.includeCubiertos ? 'Sí' : 'No'}
+   Subtotal: ${RESTAURANT_CONFIG.currency}${getItemSubtotal(item)}`
   })
 
   mensaje += `
 
-💳 PAGO: ${metodoPagoTexto}
+PAGO: ${metodoPagoTexto}
 
-📍 ENTREGA:
+ENTREGA:
 ${customerData.value.direccion}`
 
   if (customerData.value.referencias) {
     mensaje += `
-📌 Ref: ${customerData.value.referencias}`
+Ref: ${customerData.value.referencias}`
   }
 
   if (customerData.value.comentarios) {
     mensaje += `
 
-💬 COMENTARIOS:
+COMENTARIOS:
 ${customerData.value.comentarios}`
   }
 
   mensaje += `
 
-💰 TOTAL: ${RESTAURANT_CONFIG.currency}${cartTotal.value}
+TOTAL: ${RESTAURANT_CONFIG.currency}${cartTotal.value}
 
-¡Gracias por tu pedido! 🌟`
+¡Gracias por tu pedido!`
 
   return mensaje
 }
 
 const enviarPorWhatsApp = () => {
   if (isCartEmpty.value || !isCustomerDataValid.value) {
-    alert('❌ Por favor completa todos los campos requeridos antes de enviar el pedido.')
+    alert('Por favor completa todos los campos requeridos antes de enviar el pedido.')
     return
   }
 
@@ -373,7 +382,7 @@ const enviarPorWhatsApp = () => {
 
 const enviarPorEmail = () => {
   if (isCartEmpty.value || !isCustomerDataValid.value) {
-    alert('❌ Por favor completa todos los campos requeridos antes de enviar el pedido.')
+    alert('Por favor completa todos los campos requeridos antes de enviar el pedido.')
     return
   }
 
@@ -422,16 +431,16 @@ ${index + 1}. ${item.name} x${item.quantity}
 
     if (item.isCustomSalad) {
       if (item.customDetails) {
-        body += `\n- Base: ${item.customDetails.base || '-'}\n- Proteína: ${item.customDetails.proteina || '-'}\n- Vinagreta: ${item.customDetails.vinagreta || '-'}\n- Ingredientes: ${Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-'}`;
+        body += `\n- Base: ${item.customDetails.base || '-'}\n- Proteína: ${item.customDetails.proteina || '-'}\n- Vinagreta: ${item.customDetails.vinagreta || '-'}\n- Ingredientes: ${Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-'}`
         if (item.customDetails.comentarios && item.customDetails.comentarios.trim()) {
-          body += `\n- Comentarios: ${item.customDetails.comentarios.trim()}`;
+          body += `\n- Comentarios: ${item.customDetails.comentarios.trim()}`
         }
       } else {
         if (item.customIngredients && item.customIngredients.length > 0) {
-          body += `\n- Ingredientes: ${item.customIngredients.join(', ')}`;
+          body += `\n- Ingredientes: ${item.customIngredients.join(', ')}`
         }
         if (item.customDressing) {
-          body += `\n- Aderezo: ${item.customDressing}`;
+          body += `\n- Aderezo: ${item.customDressing}`
         }
       }
     }

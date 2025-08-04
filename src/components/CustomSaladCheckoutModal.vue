@@ -310,60 +310,60 @@ const generarMensajePedido = () => {
           ? ` (Con S/${formData.value.montoEfectivo}, vuelto: S/${(formData.value.montoEfectivo || 0) - totalPrice.value})`
           : ' (Aún no sé si tengo exacto)'
     }`,
-    yape: '📱 Yape',
-    plin: '📲 Plin',
+    yape: 'Yape',
+    plin: 'Plin',
   }
 
   // Validar que el método de pago esté seleccionado
   const metodoPagoSeleccionado = formData.value.metodoPago
     ? metodoPagoTexto[formData.value.metodoPago as keyof typeof metodoPagoTexto]
-    : '❌ Método de pago no seleccionado'
+    : 'Metodo de pago no seleccionado'
 
-  let mensaje = `🥗 NUEVO PEDIDO - ENSALADA PERSONALIZADA
+  let mensaje = `NUEVO PEDIDO - ENSALADA PERSONALIZADA
 
-👤 DATOS DEL CLIENTE:
+DATOS DEL CLIENTE:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 • Nombre: ${formData.value.nombre || 'No especificado'}
-• Teléfono: ${formData.value.telefono || 'No especificado'}
+• Telefono: ${formData.value.telefono || 'No especificado'}
 
-🛒 DETALLE DE LA ENSALADA:
+DETALLE DE LA ENSALADA:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🥬 Base: ${props.saladData.selectedBase}
-🥩 Proteína: ${props.saladData.selectedProteina}
-🫒 Vinagreta: ${props.saladData.selectedVinagreta}
-🥕 Ingredientes: ${props.saladData.selectedIngredientes.join(', ')}`
+Base: ${props.saladData.selectedBase}
+Proteina: ${props.saladData.selectedProteina}
+Vinagreta: ${props.saladData.selectedVinagreta}
+Ingredientes: ${props.saladData.selectedIngredientes.join(', ')}`
 
   if (formData.value.includeJuice) {
-    mensaje += `\n🥤 Bebida: Incluida (+S/${RESTAURANT_CONFIG.juicePrice})`
+    mensaje += `\nBebida: Incluida (+S/${RESTAURANT_CONFIG.juicePrice})`
   }
 
   if (formData.value.includeCubiertos) {
-    mensaje += `\n🍴 Cubiertos: Incluidos`
+    mensaje += `\nCubiertos: Incluidos`
   }
 
   if (props.saladData.comentarios) {
-    mensaje += `\n📝 Comentarios del pedido: ${props.saladData.comentarios}`
+    mensaje += `\nComentarios del pedido: ${props.saladData.comentarios}`
   }
 
   mensaje += `
 
-💳 MÉTODO DE PAGO:
+METODO DE PAGO:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${metodoPagoSeleccionado}
 
-📍 DIRECCIÓN DE ENTREGA:
+DIRECCION DE ENTREGA:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${formData.value.direccion || 'No especificada'}`
 
   if (formData.value.referencias) {
     mensaje += `
-📌 Referencias: ${formData.value.referencias}`
+Referencias: ${formData.value.referencias}`
   }
 
   if (formData.value.comentarios) {
     mensaje += `
 
-💬 COMENTARIOS ADICIONALES:
+COMENTARIOS ADICIONALES:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${formData.value.comentarios}`
   }
@@ -371,9 +371,9 @@ ${formData.value.comentarios}`
   mensaje += `
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💰 TOTAL A PAGAR: ${RESTAURANT_CONFIG.currency}${totalPrice.value}
+TOTAL A PAGAR: ${RESTAURANT_CONFIG.currency}${totalPrice.value}
 
-¡Gracias por tu pedido personalizado! 🌟`
+¡Gracias por tu pedido personalizado!`
 
   return mensaje
 }
@@ -391,7 +391,7 @@ const isFormValid = computed(() => {
 
 const enviarPorWhatsApp = () => {
   if (!isFormValid.value) {
-    alert('❌ Por favor completa todos los campos requeridos antes de enviar el pedido.')
+    alert('Por favor completa todos los campos requeridos antes de enviar el pedido.')
     return
   }
 
