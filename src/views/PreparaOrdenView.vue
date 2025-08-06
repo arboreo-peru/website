@@ -9,9 +9,9 @@ const { addToCart } = useCart()
 
 // Estado reactivo para las selecciones
 const selectedBase = ref('')
+const selectedIngredientes = ref<string[]>([])
 const selectedProteina = ref('')
 const selectedVinagreta = ref('')
-const selectedIngredientes = ref<string[]>([])
 
 // ✅ NUEVO: Estado para comentarios de la ensalada personalizada
 const comentarios = ref('')
@@ -29,9 +29,9 @@ const totalPrice = computed(() => {
 const isValidSelection = computed(() => {
   return (
     selectedBase.value &&
+    selectedIngredientes.value.length > 0 &&
     selectedProteina.value &&
-    selectedVinagreta.value &&
-    selectedIngredientes.value.length > 0
+    selectedVinagreta.value
   )
 })
 
@@ -58,13 +58,9 @@ DETALLE DEL PEDIDO:
 
   mensaje += `
 Base: ${selectedBase.value}
+Ingredientes adicionales: ${selectedIngredientes.value.length > 0 ? selectedIngredientes.value.join(', ') : 'Ninguno'}
 Proteina: ${selectedProteina.value}
 Vinagreta: ${selectedVinagreta.value}`
-
-  if (selectedIngredientes.value.length > 0) {
-    mensaje += `
-Ingredientes adicionales: ${selectedIngredientes.value.join(', ')}`
-  }
 
   // Agregar comentarios si los hay
   if (comentarios.value.trim()) {
@@ -101,9 +97,9 @@ const enviarPedido = () => {
     isCustomSalad: true,
     customDetails: {
       base: selectedBase.value,
+      ingredientes: selectedIngredientes.value,
       proteina: selectedProteina.value,
       vinagreta: selectedVinagreta.value,
-      ingredientes: selectedIngredientes.value,
       comentarios: comentarios.value,
     },
   }
@@ -142,9 +138,9 @@ const onItemAdded = () => {
 // ✅ ACTUALIZADO: Función para resetear selección
 const resetearSeleccion = () => {
   selectedBase.value = ''
+  selectedIngredientes.value = []
   selectedProteina.value = ''
   selectedVinagreta.value = ''
-  selectedIngredientes.value = []
   comentarios.value = ''
 }
 </script>

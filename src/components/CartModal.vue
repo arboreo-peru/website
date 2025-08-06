@@ -44,8 +44,6 @@
                 <div v-if="item.isCustomSalad" class="custom-salad-details">
                   <div v-if="item.customDetails" class="item-extra">
                     🥬 Base: {{ item.customDetails.base || '-' }}<br />
-                    🥩 Proteína: {{ item.customDetails.proteina || '-' }}<br />
-                    🥄 Vinagreta: {{ item.customDetails.vinagreta || '-' }}<br />
                     🥗 Ingredientes:
                     {{
                       Array.isArray(item.customDetails.ingredientes) &&
@@ -53,6 +51,9 @@
                         ? item.customDetails.ingredientes.join(', ')
                         : '-'
                     }}
+                    🥩 Proteína: {{ item.customDetails.proteina || '-' }}<br />
+                    🥄 Vinagreta: {{ item.customDetails.vinagreta || '-' }}<br />
+
                     <div
                       v-if="item.customDetails.comentarios && item.customDetails.comentarios.trim()"
                       class="item-extra"
@@ -317,7 +318,7 @@ ${index + 1}. ${item.name} (x${item.quantity})
 
     if (item.isCustomSalad) {
       if (item.customDetails) {
-        mensaje += `\n   Base: ${item.customDetails.base || '-'}\n   Proteina: ${item.customDetails.proteina || '-'}\n   Vinagreta: ${item.customDetails.vinagreta || '-'}\n   Ingredientes: ${Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-'}`
+        mensaje += `\n   Base: ${item.customDetails.base || '-'}\n   Ingredientes: ${Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-'}\n   Proteina: ${item.customDetails.proteina || '-'}\n   Vinagreta: ${item.customDetails.vinagreta || '-'}`
         if (item.customDetails.comentarios && item.customDetails.comentarios.trim()) {
           mensaje += `\n   Comentarios: ${item.customDetails.comentarios.trim()}`
         }
@@ -431,7 +432,7 @@ ${index + 1}. ${item.name} x${item.quantity}
 
     if (item.isCustomSalad) {
       if (item.customDetails) {
-        body += `\n- Base: ${item.customDetails.base || '-'}\n- Proteína: ${item.customDetails.proteina || '-'}\n- Vinagreta: ${item.customDetails.vinagreta || '-'}\n- Ingredientes: ${Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-'}`
+        body += `\n- Base: ${item.customDetails.base || '-'}\n- Ingredientes: ${Array.isArray(item.customDetails.ingredientes) && item.customDetails.ingredientes.length > 0 ? item.customDetails.ingredientes.join(', ') : '-'}\n- Proteína: ${item.customDetails.proteina || '-'}\n- Vinagreta: ${item.customDetails.vinagreta || '-'}`
         if (item.customDetails.comentarios && item.customDetails.comentarios.trim()) {
           body += `\n- Comentarios: ${item.customDetails.comentarios.trim()}`
         }

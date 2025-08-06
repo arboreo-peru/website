@@ -329,9 +329,9 @@ DATOS DEL CLIENTE:
 DETALLE DE LA ENSALADA:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Base: ${props.saladData.selectedBase}
+Ingredientes: ${props.saladData.selectedIngredientes.join(', ')}
 Proteina: ${props.saladData.selectedProteina}
-Vinagreta: ${props.saladData.selectedVinagreta}
-Ingredientes: ${props.saladData.selectedIngredientes.join(', ')}`
+Vinagreta: ${props.saladData.selectedVinagreta}`
 
   if (formData.value.includeJuice) {
     mensaje += `\nBebida: Incluida (+S/${RESTAURANT_CONFIG.juicePrice})`
@@ -409,9 +409,9 @@ const enviarPorEmail = () => {
     const body = `Hola, me gustaria hacer un pedido de ensalada personalizada:
 
 BASE: ${props.saladData.selectedBase || 'Por definir'}
+INGREDIENTES: ${props.saladData.selectedIngredientes?.join(', ') || 'Por definir'}
 PROTEINA: ${props.saladData.selectedProteina || 'Por definir'}
 VINAGRETA: ${props.saladData.selectedVinagreta || 'Por definir'}
-INGREDIENTES: ${props.saladData.selectedIngredientes?.join(', ') || 'Por definir'}
 ${formData.value.includeJuice ? `REFRESCO: ${RESTAURANT_CONFIG.currency}${RESTAURANT_CONFIG.juicePrice}` : ''}
 
 CLIENTE: ${formData.value.nombre}
@@ -431,9 +431,9 @@ Gracias!`
     const body = `Hola, me gustaria hacer un pedido de ensalada personalizada:
 
 BASE: ${props.saladData.selectedBase || 'Por definir'}
+INGREDIENTES: ${props.saladData.selectedIngredientes?.join(', ') || 'Por definir'}
 PROTEINA: ${props.saladData.selectedProteina || 'Por definir'}
 VINAGRETA: ${props.saladData.selectedVinagreta || 'Por definir'}
-INGREDIENTES: ${props.saladData.selectedIngredientes?.join(', ') || 'Por definir'}
 
 PRECIO: ${RESTAURANT_CONFIG.currency}${RESTAURANT_CONFIG.baseSaladPrice}
 
