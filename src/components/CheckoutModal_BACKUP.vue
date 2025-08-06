@@ -111,7 +111,7 @@
             <label class="option-checkbox">
               <input v-model="formData.includeJuice" type="checkbox" />
               <span class="checkbox-label">
-                🥤 Agregar refresco
+                🥤 Agregar refrescoasdasdads
                 <small>+{{ RESTAURANT_CONFIG.currency }}{{ RESTAURANT_CONFIG.juicePrice }}</small>
               </span>
             </label>

@@ -356,6 +356,7 @@ const agregarAlCarrito = () => {
 }
 
 .checkbox-label {
+  color: #4a5a4c;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
