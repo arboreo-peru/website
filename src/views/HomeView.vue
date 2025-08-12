@@ -28,9 +28,9 @@ const solicitarPlan = (planType: 'plan20' | 'plan10') => {
       price: 370,
       benefits: [
         '20 comidas incluidas',
-        'Ahorro de S/ 40',
+        'Ahorro de S/ 30',
         'Delivery gratis programado',
-        'S/ 18 por comida',
+        'S/ 18.50 por comida',
         'Flexibilidad de horarios',
       ],
     }
@@ -124,11 +124,11 @@ const cerrarPlanModal = () => {
             <h3>Plan 20 Comidas</h3>
             <div class="plan-price">
               <span class="price-amount">S/ 370</span>
-              <span class="price-per">S/ 18 por comida</span>
+              <span class="price-per">S/ 18.50 por comida</span>
             </div>
             <ul class="plan-features">
               <li>20 comidas incluidas</li>
-              <li>Ahorro de S/ 40</li>
+              <li>Ahorro de S/ 30</li>
               <li>Delivery gratis programado</li>
             </ul>
             <button class="plan-button plan-20-button" @click="solicitarPlan('plan20')">
@@ -186,7 +186,7 @@ const cerrarPlanModal = () => {
               class="section-button salads-menu-button"
               @click.prevent="navigateWithLoading('/ensaladas')"
             >
-              Ver Carta de Ensaladas
+              Ver Nuestra Carta de Ensaladas
             </a>
           </div>
 

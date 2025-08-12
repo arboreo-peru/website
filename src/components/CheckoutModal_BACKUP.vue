@@ -336,7 +336,7 @@ ${formData.value.comentarios}`
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 💰 TOTAL A PAGAR: ${RESTAURANT_CONFIG.currency}${totalPrice.value}
 
-¡Gracias por tu pedido! 🌟`
+¡Gracias por tu pedido, Arboreo! 🌟`
 
   return mensaje
 }
