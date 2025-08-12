@@ -25,7 +25,7 @@ const solicitarPlan = (planType: 'plan20' | 'plan10') => {
   if (planType === 'plan20') {
     selectedPlan.value = {
       name: 'Plan 20 Comidas',
-      price: 360,
+      price: 370,
       benefits: [
         '20 comidas incluidas',
         'Ahorro de S/ 40',
@@ -42,7 +42,7 @@ const solicitarPlan = (planType: 'plan20' | 'plan10') => {
         '10 comidas incluidas',
         'Ahorro de S/ 10',
         'Delivery gratis programado',
-        'S/ 19 por comida',
+        'S/ 19.50 por comida',
         'Ideal para probar',
       ],
     }
@@ -123,7 +123,7 @@ const cerrarPlanModal = () => {
             <div class="plan-icon">🍽️</div>
             <h3>Plan 20 Comidas</h3>
             <div class="plan-price">
-              <span class="price-amount">S/ 360</span>
+              <span class="price-amount">S/ 370</span>
               <span class="price-per">S/ 18 por comida</span>
             </div>
             <ul class="plan-features">
@@ -142,7 +142,7 @@ const cerrarPlanModal = () => {
             <h3>Plan 10 Comidas</h3>
             <div class="plan-price">
               <span class="price-amount">S/ 190</span>
-              <span class="price-per">S/ 19 por comida</span>
+              <span class="price-per">S/ 19.50 por comida</span>
             </div>
             <ul class="plan-features">
               <li>10 comidas incluidas</li>
@@ -860,8 +860,8 @@ const cerrarPlanModal = () => {
 }
 
 .option-tag {
-  background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
-  color: #2e7d32;
+  background: #2e7d32;
+  color: #e7eee8;
   padding: 1.2rem 2rem;
   border-radius: 25px;
   font-size: 1.3rem;
