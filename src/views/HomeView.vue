@@ -42,7 +42,7 @@ const solicitarPlan = (planType: 'plan20' | 'plan10') => {
         '10 comidas incluidas',
         'Ahorro de S/ 10',
         'Delivery gratis programado',
-        'S/ 19.50 por comida',
+        'S/ 19 por comida',
         'Ideal para probar',
       ],
     }
@@ -142,7 +142,7 @@ const cerrarPlanModal = () => {
             <h3>Plan 10 Comidas</h3>
             <div class="plan-price">
               <span class="price-amount">S/ 190</span>
-              <span class="price-per">S/ 19.50 por comida</span>
+              <span class="price-per">S/ 19 por comida</span>
             </div>
             <ul class="plan-features">
               <li>10 comidas incluidas</li>
